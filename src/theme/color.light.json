@@ -1,0 +1,313 @@
+{
+  "meta": {
+    "mode": "light",
+    "source": "tokens/generated/color.tokens.json"
+  },
+  "tokens": {
+    "Black": {
+      "value": "#000000",
+      "description": "黑",
+      "figmaVariableId": "VariableID:6301:10312"
+    },
+    "Brand/Brand": {
+      "value": "#B2E40D",
+      "description": "品牌, ",
+      "figmaVariableId": "VariableID:6301:10368"
+    },
+    "Brand/BrandContainer": {
+      "value": "#EDFFDC",
+      "description": "品牌,",
+      "figmaVariableId": "VariableID:6301:10370"
+    },
+    "Brand/OnBrand": {
+      "value": "#000000",
+      "description": "品牌, ",
+      "figmaVariableId": "VariableID:6301:10369"
+    },
+    "Brand/OnBrandContainer": {
+      "value": "#4EA100",
+      "description": "品牌,",
+      "figmaVariableId": "VariableID:6301:10371"
+    },
+    "Color/Base/OnPrimary": {
+      "value": "#FFFFFF",
+      "description": "",
+      "figmaVariableId": "VariableID:6301:10334"
+    },
+    "Color/Base/OnPrimaryContainer": {
+      "value": "#000000",
+      "description": "",
+      "figmaVariableId": "VariableID:6301:10336"
+    },
+    "Color/Base/Primary": {
+      "value": "#000000",
+      "description": "",
+      "figmaVariableId": "VariableID:6301:10333"
+    },
+    "Color/Base/PrimaryContainer": {
+      "value": "#F5F5F5",
+      "description": "",
+      "figmaVariableId": "VariableID:6301:10335"
+    },
+    "Color/Blue/OnPrimary": {
+      "value": "#FFFFFF",
+      "description": "蓝色, 文字",
+      "figmaVariableId": "VariableID:6301:10338"
+    },
+    "Color/Blue/OnPrimaryContainer": {
+      "value": "#001749",
+      "description": "蓝色",
+      "figmaVariableId": "VariableID:6301:10340"
+    },
+    "Color/Blue/Primary": {
+      "value": "#206CFF",
+      "description": "蓝色",
+      "figmaVariableId": "VariableID:6301:10337"
+    },
+    "Color/Blue/PrimaryContainer": {
+      "value": "#E1ECFE",
+      "description": "蓝色",
+      "figmaVariableId": "VariableID:6301:10339"
+    },
+    "Color/Cyan/OnPrimary": {
+      "value": "#FFFFFF",
+      "description": "青色, 文字",
+      "figmaVariableId": "VariableID:6301:10358"
+    },
+    "Color/Cyan/OnPrimaryContainer": {
+      "value": "#002020",
+      "description": "青色",
+      "figmaVariableId": "VariableID:6301:10360"
+    },
+    "Color/Cyan/Primary": {
+      "value": "#02BEBF",
+      "description": "青色",
+      "figmaVariableId": "VariableID:6301:10357"
+    },
+    "Color/Cyan/PrimaryContainer": {
+      "value": "#E2F8F8",
+      "description": "青色",
+      "figmaVariableId": "VariableID:6301:10359"
+    },
+    "Color/Green/OnPrimary": {
+      "value": "#FFFFFF",
+      "description": "绿色, 文字",
+      "figmaVariableId": "VariableID:6301:10354"
+    },
+    "Color/Green/OnPrimaryContainer": {
+      "value": "#002106",
+      "description": "绿色",
+      "figmaVariableId": "VariableID:6301:10356"
+    },
+    "Color/Green/Primary": {
+      "value": "#35C44F",
+      "description": "绿色",
+      "figmaVariableId": "VariableID:6301:10353"
+    },
+    "Color/Green/PrimaryContainer": {
+      "value": "#EFFBF3",
+      "description": "绿色",
+      "figmaVariableId": "VariableID:6301:10355"
+    },
+    "Color/Orange/OnPrimary": {
+      "value": "#FFFFFF",
+      "description": "橙色, 橘色, 文字",
+      "figmaVariableId": "VariableID:6301:10346"
+    },
+    "Color/Orange/OnPrimaryContainer": {
+      "value": "#2D1600",
+      "description": "橙色, 橘色",
+      "figmaVariableId": "VariableID:6301:10348"
+    },
+    "Color/Orange/Primary": {
+      "value": "#FF7024",
+      "description": "橙色, 橘色",
+      "figmaVariableId": "VariableID:6301:10345"
+    },
+    "Color/Orange/PrimaryContainer": {
+      "value": "#FCEDE5",
+      "description": "橙色, 橘色",
+      "figmaVariableId": "VariableID:6301:10347"
+    },
+    "Color/Purple/OnPrimary": {
+      "value": "#FFFFFF",
+      "description": "紫色, 文字",
+      "figmaVariableId": "VariableID:6301:10362"
+    },
+    "Color/Purple/OnPrimaryContainer": {
+      "value": "#260059",
+      "description": "紫色",
+      "figmaVariableId": "VariableID:6301:10364"
+    },
+    "Color/Purple/Primary": {
+      "value": "#7434DC",
+      "description": "紫色",
+      "figmaVariableId": "VariableID:6301:10361"
+    },
+    "Color/Purple/PrimaryContainer": {
+      "value": "#F7EDFF",
+      "description": "紫色",
+      "figmaVariableId": "VariableID:6301:10363"
+    },
+    "Color/Red/OnPrimary": {
+      "value": "#FFFFFF",
+      "description": "红色, 文字",
+      "figmaVariableId": "VariableID:6301:10342"
+    },
+    "Color/Red/OnPrimaryContainer": {
+      "value": "#410001",
+      "description": "红色",
+      "figmaVariableId": "VariableID:6301:10344"
+    },
+    "Color/Red/Primary": {
+      "value": "#E42D22",
+      "description": "红色",
+      "figmaVariableId": "VariableID:6301:10341"
+    },
+    "Color/Red/PrimaryContainer": {
+      "value": "#FFEDEA",
+      "description": "红色",
+      "figmaVariableId": "VariableID:6301:10343"
+    },
+    "Color/Yellow/OnPrimary": {
+      "value": "#FFFFFF",
+      "description": "黄色, 文字",
+      "figmaVariableId": "VariableID:6301:10350"
+    },
+    "Color/Yellow/OnPrimaryContainer": {
+      "value": "#261900",
+      "description": "黄色",
+      "figmaVariableId": "VariableID:6301:10352"
+    },
+    "Color/Yellow/Primary": {
+      "value": "#FFBE0A",
+      "description": "黄色",
+      "figmaVariableId": "VariableID:6301:10349"
+    },
+    "Color/Yellow/PrimaryContainer": {
+      "value": "#FAF1DA",
+      "description": "黄色",
+      "figmaVariableId": "VariableID:6301:10351"
+    },
+    "Container/SurfaceContainer": {
+      "value": "#7676801F",
+      "description": "容器, 卡片, 按钮, 搜索",
+      "figmaVariableId": "VariableID:6301:10319"
+    },
+    "Container/SurfaceContainerHigh": {
+      "value": "#4D4D4D40",
+      "description": "容器, 卡片, 按钮",
+      "figmaVariableId": "VariableID:6301:10320"
+    },
+    "Container/SurfaceContainerHighest": {
+      "value": "#4D4D4D66",
+      "description": "容器, 卡片, 按钮",
+      "figmaVariableId": "VariableID:6301:10321"
+    },
+    "Container/SurfaceContainerLow": {
+      "value": "#8F8F9A1A",
+      "description": "容器, 卡片, 按钮",
+      "figmaVariableId": "VariableID:6301:10318"
+    },
+    "Container/SurfaceContainerLowest": {
+      "value": "#FFFFFF",
+      "description": "容器, 卡片, 白色, 按钮",
+      "figmaVariableId": "VariableID:6301:10317"
+    },
+    "Context/OnSurface": {
+      "value": "#000000",
+      "description": "文字, 字体, 内容, 标题, 图标",
+      "figmaVariableId": "VariableID:6301:10315"
+    },
+    "Context/OnSurfaceVariant": {
+      "value": "#3C3C4399",
+      "description": "文字, 字体, 内容, 标题, 图标",
+      "figmaVariableId": "VariableID:6301:10316"
+    },
+    "Feedback/Error": {
+      "value": "#FF0000",
+      "description": "错误, 出错, 警告, ",
+      "figmaVariableId": "VariableID:6301:10329"
+    },
+    "Feedback/ErrorContainer": {
+      "value": "#FFF7F7",
+      "description": "错误, 出错, 警告, ",
+      "figmaVariableId": "VariableID:6301:10331"
+    },
+    "Feedback/OnError": {
+      "value": "#FFFFFF",
+      "description": "错误, 出错, 警告, 文字",
+      "figmaVariableId": "VariableID:6301:10330"
+    },
+    "Feedback/OnErrorContainer": {
+      "value": "#3F0A0C",
+      "description": "错误, 出错, 警告, ",
+      "figmaVariableId": "VariableID:6301:10332"
+    },
+    "Inverse/InverseOnSurface": {
+      "value": "#F2F0F4",
+      "description": "反色",
+      "figmaVariableId": "VariableID:6301:10328"
+    },
+    "Inverse/InverseSurface": {
+      "value": "#1C1C1E",
+      "description": "反色",
+      "figmaVariableId": "VariableID:6301:10327"
+    },
+    "Line/Outline": {
+      "value": "#D9D9D9",
+      "description": "描边",
+      "figmaVariableId": "VariableID:6301:10325"
+    },
+    "Line/OutlineVariant": {
+      "value": "#0000000D",
+      "description": "描边",
+      "figmaVariableId": "VariableID:6301:10326"
+    },
+    "Scrim": {
+      "value": "#0000001A",
+      "description": "蒙层, 遮罩,",
+      "figmaVariableId": "VariableID:6301:10314"
+    },
+    "State/StateDisabled": {
+      "value": "#00000033",
+      "description": "不可点击, disable,",
+      "figmaVariableId": "VariableID:6301:10366"
+    },
+    "State/StateDisabledVariant": {
+      "value": "#0000004D",
+      "description": "",
+      "figmaVariableId": "VariableID:6301:10367"
+    },
+    "State/StateHovered": {
+      "value": "#FFFFFF14",
+      "description": "按后",
+      "figmaVariableId": "VariableID:6675:342"
+    },
+    "State/StatePressed": {
+      "value": "#7676801A",
+      "description": "按后",
+      "figmaVariableId": "VariableID:6301:10365"
+    },
+    "Surface/Surface": {
+      "value": "#F5F5F5",
+      "description": "背景, 默认背景, 默认",
+      "figmaVariableId": "VariableID:6301:10323"
+    },
+    "Surface/SurfaceBright": {
+      "value": "#FFFFFF",
+      "description": "背景, 白色背景, 白色",
+      "figmaVariableId": "VariableID:6301:10322"
+    },
+    "Surface/SurfaceDim": {
+      "value": "#DADADA",
+      "description": "背景, 深色背景,",
+      "figmaVariableId": "VariableID:6301:10324"
+    },
+    "White": {
+      "value": "#FFFFFF",
+      "description": "白",
+      "figmaVariableId": "VariableID:6301:10313"
+    }
+  }
+}

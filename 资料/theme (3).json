@@ -1,0 +1,130 @@
+{
+  "token": {
+    "colorPrimary": "#9ce40d",
+    "colorInfo": "#206cff",
+    "colorPrimaryBg": "#8f8f9a0f",
+    "colorPrimaryBgHover": "#8f8f9a0a",
+    "colorPrimaryBorder": "#d2ff69",
+    "colorPrimaryBorderHover": "#c5ff3f",
+    "colorPrimaryHover": "#6dce0b",
+    "colorPrimaryActive": "#9ad907",
+    "colorPrimaryTextHover": "#8cd811",
+    "colorPrimaryText": "#6dce0b",
+    "colorPrimaryTextActive": "#67c609",
+    "borderRadius": 12,
+    "borderRadiusSM": 8,
+    "borderRadiusLG": 16,
+    "borderRadiusXS": 4,
+    "colorTextSecondary": "#3c3c43a6",
+    "colorBorderSecondary": "#0000000d",
+    "colorFillSecondary": "#7676801f",
+    "colorFillTertiary": "#8f8f9a1a",
+    "colorBgLayout": "#f3f3f3",
+    "colorError": "#ff0000",
+    "colorLink": "#206cff"
+  },
+  "components": {
+    "Button": {
+      "primaryColor": "rgb(0,0,0)",
+      "defaultShadow": "",
+      "lineWidth": 1,
+      "dangerShadow": "",
+      "primaryShadow": "",
+      "colorPrimaryHover": "rgb(174,239,17)",
+      "defaultHoverBorderColor": "rgb(109,206,11)",
+      "defaultHoverColor": "rgb(109,206,11)"
+    },
+    "Typography": {
+      "colorLinkHover": "rgb(174,239,17)",
+      "colorLinkActive": "rgb(154,217,7)"
+    },
+    "Menu": {
+      "subMenuItemBg": "",
+      "subMenuItemSelectedColor": "rgb(0,0,0)",
+      "colorText": "rgb(0,0,0)",
+      "itemDisabledColor": "rgba(0,0,0,0.2)",
+      "itemSelectedBg": "rgba(143,143,154,0.06)",
+      "itemSelectedColor": "rgb(109,206,11)",
+      "itemColor": "rgba(60,60,67,0.8)"
+    },
+    "Dropdown": {
+      "controlItemBgHover": "rgba(255,255,255,0)"
+    },
+    "Pagination": {
+      "borderRadius": 8
+    },
+    "Cascader": {
+      "colorText": "rgba(60,60,67,0.8)",
+      "optionSelectedColor": "rgba(0,0,0,0.88)"
+    },
+    "Checkbox": {
+      "colorWhite": "rgb(0,0,0)"
+    },
+    "Steps": {
+      "colorTextLightSolid": "rgb(0,0,0)"
+    },
+    "DatePicker": {
+      "colorTextLightSolid": "rgb(0,0,0)"
+    },
+    "Radio": {
+      "buttonSolidCheckedColor": "rgb(0,0,0)"
+    },
+    "Slider": {
+      "handleColor": "rgb(109,206,11)",
+      "handleActiveColor": "rgb(109,206,11)",
+      "trackBg": "rgb(109,206,11)",
+      "trackHoverBg": "rgb(109,206,11)",
+      "colorPrimaryBorderHover": "rgb(156,228,13)",
+      "handleActiveOutlineColor": "rgba(109,206,11,0.2)"
+    },
+    "Switch": {
+      "colorPrimary": "rgb(109,206,11)",
+      "colorPrimaryHover": "rgb(156,228,13)",
+      "colorPrimaryBorder": "rgb(156,228,13)"
+    },
+    "TreeSelect": {
+      "colorText": "rgba(60,60,67,0.8)",
+      "nodeHoverColor": "rgba(0,0,0,0.88)"
+    },
+    "Calendar": {
+      "colorPrimary": "rgb(109,206,11)"
+    },
+    "Collapse": {
+      "colorText": "rgba(60,60,67,0.6)"
+    },
+    "Segmented": {
+      "controlPaddingHorizontal": 16
+    },
+    "Table": {
+      "colorLink": "rgb(109,206,11)",
+      "colorLinkHover": "rgb(140,216,17)",
+      "colorLinkActive": "rgb(103,198,9)"
+    },
+    "Tabs": {
+      "itemHoverColor": "rgb(109,206,11)",
+      "itemSelectedColor": "rgb(0,0,0)",
+      "inkBarColor": "rgb(109,206,11)",
+      "itemColor": "rgba(60,60,67,0.6)"
+    },
+    "Tree": {
+      "colorWhite": "rgb(0,0,0)"
+    },
+    "Alert": {
+      "colorInfo": "rgb(32,108,255)",
+      "colorInfoBg": "rgb(238,244,255)",
+      "colorInfoBorder": "rgba(32,106,255,0)"
+    },
+    "Notification": {
+      "colorInfo": "rgb(32,108,255)"
+    },
+    "Popconfirm": {
+      "colorText": "rgb(32,108,255)"
+    },
+    "Progress": {
+      "defaultColor": "rgb(32,108,255)"
+    },
+    "Spin": {
+      "colorPrimary": "rgb(109,206,11)"
+    }
+  }
+}
