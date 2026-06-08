@@ -26,11 +26,37 @@ function getTokenValue(
 }
 
 /**
+ * 将十六进制颜色与白色 (#ffffff) 进行混合
+ * @param hex 十六进制颜色，如 "#b2e40d"
+ * @param percent 白色比例 (0 ~ 1)
+ */
+export function mixWithWhite(hex: string, percent: number): string {
+  let cleanHex = hex.replace('#', '').trim()
+  if (cleanHex.length === 3) {
+    cleanHex = cleanHex.split('').map(char => char + char).join('')
+  }
+  const r = parseInt(cleanHex.substring(0, 2), 16)
+  const g = parseInt(cleanHex.substring(2, 4), 16)
+  const b = parseInt(cleanHex.substring(4, 6), 16)
+
+  const newR = Math.round(r * (1 - percent) + 255 * percent)
+  const newG = Math.round(g * (1 - percent) + 255 * percent)
+  const newB = Math.round(b * (1 - percent) + 255 * percent)
+
+  const toHex = (val: number) => {
+    const clamped = Math.max(0, Math.min(255, val))
+    return clamped.toString(16).padStart(2, '0')
+  }
+  return `#${toHex(newR)}${toHex(newG)}${toHex(newB)}`
+}
+
+/**
  * Spacemit 基础 token 类型定义
  */
 export interface SpacemitBaseTokens {
   // ---- 品牌色 ----
   brand: string
+  brandHover: string
   brandContainer: string
   onBrand: string
   onBrandContainer: string
@@ -104,9 +130,11 @@ export interface SpacemitBaseTokens {
 function buildTokens(
   tokens: Record<string, { value: string; description: string }>
 ): SpacemitBaseTokens {
+  const brandVal = getTokenValue(tokens, 'Brand/Brand')
   return {
     // 品牌色
-    brand: getTokenValue(tokens, 'Brand/Brand'),
+    brand: brandVal,
+    brandHover: mixWithWhite(brandVal, 0.12),
     brandContainer: getTokenValue(tokens, 'Brand/BrandContainer'),
     onBrand: getTokenValue(tokens, 'Brand/OnBrand'),
     onBrandContainer: getTokenValue(tokens, 'Brand/OnBrandContainer'),

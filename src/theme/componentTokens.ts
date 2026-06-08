@@ -29,7 +29,7 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens) {
       dangerShadow: '',
       lineWidth: 1,
       // hover 状态使用稍亮的品牌色
-      colorPrimaryHover: tokens.onBrandContainer,
+      colorPrimaryHover: tokens.brandHover,
     },
 
     Input: {
@@ -69,13 +69,13 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens) {
       // 选中 Tab 文字与滑动指示条由于在样式中直接使用 colorPrimary 控制，在此局部覆盖
       colorPrimary: tokens.onBrandContainer,
       // Tab hover 状态由 colorPrimaryHover 控制
-      colorPrimaryHover: tokens.onBrandContainer,
+      colorPrimaryHover: tokens.brandHover,
     },
 
     Switch: {
       // 开启态使用品牌绿色
       colorPrimary: tokens.onBrandContainer,
-      colorPrimaryHover: tokens.brand,
+      colorPrimaryHover: tokens.brandHover,
     },
 
     // 以下组件做基础适配，后续可精修
@@ -120,7 +120,7 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens) {
       primaryShadow: '',
       dangerShadow: '',
       lineWidth: 1,
-      colorPrimaryHover: tokens.brand,
+      colorPrimaryHover: tokens.brandHover,
     },
 
     Input: {
@@ -150,12 +150,12 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens) {
 
     Tabs: {
       colorPrimary: tokens.onBrandContainer,
-      colorPrimaryHover: tokens.onBrandContainer,
+      colorPrimaryHover: tokens.brandHover,
     },
 
     Switch: {
       colorPrimary: tokens.onBrandContainer,
-      colorPrimaryHover: tokens.brand,
+      colorPrimaryHover: tokens.brandHover,
     },
 
     Checkbox: {
