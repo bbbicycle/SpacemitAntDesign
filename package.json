@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Spacemit brand theme configuration for Ant Design Vue 4.",
-  "main": "./dist/theme/index.js",
+  "main": "./dist/theme/index.cjs",
   "module": "./dist/theme/index.js",
   "types": "./dist/theme/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/theme/index.d.ts",
+      "require": "./dist/theme/index.cjs",
       "import": "./dist/theme/index.js"
     }
   },

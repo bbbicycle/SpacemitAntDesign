@@ -34,15 +34,18 @@ export const spacemitLightTheme: ThemeConfig = {
     colorBgBase: spacemitLightTokens.surfaceBright,
     colorBgLayout: spacemitLightTokens.surface,
     colorBgContainer: spacemitLightTokens.surfaceContainerLowest,
+    colorBgElevated: spacemitLightTokens.surfaceContainerLowest,
 
     // 基础文字
     colorText: spacemitLightTokens.onSurface,
     colorTextSecondary: spacemitLightTokens.onSurfaceVariant,
     colorTextDisabled: spacemitLightTokens.stateDisabled,
+    colorTextLightSolid: spacemitLightTokens.onBrand,
 
     // 边框
     colorBorder: spacemitLightTokens.outline,
     colorBorderSecondary: spacemitLightTokens.outlineVariant,
+    colorSplit: spacemitLightTokens.outlineVariant,
 
     // 圆角与字号
     borderRadius: spacemitLightTokens.radiusBase,
@@ -85,15 +88,18 @@ export const spacemitDarkTheme: ThemeConfig = {
     colorBgBase: spacemitDarkTokens.surfaceDim,
     colorBgLayout: spacemitDarkTokens.surface,
     colorBgContainer: spacemitDarkTokens.surfaceContainerLowest,
+    colorBgElevated: spacemitDarkTokens.surfaceContainerLowest,
 
     // 基础文字
     colorText: spacemitDarkTokens.onSurface,
     colorTextSecondary: spacemitDarkTokens.onSurfaceVariant,
     colorTextDisabled: spacemitDarkTokens.stateDisabled,
+    colorTextLightSolid: spacemitDarkTokens.onBrand,
 
     // 边框
     colorBorder: spacemitDarkTokens.outline,
     colorBorderSecondary: spacemitDarkTokens.outlineVariant,
+    colorSplit: spacemitDarkTokens.outlineVariant,
 
     // 圆角与字号
     borderRadius: spacemitDarkTokens.radiusBase,

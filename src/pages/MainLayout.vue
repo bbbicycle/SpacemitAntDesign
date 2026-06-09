@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, inject, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { theme } from 'ant-design-vue'
 import {
   ApiOutlined,
   AppstoreOutlined,
@@ -17,6 +18,8 @@ import {
 const isDark = inject('isDark', ref(false))
 const route = useRoute()
 const router = useRouter()
+
+const { token } = theme.useToken()
 
 // 侧边栏当前激活项与路由自动同步
 const selectedKeys = computed(() => {
@@ -148,10 +151,10 @@ const handleMenuClick = (info: any) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border-color, #e8e8e8);
+  border-bottom: 1px solid v-bind('token.colorBorderSecondary');
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015);
   z-index: 10;
-  background: var(--bg-header, #ffffff);
+  background: v-bind('token.colorBgContainer');
 }
 
 .header-left {
@@ -165,14 +168,14 @@ const handleMenuClick = (info: any) => {
 .brand-logo {
   width: 44px;
   height: 44px;
-  background: var(--color-primary, #b2e40d);
-  color: var(--logo-text, #000000);
+  background: v-bind('token.colorPrimary');
+  color: v-bind('token.colorTextLightSolid');
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 22px;
   border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(178, 228, 13, 0.3);
+  box-shadow: 0 4px 16px v-bind("token.colorPrimary + '4d'");
   animation: logoPulse 3s infinite ease-in-out;
   line-height: 1;
 }
@@ -194,7 +197,7 @@ const handleMenuClick = (info: any) => {
   font-size: 16px;
   font-weight: 800;
   letter-spacing: -0.3px;
-  color: var(--color-text);
+  color: v-bind('token.colorText');
 }
 
 .brand-subtitle {
@@ -207,10 +210,10 @@ const handleMenuClick = (info: any) => {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: var(--bg-actions, #f4f4f6);
+  background: v-bind('token.colorFillSecondary');
   padding: 6px 16px;
   border-radius: 20px;
-  border: 1px solid var(--border-color, #e8e8e8);
+  border: 1px solid v-bind('token.colorBorderSecondary');
   height: 38px;
   line-height: 1;
 }
@@ -218,7 +221,7 @@ const handleMenuClick = (info: any) => {
 .theme-label {
   font-size: 12px;
   font-weight: 600;
-  color: var(--color-text);
+  color: v-bind('token.colorText');
 }
 
 /* 下部主内容区布局 */
@@ -229,7 +232,7 @@ const handleMenuClick = (info: any) => {
 
 /* 侧边栏样式 */
 .showcase-sidebar {
-  border-right: 1px solid var(--border-color, #e8e8e8);
+  border-right: 1px solid v-bind('token.colorBorderSecondary');
   box-shadow: 4px 0 20px rgba(0, 0, 0, 0.005);
   z-index: 9;
   height: 100%;
@@ -248,9 +251,9 @@ const handleMenuClick = (info: any) => {
   font-weight: 800;
   margin-bottom: 16px;
   padding: 0 16px 12px 16px;
-  border-bottom: 1px solid var(--border-color, #e8e8e8);
+  border-bottom: 1px solid v-bind('token.colorBorderSecondary');
   opacity: 0.75;
-  color: var(--color-text);
+  color: v-bind('token.colorText');
 }
 
 /* 内容区样式 */
@@ -272,7 +275,7 @@ const handleMenuClick = (info: any) => {
   margin-top: 40px;
   font-size: 12px;
   opacity: 0.45;
-  border-top: 1px solid var(--border-color, #e8e8e8);
+  border-top: 1px solid v-bind('token.colorBorderSecondary');
   background: transparent !important;
 }
 

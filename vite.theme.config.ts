@@ -6,8 +6,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/theme/index.ts'),
-      formats: ['es'],
-      fileName: () => 'index.js',
+      formats: ['es', 'cjs'],
+      fileName: (format) => `index.${format === 'es' ? 'js' : 'cjs'}`,
     },
     outDir: 'dist/theme',
     emptyOutDir: true,

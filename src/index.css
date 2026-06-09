@@ -13,41 +13,15 @@ body {
   min-height: 100vh;
 }
 
-/* 浅色模式（默认）下的页面骨架辅助变量 */
+/* 页面骨架底色，通过过度动画实现亮暗平滑切换 */
 .showcase-theme-container {
-  --bg-header: #ffffff;
-  --border-color: #e8e8e8;
-  --bg-actions: #f4f4f6;
-  --bg-section: #ffffff;
-  --bg-token-card: #f9f9fb;
-  --bg-hover: #f1f2f6;
-  --color-text: #1c1c1e;
-  --bg-preview-layout: #f2f2f7;
-  --color-primary: #b2e40d;
-  --color-primary-text: #4ea100;
-  --logo-text: #000000;
-  --bg-badge: #f2ffdc;
-  
   background-color: #f4f4f6;
   min-height: 100vh;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 深色模式下的页面骨架辅助变量 */
+/* 深色模式下的页面骨架底色 */
 .showcase-theme-container.dark-mode {
-  --bg-header: #202020;
-  --border-color: #2c2c2e;
-  --bg-actions: #2c2c2e;
-  --bg-section: #232323;
-  --bg-token-card: #202020;
-  --bg-hover: #3a3a3c;
-  --color-text: #e5e5ea;
-  --bg-preview-layout: #1c1c1e;
-  --color-primary: #9fef00;
-  --color-primary-text: #97dc0d;
-  --logo-text: #000000;
-  --bg-badge: #202f02;
-
   background-color: #1c1c1e;
 }
 
