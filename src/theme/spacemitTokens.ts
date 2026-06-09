@@ -122,6 +122,11 @@ export interface SpacemitBaseTokens {
   radiusLarge: number
   radiusXSmall: number
   fontSizeBase: number
+
+  // ---- 动效与阴影 ----
+  boxShadowCardHover: string
+  motionDurationMid: string
+  motionEaseInOut: string
 }
 
 /**
@@ -195,11 +200,16 @@ function buildTokens(
     colorPurpleBg: getTokenValue(tokens, 'Color/Purple/PrimaryContainer'),
 
     // 基础样式值（第一版仅预留少量）
-    radiusBase: 12,
-    radiusSmall: 8,
-    radiusLarge: 16,
-    radiusXSmall: 4,
+    radiusBase: 8,
+    radiusSmall: 6,
+    radiusLarge: 12,
+    radiusXSmall: 3,
     fontSizeBase: 14,
+
+    // 默认的动效与阴影 Token
+    boxShadowCardHover: tokens['Inverse/InverseSurface'] ? '0 8px 24px rgba(0, 0, 0, 0.45)' : '0 8px 24px rgba(0, 0, 0, 0.04)',
+    motionDurationMid: '0.15s',
+    motionEaseInOut: 'cubic-bezier(0, 0, 0.2, 1)',
   }
 }
 

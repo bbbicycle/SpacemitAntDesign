@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, inject, h } from 'vue'
+import { ref, inject, h, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { App } from 'ant-design-vue'
 import {
   QuestionCircleOutlined,
@@ -51,6 +52,33 @@ const AppActionButton = {
     ])
   }
 }
+
+const route = useRoute()
+
+const scrollToHash = (id: string, attempts = 0) => {
+  if (!id) return
+  if (attempts > 30) return
+  const el = document.getElementById(id)
+  if (el) {
+    setTimeout(() => {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }, 50)
+  } else {
+    setTimeout(() => scrollToHash(id, attempts + 1), 50)
+  }
+}
+
+onMounted(() => {
+  if (route.hash) {
+    scrollToHash(route.hash.substring(1))
+  }
+})
+
+watch(() => route.hash, (newHash) => {
+  if (newHash) {
+    scrollToHash(newHash.substring(1))
+  }
+})
 </script>
 
 <template>
@@ -68,7 +96,7 @@ const AppActionButton = {
       </div>
       <p class="section-desc">固钉可以将页面中的重要操作或信息卡片固定在特定的可视位置，方便用户随时点按，而不受页面长距离滚动的影响。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-space direction="vertical" :size="12">
           <p style="font-size: 13px; opacity: 0.6;">当向下滚动页面时，以下固钉按钮将会悬浮在顶部距离视口 80px 的位置：</p>
           <a-affix :offset-top="80">
@@ -89,7 +117,7 @@ const AppActionButton = {
       </div>
       <p class="section-desc">用于为子组件提供统一的主题颜色、圆角、字号以及语言等设计规则。在此我们可以展示通过局部 ConfigProvider 对比 Spacemit 主色与经典蓝色的表现。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-row :gutter="24">
           <a-col :span="12" :xs="24" :sm="12">
             <div style="padding: 16px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-section); height: 100%;">
@@ -125,7 +153,7 @@ const AppActionButton = {
       </div>
       <p class="section-desc">常驻右下角或固定容器内的多功能浮动快捷键，支持返回顶部、气泡卡片与子按钮组展开。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <div style="position: relative; height: 180px; border: 1px dashed var(--border-color); border-radius: 8px; overflow: hidden; background: var(--bg-section);">
           <div style="padding: 16px;">
             <p style="font-size: 13px; opacity: 0.6; margin: 0 0 12px 0;">请点击下方容器中右下角的圆形悬浮图标组展开快捷按钮：</p>
@@ -157,7 +185,7 @@ const AppActionButton = {
       </div>
       <p class="section-desc">水印用于保护页面敏感版权及防止机密信息截屏泄漏。支持动态自定义水印文案与密度。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <div style="display: flex; gap: 16px; align-items: center; margin-bottom: 20px; flex-wrap: wrap;">
           <div>
             <span style="font-size: 13px; margin-right: 8px;">水印文案：</span>
@@ -189,7 +217,7 @@ const AppActionButton = {
       </div>
       <p class="section-desc">使用 App 包裹组件，可以在子级任意节点上通过 useApp() 统一获取 message、modal 和 notification 调用上下文，免除了在多主题下动态创建的弹层无法继承全局 ConfigProvider Token 变量的痛点。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-app>
           <!-- 挂载上面用 Render Function 构建的小动作按钮组件 -->
           <AppActionButton />
@@ -254,9 +282,5 @@ const AppActionButton = {
   margin-bottom: 20px;
   line-height: 1.5;
 }
-.component-card {
-  border-radius: 12px !important;
-  border: 1px solid var(--border-color, #e8e8e8) !important;
-  background: var(--bg-token-card, #f9f9fb) !important;
-}
+
 </style>

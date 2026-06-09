@@ -23,6 +23,9 @@ const cssVariables = computed(() => {
     '--color-text': tokens.onSurface,
     '--bg-badge': tokens.brandContainer,
     '--bg-preview-layout': tokens.surface,
+    '--box-shadow-card-hover': tokens.boxShadowCardHover,
+    '--motion-duration-mid': tokens.motionDurationMid,
+    '--motion-ease-in-out': tokens.motionEaseInOut,
   }
 })
 

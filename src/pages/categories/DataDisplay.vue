@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, inject, h } from 'vue'
+import { ref, inject, h, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { message } from 'ant-design-vue'
 import {
   UserOutlined,
@@ -106,6 +107,33 @@ const tourSteps = [
 
 // Popover 操作
 const popoverVisible = ref(false)
+
+const route = useRoute()
+
+const scrollToHash = (id: string, attempts = 0) => {
+  if (!id) return
+  if (attempts > 30) return
+  const el = document.getElementById(id)
+  if (el) {
+    setTimeout(() => {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }, 50)
+  } else {
+    setTimeout(() => scrollToHash(id, attempts + 1), 50)
+  }
+}
+
+onMounted(() => {
+  if (route.hash) {
+    scrollToHash(route.hash.substring(1))
+  }
+})
+
+watch(() => route.hash, (newHash) => {
+  if (newHash) {
+    scrollToHash(newHash.substring(1))
+  }
+})
 </script>
 
 <template>
@@ -123,9 +151,9 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">头像用于展示用户或组织标识，徽标数在头像或图标右上角进行数字、红点及状态信息的标注提示。</p>
       
-      <a-card :bordered="false" class="component-card">
-        <div class="preview-group">
-          <h4>头像尺寸与形状 (Avatar)</h4>
+      <a-card>
+        <div>
+          <a-typography-title :level="5">头像尺寸与形状 (Avatar)</a-typography-title>
           <a-space wrap :size="20">
             <a-avatar size="large"><template #icon><user-outlined /></template></a-avatar>
             <a-avatar :size="48">Spacemit</a-avatar>
@@ -134,8 +162,9 @@ const popoverVisible = ref(false)
           </a-space>
         </div>
 
-        <div class="preview-group" style="margin-top: 20px;">
-          <h4>徽标数标记 (Badge)</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">徽标数标记 (Badge)</a-typography-title>
           <a-space wrap :size="28">
             <a-badge :count="5">
               <a-avatar shape="square"><template #icon><user-outlined /></template></a-avatar>
@@ -161,7 +190,7 @@ const popoverVisible = ref(false)
         <span class="component-badge">Calendar</span>
       </div>
       <p class="section-desc">提供日历排盘，已对当前日期圈及选中网格格进行了嫩绿色主题覆盖。</p>
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <div style="max-width: 340px; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; background: var(--bg-section);">
           <a-calendar :fullscreen="false" />
         </div>
@@ -176,7 +205,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">卡片将信息聚合在特定的矩形容器中。卡片背景采用最亮容器背景色 `surfaceContainerLowest`（亮色下是纯白色），在 Layout 页面上具有醒目的层次关系。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-row :gutter="24">
           <a-col :span="12" :xs="24" :sm="12">
             <a-card title="Spacemit K1 规格说明" size="small" style="background: var(--bg-section);">
@@ -210,18 +239,18 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">走马灯用于轮播展示多张芯片幻灯片内容，支持自动播放与圆点导航指示。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-carousel autoplay style="max-width: 600px; border-radius: 8px; overflow: hidden;">
           <div class="carousel-slide-block slide-1">
-            <h4>Spacemit K1 CPU</h4>
+            <a-typography-title :level="5">Spacemit K1 CPU</a-typography-title>
             <p>首款基于 RISC-V 八核的高能效算力底座</p>
           </div>
           <div class="carousel-slide-block slide-2">
-            <h4>Spacemit K3 AI CPU</h4>
+            <a-typography-title :level="5">Spacemit K3 AI CPU</a-typography-title>
             <p>提供多路边缘高清智能分析与处理</p>
           </div>
           <div class="carousel-slide-block slide-3">
-            <h4>Spacemit X1 DataCenter CPU</h4>
+            <a-typography-title :level="5">Spacemit X1 DataCenter CPU</a-typography-title>
             <p>高性能通用服务器级核心设计中</p>
           </div>
         </a-carousel>
@@ -236,7 +265,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">可以折叠或展开的垂直面板组。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-collapse accordion>
           <a-collapse-panel key="1" header="QEMU 仿真器配置说明">
             <p>QEMU 模拟器支持通过 GDB 对编译出的 ELF 进行单步调试，加载 OpenSBI 引导固件执行系统模拟。</p>
@@ -259,7 +288,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">以网格对齐的多列元数据表呈现组件或设备的详细参数配置。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-descriptions title="Spacemit K1 SOC 规格参数详情" bordered size="small">
           <a-descriptions-item label="芯片型号">Spacemit K1-Commercial</a-descriptions-item>
           <a-descriptions-item label="主频规格">1.6 GHz</a-descriptions-item>
@@ -282,7 +311,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">空状态用于提示当前列表无可展示内容。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-empty description="暂未分配编译任务" />
       </a-card>
     </section>
@@ -295,7 +324,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">支持放大、旋转、缩放查看的图片渲染。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-image
           :width="150"
           fallback="https://zos.alipayobjects.com/rmsportal/ODTLFcnbWBgSaJxsHWtC.png"
@@ -312,7 +341,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">标准的列表项数据垂直排列。</p>
       
-      <a-card :bordered="false" class="component-card" style="max-width: 500px;">
+      <a-card  style="max-width: 500px;">
         <a-list size="small" bordered>
           <a-list-item>
             <a-list-item-meta description="主频：1.6 GHz, 流水线：九级双发双译码">
@@ -338,7 +367,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">悬浮在元素上层，展示更详细的快捷操作卡片。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-popover title="SoC JTAG 仿真连接状态">
           <template #content>
             <p>当前连接状态：正常</p>
@@ -357,7 +386,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">生成用于扫描的二维码。我们对前景色和品牌绿进行了适配。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-space wrap :size="24">
           <a-qrcode value="https://antdv.com" />
           <a-qrcode value="https://antdv.com" color="var(--color-primary-text)" />
@@ -373,7 +402,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">用于在线性分类之间快速滑动切换。高亮滑块底色完全采用品牌配色 Token 自适应控制。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-space direction="vertical" :size="16">
           <a-segmented v-model:value="segmentedValue" :options="segmentedOptions" />
           <div style="font-size: 13px; opacity: 0.8;">
@@ -391,7 +420,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">高光展示数值与计量，支持加减前缀与状态装饰。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-row :gutter="24">
           <a-col :span="12">
             <a-statistic title="物理集群仿真跑分 (SPECint)" :value="98.4" :precision="1" suffix="%" />
@@ -411,7 +440,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">以二维网格呈现海量结构化设备数据，行选择复选框底图已被定制为 Spacemit 主题绿。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-table 
           :columns="tableColumns" 
           :data-source="tableData" 
@@ -429,7 +458,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">多模块并列切换，滑动高亮指示条的圆角与嫩绿色高度定制。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-tabs v-model:activeKey="activeTabKey">
           <a-tab-pane key="opt1" tab="SoC 核心指标">
             <p style="padding: 12px 0;">展示标准的物理频率、核心配额、二级缓存等参数详情。</p>
@@ -452,9 +481,9 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">轻量级的文本分类标签。</p>
       
-      <a-card :bordered="false" class="component-card">
-        <div class="preview-group">
-          <h4>预设与状态颜色 (Preset & Status)</h4>
+      <a-card>
+        <div>
+          <a-typography-title :level="5">预设与状态颜色 (Preset & Status)</a-typography-title>
           <a-space wrap :size="10">
             <a-tag color="success">已流片</a-tag>
             <a-tag color="processing">仿真验证中</a-tag>
@@ -463,8 +492,9 @@ const popoverVisible = ref(false)
             <a-tag color="default">未启动</a-tag>
           </a-space>
         </div>
-        <div class="preview-group">
-          <h4>自定义与可关闭标签 (Colors & Closable)</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">自定义与可关闭标签 (Colors & Closable)</a-typography-title>
           <a-space wrap :size="10">
             <a-tag color="#b2e40d" style="color:#000;">Spacemit Brand</a-tag>
             <a-tag color="pink">Pink</a-tag>
@@ -483,7 +513,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">按时间节点垂直顺序呈现任务或时间流。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-timeline :pending="timelinePending ? '等待流片新阶段...' : false">
           <a-timeline-item color="green">2021年：进迭时空创立，确立乱序八核 RISC-V CPU 设计目标</a-timeline-item>
           <a-timeline-item color="green">2023年：首款 SoC 芯片 Spacemit K1 流片成功，软件工具链适配开启</a-timeline-item>
@@ -504,7 +534,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">最轻量级的悬浮提示气泡。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-tooltip title="TSMC 12nm 全光刻物理制造线">
           <a-button>悬浮查看代工厂线</a-button>
         </a-tooltip>
@@ -519,7 +549,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">漫游式气泡引导。点击以下按钮，开启以本预览页真实物理节点进行定位的漫游指引。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-button type="primary" @click="tourOpen = true">开启系统漫游导览</a-button>
         <a-tour v-model:open="tourOpen" :steps="tourSteps" />
       </a-card>
@@ -533,7 +563,7 @@ const popoverVisible = ref(false)
       </div>
       <p class="section-desc">多层级分支结构树，勾选状态复选框颜色已与品牌绿同步。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-tree
           v-model:selectedKeys="treeSelectedKeys"
           v-model:checkedKeys="treeCheckedKeys"
@@ -600,27 +630,6 @@ const popoverVisible = ref(false)
   opacity: 0.65;
   margin-bottom: 20px;
   line-height: 1.5;
-}
-.component-card {
-  border-radius: 12px !important;
-  border: 1px solid var(--border-color, #e8e8e8) !important;
-  background: var(--bg-token-card, #f9f9fb) !important;
-}
-.preview-group {
-  margin-bottom: 20px;
-  border-bottom: 1px dashed var(--border-color, #e8e8e8);
-  padding-bottom: 16px;
-}
-.preview-group:last-child {
-  margin-bottom: 0;
-  border-bottom: none;
-  padding-bottom: 0;
-}
-.preview-group h4 {
-  font-size: 13px;
-  font-weight: 700;
-  margin: 0 0 12px 0;
-  opacity: 0.8;
 }
 
 /* 走马灯幻灯片 */

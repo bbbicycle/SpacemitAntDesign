@@ -22,6 +22,9 @@ import { buildLightComponentTokens, buildDarkComponentTokens } from './component
 export const spacemitLightTheme: ThemeConfig = {
   algorithm: theme.defaultAlgorithm,
   token: {
+    // 全局控制聚焦组件的虚化彩色发光，设为透明以使焦点展示极简化
+    controlOutline: 'transparent',
+
     // 品牌色
     colorPrimary: spacemitLightTokens.brand,
     colorInfo: spacemitLightTokens.colorBlue,
@@ -65,6 +68,10 @@ export const spacemitLightTheme: ThemeConfig = {
     colorPrimaryHover: spacemitLightTokens.brandHover,
     colorPrimaryActive: spacemitLightTokens.onBrandContainer,
     colorPrimaryText: spacemitLightTokens.onBrandContainer,
+
+    // 绑定影子与动效 Token
+    motionDurationMid: spacemitLightTokens.motionDurationMid,
+    motionEaseInOut: spacemitLightTokens.motionEaseInOut,
   },
   components: buildLightComponentTokens(spacemitLightTokens),
 }
@@ -76,6 +83,9 @@ export const spacemitLightTheme: ThemeConfig = {
 export const spacemitDarkTheme: ThemeConfig = {
   algorithm: theme.darkAlgorithm,
   token: {
+    // 全局控制聚焦组件的虚化彩色发光，设为透明以使焦点展示极简化
+    controlOutline: 'transparent',
+
     // 品牌色
     colorPrimary: spacemitDarkTokens.brand,
     colorInfo: spacemitDarkTokens.colorBlue,
@@ -119,6 +129,11 @@ export const spacemitDarkTheme: ThemeConfig = {
     colorPrimaryHover: spacemitDarkTokens.brandHover,
     colorPrimaryActive: spacemitDarkTokens.onBrandContainer,
     colorPrimaryText: spacemitDarkTokens.onBrandContainer,
+
+    // 绑定影子与动效 Token
+    motionDurationMid: spacemitDarkTokens.motionDurationMid,
+    motionEaseInOut: spacemitDarkTokens.motionEaseInOut,
   },
   components: buildDarkComponentTokens(spacemitDarkTokens),
 }
+

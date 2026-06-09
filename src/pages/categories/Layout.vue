@@ -1,10 +1,38 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue'
+import { ref, inject, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
 const isDark = inject('isDark', ref(false))
 
 // Space 间距大小控制
 const spaceSize = ref<number | 'small' | 'middle' | 'large'>(16)
+
+const route = useRoute()
+
+const scrollToHash = (id: string, attempts = 0) => {
+  if (!id) return
+  if (attempts > 30) return
+  const el = document.getElementById(id)
+  if (el) {
+    setTimeout(() => {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }, 50)
+  } else {
+    setTimeout(() => scrollToHash(id, attempts + 1), 50)
+  }
+}
+
+onMounted(() => {
+  if (route.hash) {
+    scrollToHash(route.hash.substring(1))
+  }
+})
+
+watch(() => route.hash, (newHash) => {
+  if (newHash) {
+    scrollToHash(newHash.substring(1))
+  }
+})
 </script>
 
 <template>
@@ -15,14 +43,14 @@ const spaceSize = ref<number | 'small' | 'middle' | 'large'>(16)
     </div>
 
     <!-- 1. Divider 分割线 -->
-    <section class="component-section">
+    <section id="divider" class="component-section">
       <div class="section-title">
         <h3>Divider 分割线</h3>
         <span class="component-badge">Divider</span>
       </div>
       <p class="section-desc">分割线用于区分页面上的段落或者卡片内容。默认边框颜色采用次级分割线 token `outlineVariant`。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <p>在设计硬件寄存器时，通常需要划分指令类型。</p>
         <a-divider />
         <p>指令类型可进一步分为算术指令和存储指令。</p>
@@ -42,16 +70,16 @@ const spaceSize = ref<number | 'small' | 'middle' | 'large'>(16)
     </section>
 
     <!-- 2. Grid 栅格 -->
-    <section class="component-section">
+    <section id="grid" class="component-section">
       <div class="section-title">
         <h3>Grid 栅格</h3>
         <span class="component-badge">Grid</span>
       </div>
       <p class="section-desc">24 栅格系统，展示不同列数的平均分配与 Gutter 间距效果。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <div class="grid-demo-wrapper">
-          <h4>Row 24 Span 等分</h4>
+          <a-typography-title :level="5">Row 24 Span 等分</a-typography-title>
           <a-row :gutter="[16, 16]">
             <a-col :span="24"><div class="grid-block">col-24 (100% 宽度)</div></a-col>
           </a-row>
@@ -85,14 +113,14 @@ const spaceSize = ref<number | 'small' | 'middle' | 'large'>(16)
     </section>
 
     <!-- 3. Layout 布局 -->
-    <section class="component-section">
+    <section id="layout-demo" class="component-section">
       <div class="section-title">
         <h3>Layout 布局</h3>
         <span class="component-badge">Layout</span>
       </div>
       <p class="section-desc">页面框架级布局演示。这里展示一个微缩版调度平台骨架，头部、侧边栏和内容的底色、文字均使用组件级 Token 进行统一覆盖。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <div class="mini-layout-container">
           <a-layout class="mini-layout">
             <a-layout-sider width="80" class="mini-sider">
@@ -121,15 +149,15 @@ const spaceSize = ref<number | 'small' | 'middle' | 'large'>(16)
     </section>
 
     <!-- 4. Space 间距 -->
-    <section class="component-section">
+    <section id="space" class="component-section">
       <div class="section-title">
         <h3>Space 间距</h3>
         <span class="component-badge">Space</span>
       </div>
       <p class="section-desc">间距组件，可以灵活控制内嵌子元素之间的排版距离，防止界面拥挤。</p>
       
-      <a-card :bordered="false" class="component-card">
-        <div class="preview-group">
+      <a-card>
+        <div>
           <div style="margin-bottom: 16px; display: flex; align-items: center; gap: 12px;">
             <span style="font-size: 13px;">间距大小 (Space Size)：</span>
             <a-radio-group v-model:value="spaceSize" size="small">
@@ -151,8 +179,9 @@ const spaceSize = ref<number | 'small' | 'middle' | 'large'>(16)
           </div>
         </div>
 
-        <div class="preview-group" style="margin-top: 20px;">
-          <h4>垂直排列 (Direction="vertical")</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">垂直排列 (Direction="vertical")</a-typography-title>
           <div class="space-demo-box">
             <a-space direction="vertical" :size="spaceSize" style="width: 100%">
               <a-alert message="编译器更新: LLVM 18 GCC-13 开始对 Spacemit K1 提供基础分支优化支持" type="info" show-icon />
@@ -219,27 +248,6 @@ const spaceSize = ref<number | 'small' | 'middle' | 'large'>(16)
   opacity: 0.65;
   margin-bottom: 20px;
   line-height: 1.5;
-}
-.component-card {
-  border-radius: 12px !important;
-  border: 1px solid var(--border-color, #e8e8e8) !important;
-  background: var(--bg-token-card, #f9f9fb) !important;
-}
-.preview-group {
-  margin-bottom: 20px;
-  border-bottom: 1px dashed var(--border-color, #e8e8e8);
-  padding-bottom: 16px;
-}
-.preview-group:last-child {
-  margin-bottom: 0;
-  border-bottom: none;
-  padding-bottom: 0;
-}
-.preview-group h4 {
-  font-size: 13px;
-  font-weight: 700;
-  margin: 0 0 12px 0;
-  opacity: 0.8;
 }
 
 /* Grid 演示 */

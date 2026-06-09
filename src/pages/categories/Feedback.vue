@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue'
+import { ref, inject, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { message, notification } from 'ant-design-vue'
 import {
   InfoCircleOutlined,
@@ -73,6 +74,33 @@ const spinRunning = ref(false)
 const toggleSpin = () => {
   spinRunning.value = !spinRunning.value
 }
+
+const route = useRoute()
+
+const scrollToHash = (id: string, attempts = 0) => {
+  if (!id) return
+  if (attempts > 30) return
+  const el = document.getElementById(id)
+  if (el) {
+    setTimeout(() => {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }, 50)
+  } else {
+    setTimeout(() => scrollToHash(id, attempts + 1), 50)
+  }
+}
+
+onMounted(() => {
+  if (route.hash) {
+    scrollToHash(route.hash.substring(1))
+  }
+})
+
+watch(() => route.hash, (newHash) => {
+  if (newHash) {
+    scrollToHash(newHash.substring(1))
+  }
+})
 </script>
 
 <template>
@@ -90,7 +118,7 @@ const toggleSpin = () => {
       </div>
       <p class="section-desc">向用户展示系统级通知或任务状态警告，支持描述段落、Icon 以及一键关闭。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-space direction="vertical" style="width: 100%" :size="16">
           <a-alert message="仿真任务正常结束 - RTL Sim Successful" type="success" show-icon />
           <a-alert message="内存泄漏检测提示" description="节点 #02 疑似存在少量堆内存未释放漏洞，但目前不影响正常编译。" type="info" show-icon />
@@ -108,7 +136,7 @@ const toggleSpin = () => {
       </div>
       <p class="section-desc">屏幕边缘滑出的浮动面板，用于展示或配置与主屏幕关联性较弱的复杂元数据。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-button type="primary" @click="showDrawer">打开芯片配置抽屉</a-button>
         <a-drawer
           v-model:open="drawerOpen"
@@ -158,7 +186,7 @@ const toggleSpin = () => {
       </div>
       <p class="section-desc">最轻量级的顶部全局操作结果反馈，在延时后自动消失。完全适配 Spacemit 灰度框和品牌嫩绿色高光。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-space wrap :size="16">
           <a-button @click="triggerMessage('success')">成功提示</a-button>
           <a-button @click="triggerMessage('error')">失败错误</a-button>
@@ -177,7 +205,7 @@ const toggleSpin = () => {
       </div>
       <p class="section-desc">打开一个隔离的覆盖窗口执行重要操作、提示或表单录入。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-button type="primary" @click="showModal">弹出时序数据库重建确认</a-button>
         <a-modal
           v-model:open="modalOpen"
@@ -202,7 +230,7 @@ const toggleSpin = () => {
       </div>
       <p class="section-desc">在系统右上角或角落弹出通知信息，多用于后台异步处理完成、或者边缘设备异常告警。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-space wrap :size="16">
           <a-button @click="triggerNotification('topRight')">右上角弹出 (默认)</a-button>
           <a-button @click="triggerNotification('topLeft')">左上角弹出</a-button>
@@ -220,7 +248,7 @@ const toggleSpin = () => {
       </div>
       <p class="section-desc">比 Modal 更加轻量级的在元素气泡中弹出的确认操作，无需打断用户专注度。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-popconfirm
           title="是否确认永久清除该时序仿真数据库？"
           ok-text="确定清理"
@@ -241,9 +269,9 @@ const toggleSpin = () => {
       </div>
       <p class="section-desc">展示当前任务的进度状态。进度高光完美同步 Spacemit 品牌绿色。</p>
       
-      <a-card :bordered="false" class="component-card">
-        <div class="preview-group">
-          <h4>条状进度 (Line Progress)</h4>
+      <a-card>
+        <div>
+          <a-typography-title :level="5">条状进度 (Line Progress)</a-typography-title>
           <a-space direction="vertical" style="width: 100%" :size="16">
             <div>
               <span style="font-size: 12px; opacity: 0.6;">SoC 功能验证编译中：</span>
@@ -260,8 +288,9 @@ const toggleSpin = () => {
           </a-space>
         </div>
 
-        <div class="preview-group" style="margin-top: 20px;">
-          <h4>环形与仪表盘进度 (Circle & Dashboard)</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">环形与仪表盘进度 (Circle & Dashboard)</a-typography-title>
           <a-space :size="40" wrap>
             <div>
               <span style="display: block; text-align: center; font-size: 12px; opacity: 0.6; margin-bottom: 8px;">物理布局规划进度</span>
@@ -278,8 +307,9 @@ const toggleSpin = () => {
           </a-space>
         </div>
 
-        <div class="preview-group" style="margin-top: 20px;">
-          <h4>分步进度条 (Steps Progress)</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">分步进度条 (Steps Progress)</a-typography-title>
           <a-space direction="vertical" style="width: 100%" :size="10">
             <div>
               <span style="font-size: 12px; opacity: 0.6;">CPU 九级流水线验证进度步骤：</span>
@@ -302,7 +332,7 @@ const toggleSpin = () => {
       </div>
       <p class="section-desc">对复杂操作或流程提供大面积的图形化结果确认页，具有强烈的仪式感。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-result
           status="success"
           title="Spacemit K1-SoC 流片大版图顺利交付"
@@ -324,7 +354,7 @@ const toggleSpin = () => {
       </div>
       <p class="section-desc">在数据尚未加载完全时，渲染灰度骨架占位结构以降低用户的等待焦躁感。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <div style="margin-bottom: 16px;">
           <span style="font-size: 13px; margin-right: 12px;">切换骨架屏加载状态：</span>
           <a-switch v-model:checked="showSkeleton" />
@@ -356,9 +386,9 @@ const toggleSpin = () => {
       </div>
       <p class="section-desc">页面级或局部的加载提示动画，表明当前任务正处于后台编译或数据拉取中。</p>
       
-      <a-card :bordered="false" class="component-card">
-        <div class="preview-group">
-          <h4>各种尺寸的 Spin (Sizes)</h4>
+      <a-card>
+        <div>
+          <a-typography-title :level="5">各种尺寸的 Spin (Sizes)</a-typography-title>
           <a-space :size="24">
             <a-spin size="small" />
             <a-spin />
@@ -371,8 +401,9 @@ const toggleSpin = () => {
           </a-space>
         </div>
 
-        <div class="preview-group" style="margin-top: 20px;">
-          <h4>容器包裹加载态 (Container Wrap)</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">容器包裹加载态 (Container Wrap)</a-typography-title>
           <div style="margin-bottom: 16px;">
             <span style="font-size: 13px; margin-right: 12px;">触发容器内异步加载：</span>
             <a-button size="small" @click="toggleSpin">{{ spinRunning ? '停止加载' : '开始加载' }}</a-button>
@@ -446,25 +477,5 @@ const toggleSpin = () => {
   margin-bottom: 20px;
   line-height: 1.5;
 }
-.component-card {
-  border-radius: 12px !important;
-  border: 1px solid var(--border-color, #e8e8e8) !important;
-  background: var(--bg-token-card, #f9f9fb) !important;
-}
-.preview-group {
-  margin-bottom: 20px;
-  border-bottom: 1px dashed var(--border-color, #e8e8e8);
-  padding-bottom: 16px;
-}
-.preview-group:last-child {
-  margin-bottom: 0;
-  border-bottom: none;
-  padding-bottom: 0;
-}
-.preview-group h4 {
-  font-size: 13px;
-  font-weight: 700;
-  margin: 0 0 12px 0;
-  opacity: 0.8;
-}
+
 </style>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue'
+import { ref, inject, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { message } from 'ant-design-vue'
 import {
   RocketOutlined,
@@ -92,6 +93,33 @@ const transferData = [
   { key: 'server-2', title: '测试机房 B (杭州)' },
   { key: 'server-3', title: '加速云节点 C (北京)' }
 ]
+
+const route = useRoute()
+
+const scrollToHash = (id: string, attempts = 0) => {
+  if (!id) return
+  if (attempts > 30) return
+  const el = document.getElementById(id)
+  if (el) {
+    setTimeout(() => {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }, 50)
+  } else {
+    setTimeout(() => scrollToHash(id, attempts + 1), 50)
+  }
+}
+
+onMounted(() => {
+  if (route.hash) {
+    scrollToHash(route.hash.substring(1))
+  }
+})
+
+watch(() => route.hash, (newHash) => {
+  if (newHash) {
+    scrollToHash(newHash.substring(1))
+  }
+})
 </script>
 
 <template>
@@ -108,7 +136,7 @@ const transferData = [
         <span class="component-badge">AutoComplete</span>
       </div>
       <p class="section-desc">输入框的智能联想输入过滤。</p>
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-auto-complete
           v-model:value="autoCompleteValue"
           :options="autoCompleteOptions"
@@ -125,7 +153,7 @@ const transferData = [
         <span class="component-badge">Cascader</span>
       </div>
       <p class="section-desc">用于多层级结构的分级点选切换。</p>
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-cascader 
           v-model:value="cascaderValue" 
           :options="cascaderOptions" 
@@ -142,13 +170,14 @@ const transferData = [
         <span class="component-badge">Checkbox</span>
       </div>
       <p class="section-desc">复选框可以独立或成组使用。勾选背景色设为高对比品牌绿色，内部对号为纯黑/纯白。</p>
-      <a-card :bordered="false" class="component-card">
-        <div class="preview-group">
-          <h4>单一复选框</h4>
+      <a-card>
+        <div>
+          <a-typography-title :level="5">单一复选框</a-typography-title>
           <a-checkbox v-model:checked="checkboxSingle">我已同意物理芯片部署与调试协议</a-checkbox>
         </div>
-        <div class="preview-group">
-          <h4>复选框组 (Checkbox.Group)</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">复选框组 (Checkbox.Group)</a-typography-title>
           <a-checkbox-group v-model:value="checkboxGroup">
             <a-checkbox value="A">指令解码 (ID)</a-checkbox>
             <a-checkbox value="B">执行单元 (EX)</a-checkbox>
@@ -166,7 +195,7 @@ const transferData = [
         <span class="component-badge">DatePicker</span>
       </div>
       <p class="section-desc">选择日期或日期范围。点击可唤起日历弹窗，查看 Spacemit 嫩绿色今天、选中态单元格以及范围选中高亮背景的样式适配。</p>
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-space wrap :size="16">
           <a-date-picker placeholder="选择单天日期" />
           <a-date-picker picker="month" placeholder="选择月份" />
@@ -183,7 +212,7 @@ const transferData = [
         <span class="component-badge">Form</span>
       </div>
       <p class="section-desc">典型的输入表单排版，支持垂直布局，拥有明确必填项星号提示和提交交互。</p>
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-form :model="formModel" layout="vertical" @submit.prevent="handleFormSubmit" style="max-width: 480px;">
           <a-form-item label="编译仿真申报名称" required>
             <a-input v-model:value="formModel.taskName" placeholder="如: Spacemit-K1-Linux-6.1" />
@@ -215,17 +244,18 @@ const transferData = [
         <span class="component-badge">Input</span>
       </div>
       <p class="section-desc">单行或多行文本输入。展示不同尺寸 (大/中/小)、密码框、搜索框及带前后缀形态。</p>
-      <a-card :bordered="false" class="component-card">
-        <div class="preview-group">
-          <h4>不同大小尺寸 (Size)</h4>
+      <a-card>
+        <div>
+          <a-typography-title :level="5">不同大小尺寸 (Size)</a-typography-title>
           <a-space wrap :size="12">
             <a-input value="大尺寸 (Large)" size="large" style="width: 200px;" />
             <a-input value="默认尺寸 (Default)" style="width: 200px;" />
             <a-input value="小尺寸 (Small)" size="small" style="width: 200px;" />
           </a-space>
         </div>
-        <div class="preview-group">
-          <h4>前缀与后缀 (Prefix & Suffix)</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">前缀与后缀 (Prefix & Suffix)</a-typography-title>
           <a-space wrap :size="12">
             <a-input placeholder="带前缀" style="width: 200px;">
               <template #prefix><search-outlined /></template>
@@ -233,8 +263,9 @@ const transferData = [
             <a-input value="1.6" suffix="GHz" style="width: 200px;" />
           </a-space>
         </div>
-        <div class="preview-group">
-          <h4>特殊输入框 (Password & Search)</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">特殊输入框 (Password & Search)</a-typography-title>
           <a-space wrap :size="12">
             <a-input-password placeholder="请输入密钥" style="width: 200px;" />
             <a-input-search placeholder="回车执行搜索" enter-button style="width: 240px;" />
@@ -250,7 +281,7 @@ const transferData = [
         <span class="component-badge">InputNumber</span>
       </div>
       <p class="section-desc">用于数值的输入与微调。</p>
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-space wrap :size="16">
           <a-input-number v-model:value="inputNumberValue" :min="1" :max="64" />
           <a-input-number value="1.6" :step="0.1" string-mode suffix="GHz" />
@@ -266,7 +297,7 @@ const transferData = [
         <span class="component-badge">Mentions</span>
       </div>
       <p class="section-desc">文本输入框的快捷成员 @ 提及呼出。</p>
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-mentions v-model:value="mentionsValue" placeholder="使用 @ 呼出项目成员" style="width: 320px;">
           <a-mentions-option value="CompilerTeam">编译器开发组</a-mentions-option>
           <a-mentions-option value="VerificationTeam">仿真验证部</a-mentions-option>
@@ -282,17 +313,18 @@ const transferData = [
         <span class="component-badge">Radio</span>
       </div>
       <p class="section-desc">用于在一组互斥选项中点选。</p>
-      <a-card :bordered="false" class="component-card">
-        <div class="preview-group">
-          <h4>普通单选组</h4>
+      <a-card>
+        <div>
+          <a-typography-title :level="5">普通单选组</a-typography-title>
           <a-radio-group v-model:value="radioValue">
             <a-radio value="1">上海芯片研发中心</a-radio>
             <a-radio value="2">杭州 FPGA 验证部</a-radio>
             <a-radio value="3" disabled>北美实验室 (维护中)</a-radio>
           </a-radio-group>
         </div>
-        <div class="preview-group">
-          <h4>单选按钮组 (Radio.Button)</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">单选按钮组 (Radio.Button)</a-typography-title>
           <a-space direction="vertical" :size="12">
             <a-radio-group v-model:value="radioGroupValue">
               <a-radio-button value="A">GCC-13</a-radio-button>
@@ -317,7 +349,7 @@ const transferData = [
         <span class="component-badge">Rate</span>
       </div>
       <p class="section-desc">评星打分组件。星星填充色设为标准的金色/黄色。</p>
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-space wrap :size="24">
           <div>
             <span style="font-size: 13px; opacity: 0.7; margin-right: 8px;">任务评估：</span>
@@ -338,7 +370,7 @@ const transferData = [
         <span class="component-badge">Select</span>
       </div>
       <p class="section-desc">下拉选择列表。包含单选、多选及带搜索功能的各种形式。</p>
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-space wrap :size="16">
           <a-select v-model:value="selectValue" :options="selectOptions" style="width: 240px;" />
           <a-select 
@@ -365,13 +397,14 @@ const transferData = [
         <span class="component-badge">Slider</span>
       </div>
       <p class="section-desc">通过滑动来调节比例。滑块的轨道及活动高亮轨道已被精心着色。</p>
-      <a-card :bordered="false" class="component-card" style="max-width: 600px;">
-        <div class="preview-group">
-          <h4>单滑块 (当前值: {{ sliderValue }}%)</h4>
+      <a-card  style="max-width: 600px;">
+        <div>
+          <a-typography-title :level="5">单滑块 (当前值: {{ sliderValue }}%)</a-typography-title>
           <a-slider v-model:value="sliderValue" />
         </div>
-        <div class="preview-group">
-          <h4>双滑块范围调节 (Range)</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">双滑块范围调节 (Range)</a-typography-title>
           <a-slider v-model:value="sliderRangeValue" range />
         </div>
       </a-card>
@@ -384,7 +417,7 @@ const transferData = [
         <span class="component-badge">Switch</span>
       </div>
       <p class="section-desc">控制两种完全对立的状态切换。</p>
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-space wrap :size="20">
           <a-switch v-model:checked="switchValue" checked-children="开启" un-checked-children="关闭" />
           <a-switch checked loading />
@@ -400,7 +433,7 @@ const transferData = [
         <span class="component-badge">TimePicker</span>
       </div>
       <p class="section-desc">时间的选择与范围选择。</p>
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-space wrap :size="16">
           <a-time-picker placeholder="选择单点时间" />
           <a-time-range-picker />
@@ -415,7 +448,7 @@ const transferData = [
         <span class="component-badge">Transfer</span>
       </div>
       <p class="section-desc">在左右两个列表中移动及管理成员选项。</p>
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-transfer
           v-model:target-keys="transferTargetKeys"
           :data-source="transferData"
@@ -432,7 +465,7 @@ const transferData = [
         <span class="component-badge">TreeSelect</span>
       </div>
       <p class="section-desc">下拉面板为树形多级层级选择结构。</p>
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-tree-select
           v-model:value="treeSelectValue"
           :tree-data="moduleTreeData"
@@ -450,9 +483,9 @@ const transferData = [
         <span class="component-badge">Upload</span>
       </div>
       <p class="section-desc">支持点击、拖拽等文件上传形式，已精细适配拖拽虚线框与文件列表的背景样式。</p>
-      <a-card :bordered="false" class="component-card">
-        <div class="preview-group">
-          <h4>普通按钮上传</h4>
+      <a-card>
+        <div>
+          <a-typography-title :level="5">普通按钮上传</a-typography-title>
           <a-upload>
             <a-button>
               <upload-outlined />
@@ -460,8 +493,9 @@ const transferData = [
             </a-button>
           </a-upload>
         </div>
-        <div class="preview-group">
-          <h4>照片墙形态 (Picture Card)</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">照片墙形态 (Picture Card)</a-typography-title>
           <a-upload
             list-type="picture-card"
             :file-list="uploadFileList"
@@ -472,8 +506,9 @@ const transferData = [
             </div>
           </a-upload>
         </div>
-        <div class="preview-group">
-          <h4>拖拽上传区域 (Dragger)</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">拖拽上传区域 (Dragger)</a-typography-title>
           <a-upload-dragger name="files" multiple>
             <p class="ant-upload-drag-icon" style="color: var(--color-primary-text);">
               <inbox-outlined />
@@ -542,27 +577,7 @@ const transferData = [
   margin-bottom: 20px;
   line-height: 1.5;
 }
-.component-card {
-  border-radius: 12px !important;
-  border: 1px solid var(--border-color, #e8e8e8) !important;
-  background: var(--bg-token-card, #f9f9fb) !important;
-}
-.preview-group {
-  margin-bottom: 20px;
-  border-bottom: 1px dashed var(--border-color, #e8e8e8);
-  padding-bottom: 16px;
-}
-.preview-group:last-child {
-  margin-bottom: 0;
-  border-bottom: none;
-  padding-bottom: 0;
-}
-.preview-group h4 {
-  font-size: 13px;
-  font-weight: 700;
-  margin: 0 0 12px 0;
-  opacity: 0.8;
-}
+
 .form-grid-row {
   display: grid;
   grid-template-columns: 1fr 1fr;

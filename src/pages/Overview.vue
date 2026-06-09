@@ -41,8 +41,9 @@ const componentCategories = [
     key: 'navigation',
     desc: '指示层级、提供路径切换与引导工作流。',
     components: [
+      { name: 'Anchor', title: '锚点', desc: '用于快速在当前页面不同区块间进行平滑跳转与定位。', path: '/components/navigation#anchor' },
       { name: 'Breadcrumb', title: '面包屑', desc: '显示当前页面的层级路径。', path: '/components/navigation#breadcrumb' },
-      { name: 'Dropdown', title: '下拉菜单', desc: '点击或悬浮折叠的聚合操作。', path: '/components/navigation#breadcrumb' },
+      { name: 'Dropdown', title: '下拉菜单', desc: '点击或悬浮折叠的聚合操作。', path: '/components/navigation#dropdown' },
       { name: 'Menu', title: '导航菜单', desc: '层级清晰的横向顶栏或纵向侧栏菜单。', path: '/components/navigation#menu-nav' },
       { name: 'Pagination', title: '分页', desc: '对长列表数据进行分页切片处理。', path: '/components/navigation#pagination' },
       { name: 'Steps', title: '步骤条', desc: '拆分复杂流程，一步步引导用户进行。', path: '/components/navigation#steps' }
@@ -54,18 +55,20 @@ const componentCategories = [
     desc: '提供与用户输入、选择、文件交互的入口。',
     components: [
       { name: 'Form', title: '表单', desc: '具备格式校验与验证反馈的复杂配置表单。', path: '/components/data-entry#form' },
-      { name: 'Input', title: '输入框', desc: '支持文本、密码、前缀与清除的单行/多行输入。', path: '/components/data-entry#form' },
-      { name: 'Select', title: '选择器', desc: '下拉列表单选或多选、标签功能。', path: '/components/data-entry#form' },
-      { name: 'DatePicker', title: '日期选择', desc: '选择单个日期或周期时间范围。', path: '/components/data-entry#form' },
-      { name: 'Slider', title: '滑块', desc: '滑动刻度调节，适配 Spacemit 绿色。', path: '/components/data-entry#form' },
-      { name: 'Rate', title: '评分', desc: '用于评价并进行星级打分。', path: '/components/data-entry#form' },
-      { name: 'Switch', title: '开关', desc: '两种对立状态的极速切换。', path: '/components/data-entry#form' },
-      { name: 'Checkbox', title: '复选框', desc: '多项选择、全选/半选状态支持。', path: '/components/data-entry#form' },
-      { name: 'Radio', title: '单选框', desc: '互斥的单项选择及单选按钮组。', path: '/components/data-entry#form' },
-      { name: 'AutoComplete', title: '自动完成', desc: '智能输入联想过滤。', path: '/components/data-entry#form' },
-      { name: 'Cascader', title: '级联选择', desc: '多级联动的选择器。', path: '/components/data-entry#form' },
-      { name: 'TreeSelect', title: '树选择', desc: '树形层级结构的多选或单选。', path: '/components/data-entry#form' },
-      { name: 'Mentions', title: '提及', desc: '@ 提及群组或用户的文本区域。', path: '/components/data-entry#form' },
+      { name: 'Input', title: '输入框', desc: '支持文本、密码、前缀与清除的单行/多行输入。', path: '/components/data-entry#input' },
+      { name: 'InputNumber', title: '数字输入框', desc: '通过鼠标或键盘输入、步进微调数值。', path: '/components/data-entry#inputnumber' },
+      { name: 'Select', title: '选择器', desc: '下拉列表单选或多选、标签功能。', path: '/components/data-entry#select' },
+      { name: 'DatePicker', title: '日期选择', desc: '选择单个日期或周期时间范围。', path: '/components/data-entry#datepicker' },
+      { name: 'TimePicker', title: '时间选择框', desc: '用于快捷选择或范围选择特定时间点。', path: '/components/data-entry#timepicker' },
+      { name: 'Slider', title: '滑块', desc: '滑动刻度调节，适配 Spacemit 绿色。', path: '/components/data-entry#slider' },
+      { name: 'Rate', title: '评分', desc: '用于评价并进行星级打分。', path: '/components/data-entry#rate' },
+      { name: 'Switch', title: '开关', desc: '两种对立状态的极速切换。', path: '/components/data-entry#switch' },
+      { name: 'Checkbox', title: '复选框', desc: '多项选择、全选/半选状态支持。', path: '/components/data-entry#checkbox' },
+      { name: 'Radio', title: '单选框', desc: '互斥的单项选择及单选按钮组。', path: '/components/data-entry#radio' },
+      { name: 'AutoComplete', title: '自动完成', desc: '智能输入联想过滤。', path: '/components/data-entry#autocomplete' },
+      { name: 'Cascader', title: '级联选择', desc: '多级联动的选择器。', path: '/components/data-entry#cascader' },
+      { name: 'TreeSelect', title: '树选择', desc: '树形层级结构的多选或单选。', path: '/components/data-entry#treeselect' },
+      { name: 'Mentions', title: '提及', desc: '@ 提及群组或用户的文本区域。', path: '/components/data-entry#mentions' },
       { name: 'Transfer', title: '穿梭框', desc: '在两个列表中快速转移选择项。', path: '/components/data-entry#transfer' },
       { name: 'Upload', title: '上传', desc: '文件上传，支持照片墙与拖拽。', path: '/components/data-entry#upload' }
     ]
@@ -146,17 +149,7 @@ const filteredCategories = computed(() => {
 })
 
 const navigateToComponent = (path: string) => {
-  const [routePath, hash] = path.split('#')
-  router.push(routePath).then(() => {
-    if (hash) {
-      setTimeout(() => {
-        const el = document.getElementById(hash)
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' })
-        }
-      }, 150)
-    }
-  })
+  router.push(path)
 }
 </script>
 
@@ -203,10 +196,11 @@ const navigateToComponent = (path: string) => {
         </div>
 
         <div class="component-items-grid">
-          <div 
+          <a-card 
             v-for="comp in category.components" 
             :key="comp.name"
-            class="component-overview-card"
+            hoverable
+            class="component-overview-card-native"
             @click="navigateToComponent(comp.path)"
           >
             <div class="card-top">
@@ -218,7 +212,7 @@ const navigateToComponent = (path: string) => {
               <span>查看示例</span>
               <span class="arrow">→</span>
             </div>
-          </div>
+          </a-card>
         </div>
       </div>
     </div>
@@ -297,23 +291,18 @@ const navigateToComponent = (path: string) => {
   gap: 20px;
 }
 
-.component-overview-card {
-  background: var(--bg-section, #ffffff);
-  border: 1px solid var(--border-color, #e8e8e8);
-  border-radius: 12px;
-  padding: 20px;
+.component-overview-card-native {
   cursor: pointer;
   display: flex;
   flex-direction: column;
   min-height: 140px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.005);
 }
 
-.component-overview-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-primary, #b2e40d);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
+.component-overview-card-native :deep(.ant-card-body) {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px;
 }
 
 .card-top {
@@ -355,7 +344,7 @@ const navigateToComponent = (path: string) => {
   transition: opacity 0.2s;
 }
 
-.component-overview-card:hover .card-footer-link {
+.component-overview-card-native:hover .card-footer-link {
   opacity: 1;
 }
 
@@ -363,7 +352,7 @@ const navigateToComponent = (path: string) => {
   transition: transform 0.2s;
 }
 
-.component-overview-card:hover .card-footer-link .arrow {
+.component-overview-card-native:hover .card-footer-link .arrow {
   transform: translateX(4px);
 }
 

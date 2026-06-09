@@ -53,22 +53,26 @@ const copyToken = (name: string, value: string) => {
 
     <section class="component-section">
       <div class="token-grid">
-        <div 
+        <a-card 
           v-for="token in displayedTokens" 
           :key="token.key"
-          class="token-card"
+          size="small"
+          hoverable
+          class="token-card-native"
           @click="copyToken(token.name, (currentTokens as any)[token.key])"
         >
-          <div 
-            class="token-color-preview" 
-            :style="{ backgroundColor: (currentTokens as any)[token.key] }"
-          ></div>
-          <div class="token-info">
+          <template #cover>
+            <div 
+              class="token-color-preview" 
+              :style="{ backgroundColor: (currentTokens as any)[token.key] }"
+            ></div>
+          </template>
+          <div class="token-info-inner">
             <span class="token-name">{{ token.name }}</span>
             <span class="token-value">{{ (currentTokens as any)[token.key] }}</span>
             <span class="token-desc">{{ token.desc }}</span>
           </div>
-        </div>
+        </a-card>
       </div>
     </section>
   </div>
@@ -107,26 +111,14 @@ const copyToken = (name: string, value: string) => {
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 16px;
 }
-.token-card {
-  border: 1px solid var(--border-color, #e8e8e8);
-  border-radius: 12px;
-  overflow: hidden;
+.token-card-native {
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: var(--bg-token-card, #f9f9fb);
-}
-.token-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-  border-color: var(--color-primary, #b2e40d);
 }
 .token-color-preview {
   height: 64px;
   width: 100%;
-  border-bottom: 1px solid var(--border-color, #e8e8e8);
 }
-.token-info {
-  padding: 12px;
+.token-info-inner {
   display: flex;
   flex-direction: column;
   gap: 4px;

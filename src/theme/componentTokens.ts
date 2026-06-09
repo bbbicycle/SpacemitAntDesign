@@ -29,6 +29,7 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens): Component
       // 在 Ant Design Vue 4.x 中，Table 暂无专属 headerBg Token，
       // 表头背景色通过局部覆盖 Alias Token 'colorFillAlter' 实现
       colorFillAlter: tokens.surface,
+      borderRadius: 0,
     },
 
     Menu: {
@@ -42,6 +43,8 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens): Component
       colorItemTextDisabled: tokens.stateDisabled,
       // 选中项使用轻微的品牌容器色背景
       colorItemBgSelected: tokens.surfaceContainerLow,
+      // 移除选中项右侧/底部的激活色边条，改用整块背景激活展示极简质感
+      colorActiveBarWidth: 0,
     },
 
     Tabs: {
@@ -114,6 +117,11 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens): Component
     Timeline: {
       lineWidthBold: 2,
     },
+
+    Tag: {
+      // 微缩 Tag 圆角，营造精巧科技质感
+      borderRadiusSM: 4,
+    },
   }
 }
 
@@ -129,6 +137,7 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens): ComponentT
 
     Table: {
       colorFillAlter: tokens.surfaceBright,
+      borderRadius: 0,
     },
 
     Menu: {
@@ -137,6 +146,7 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens): ComponentT
       colorItemText: tokens.onSurfaceVariant,
       colorItemTextDisabled: tokens.stateDisabled,
       colorItemBgSelected: tokens.surfaceContainerLow,
+      colorActiveBarWidth: 0,
     },
 
     Tabs: {
@@ -199,6 +209,10 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens): ComponentT
 
     Timeline: {
       lineWidthBold: 2,
+    },
+
+    Tag: {
+      borderRadiusSM: 4,
     },
   }
 }

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, inject, computed, onMounted } from 'vue'
+import { ref, inject, computed, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { message } from 'ant-design-vue'
 import {
   DashboardOutlined,
@@ -48,7 +49,32 @@ const handleDropdownClick = (e: any) => {
   message.info(`触发了操作，Key: ${e.key}`)
 }
 
+const route = useRoute()
 
+const scrollToHash = (id: string, attempts = 0) => {
+  if (!id) return
+  if (attempts > 30) return
+  const el = document.getElementById(id)
+  if (el) {
+    setTimeout(() => {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }, 50)
+  } else {
+    setTimeout(() => scrollToHash(id, attempts + 1), 50)
+  }
+}
+
+onMounted(() => {
+  if (route.hash) {
+    scrollToHash(route.hash.substring(1))
+  }
+})
+
+watch(() => route.hash, (newHash) => {
+  if (newHash) {
+    scrollToHash(newHash.substring(1))
+  }
+})
 </script>
 
 <template>
@@ -66,7 +92,7 @@ const handleDropdownClick = (e: any) => {
       </div>
       <p class="section-desc">页面内快速跳转定位锚点。点击以下链接，页面将自动平滑滚动至本页对应的组件位置。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-anchor :affix="false">
           <a-anchor-link href="#anchor" title="1. Anchor 锚点" />
           <a-anchor-link href="#breadcrumb" title="2. Breadcrumb 面包屑" />
@@ -87,7 +113,7 @@ const handleDropdownClick = (e: any) => {
       </div>
       <p class="section-desc">面包屑用于指示当前页面所在的层级关系，支持自定义下拉菜单操作。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-breadcrumb>
           <a-breadcrumb-item>
             <a href="#">
@@ -117,7 +143,7 @@ const handleDropdownClick = (e: any) => {
       </div>
       <p class="section-desc">当页面空间有限时，折叠聚合一系列动作选项。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <a-space wrap :size="16">
           <a-dropdown>
             <a-button type="primary">
@@ -155,9 +181,9 @@ const handleDropdownClick = (e: any) => {
       </div>
       <p class="section-desc">支持水平 (Horizontal) 菜单和内嵌 (Inline) 菜单形式，选中背景与 Hover 文本色已经过 Spacemit 灰度精修。</p>
       
-      <a-card :bordered="false" class="component-card">
-        <div class="preview-group">
-          <h4>水平横向菜单 (Horizontal)</h4>
+      <a-card>
+        <div>
+          <a-typography-title :level="5">水平横向菜单 (Horizontal)</a-typography-title>
           <a-menu v-model:selectedKeys="horizontalMenuKey" mode="horizontal">
             <a-menu-item key="dashboard">
               <template #icon><dashboard-outlined /></template>
@@ -177,8 +203,9 @@ const handleDropdownClick = (e: any) => {
           </a-menu>
         </div>
 
-        <div class="preview-group" style="margin-top: 24px;">
-          <h4>侧边内嵌菜单 (Inline)</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">侧边内嵌菜单 (Inline)</a-typography-title>
           <div style="max-width: 280px; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; background: var(--bg-token-card);">
             <a-menu
               v-model:selectedKeys="inlineMenuKey"
@@ -278,13 +305,14 @@ const handleDropdownClick = (e: any) => {
       </div>
       <p class="section-desc">列表数据的切片显示，页码数字的激活态与品牌主色契合。</p>
       
-      <a-card :bordered="false" class="component-card">
-        <div class="preview-group">
-          <h4>标准分页</h4>
+      <a-card>
+        <div>
+          <a-typography-title :level="5">标准分页</a-typography-title>
           <a-pagination v-model:current="currentPage" :total="100" show-less-items />
         </div>
-        <div class="preview-group" style="margin-top: 20px;">
-          <h4>迷你与辅助功能分页 (Mini / Size Changer)</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">迷你与辅助功能分页 (Mini / Size Changer)</a-typography-title>
           <a-pagination
             v-model:current="currentPage"
             size="small"
@@ -304,11 +332,11 @@ const handleDropdownClick = (e: any) => {
       </div>
       <p class="section-desc">串联复杂逻辑，一步步引导操作。步骤条序号的高对比配色方案在亮色和暗色模式下拥有极佳的视觉稳定性。</p>
       
-      <a-card :bordered="false" class="component-card">
+      <a-card>
         <!-- 横向标准步骤条 -->
-        <div class="preview-group">
+        <div>
           <div style="margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between;">
-            <h4>编译流程步骤展示 (当前步骤: {{ currentStep + 1 }}/5)</h4>
+            <a-typography-title :level="5">编译流程步骤展示 (当前步骤: {{ currentStep + 1 }}/5)</a-typography-title>
             <a-space>
               <a-button size="small" :disabled="currentStep === 0" @click="currentStep--">上一步</a-button>
               <a-button size="small" type="primary" :disabled="currentStep === 4" @click="currentStep++">下一步</a-button>
@@ -325,8 +353,9 @@ const handleDropdownClick = (e: any) => {
         </div>
 
         <!-- 迷你与点状步骤条 -->
-        <div class="preview-group" style="margin-top: 28px;">
-          <h4>迷你与点状步骤条 (Mini & Dot)</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">迷你与点状步骤条 (Mini & Dot)</a-typography-title>
           <a-steps :current="currentStep" size="small" style="margin-bottom: 20px;">
             <a-step title="设计" />
             <a-step title="FPGA" />
@@ -343,8 +372,9 @@ const handleDropdownClick = (e: any) => {
         </div>
 
         <!-- 错误状态步骤条 -->
-        <div class="preview-group" style="margin-top: 28px;">
-          <h4>带状态 (Error / Progress) 步骤条</h4>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">带状态 (Error / Progress) 步骤条</a-typography-title>
           <a-steps :current="2" status="error">
             <a-step title="RTL 静态检查" description="通过 Synopsys Spyglass" />
             <a-step title="代码逻辑综合" description="成功生成 Netlist 网表" />
@@ -412,28 +442,6 @@ const handleDropdownClick = (e: any) => {
   margin-bottom: 20px;
   line-height: 1.5;
 }
-.component-card {
-  border-radius: 12px !important;
-  border: 1px solid var(--border-color, #e8e8e8) !important;
-  background: var(--bg-token-card, #f9f9fb) !important;
-}
-.preview-group {
-  margin-bottom: 20px;
-  border-bottom: 1px dashed var(--border-color, #e8e8e8);
-  padding-bottom: 16px;
-}
-.preview-group:last-child {
-  margin-bottom: 0;
-  border-bottom: none;
-  padding-bottom: 0;
-}
-.preview-group h4 {
-  font-size: 13px;
-  font-weight: 700;
-  margin: 0 0 12px 0;
-  opacity: 0.8;
-}
-
 
 /* 自定义 PageHeader 样式 */
 .page-header-demo-box {
