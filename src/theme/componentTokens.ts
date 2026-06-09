@@ -9,20 +9,22 @@
  * - 不使用大量 .ant-xxx CSS 覆盖
  */
 
+import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context'
 import type { SpacemitBaseTokens } from './spacemitTokens'
+
+type ComponentThemeConfig = NonNullable<ThemeConfig['components']>
 
 /**
  * 基于 Spacemit 基础 token 生成浅色主题的组件级 token
  */
-export function buildLightComponentTokens(tokens: SpacemitBaseTokens) {
+export function buildLightComponentTokens(tokens: SpacemitBaseTokens): ComponentThemeConfig {
   return {
     Button: {
       // 主按钮文字使用 OnBrand（黑色），保证在亮绿色品牌色上的可读性
       colorTextLightSolid: tokens.onBrand,
-      // 取消默认阴影，保持简洁风格
-      defaultShadow: '',
-      primaryShadow: '',
-      dangerShadow: '',
+      // 通过官方 Alias Token 取消按钮默认轮廓阴影
+      controlOutline: 'transparent',
+      controlTmpOutline: 'transparent',
       lineWidth: 1,
       // hover 状态使用稍亮的品牌色
       colorPrimaryHover: tokens.brandHover,
@@ -47,10 +49,6 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens) {
     },
 
     TreeSelect: {
-      colorBgContainer: tokens.surfaceContainerLowest,
-    },
-
-    AutoComplete: {
       colorBgContainer: tokens.surfaceContainerLowest,
     },
 
@@ -124,48 +122,39 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens) {
 
     Layout: {
       // 布局主体背景色
-      bodyBg: tokens.surface,
-      headerBg: tokens.surfaceContainerLowest,
-      siderBg: tokens.surfaceContainerLowest,
-      triggerBg: tokens.surfaceContainer,
-      triggerColor: tokens.onSurface,
+      colorBgBody: tokens.surface,
+      colorBgHeader: tokens.surfaceContainerLowest,
+      colorBgTrigger: tokens.surfaceContainer,
+      colorTextLightSolid: tokens.onSurface,
     },
 
     Slider: {
-      railBg: tokens.outlineVariant,
-      railHoverBg: tokens.outline,
-      trackBg: tokens.onBrandContainer,
-      trackHoverBg: tokens.brandHover,
-      handleColor: tokens.brand,
-      handleColorHover: tokens.brandHover,
-      handleActiveColor: tokens.onBrandContainer,
-      dotBorderColor: tokens.outline,
-      dotActiveBorderColor: tokens.brand,
+      colorFillTertiary: tokens.outlineVariant,
+      colorFillSecondary: tokens.outline,
+      colorPrimaryBorder: tokens.onBrandContainer,
+      colorPrimaryBorderHover: tokens.brandHover,
+      colorPrimary: tokens.brand,
+      colorBorderSecondary: tokens.outline,
     },
 
     Steps: {
       colorPrimary: tokens.onBrandContainer,
       colorTextLightSolid: '#ffffff',
-      iconSize: 32,
-      customIconSize: 32,
     },
 
     DatePicker: {
       colorBgContainer: tokens.surfaceContainerLowest,
-      activeBg: tokens.brand,
-      cellActiveWithRangeBg: tokens.brandContainer,
-      cellHoverWithRangeBg: tokens.surfaceContainerHigh,
-      cellRangeBorderColor: tokens.brand,
-    },
-
-    TimePicker: {
-      colorBgContainer: tokens.surfaceContainerLowest,
-      activeBg: tokens.brand,
+      colorBgElevated: tokens.surfaceContainerLowest,
+      colorPrimary: tokens.brand,
+      colorTextLightSolid: tokens.onBrand,
+      controlItemBgActive: tokens.brandContainer,
+      controlItemBgHover: tokens.surfaceContainerHigh,
+      colorPrimaryBorder: tokens.brand,
     },
 
     Rate: {
-      starColor: tokens.colorYellow,
-      starBg: tokens.outlineVariant,
+      'yellow-6': tokens.colorYellow,
+      colorFillContent: tokens.outlineVariant,
     },
 
     Upload: {
@@ -186,7 +175,7 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens) {
     Breadcrumb: {
       colorTextDescription: tokens.onSurfaceVariant,
       colorText: tokens.onSurface,
-      separatorColor: tokens.outline,
+      colorSplit: tokens.outline,
     },
 
     Anchor: {
@@ -201,25 +190,24 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens) {
     // ---- 数据展示组件定制 ----
 
     Segmented: {
-      // 选中项背景使用最亮容器色，与轨道形成高对比
-      itemSelectedBg: tokens.surfaceContainerLowest,
-      // 选中项文字使用高对比品牌文字色，增强统一感
-      itemSelectedColor: tokens.onBrandContainer,
-      // 轨道背景色使用容器填充灰
-      trackBg: tokens.surfaceContainer,
-      trackPadding: 4,
+      // 使用 Segmented 实际消费的 Alias Token 控制轨道、选中项与 hover 态
+      colorBgLayout: tokens.surfaceContainer,
+      colorBgElevated: tokens.surfaceContainerLowest,
+      colorTextLabel: tokens.onSurfaceVariant,
+      colorText: tokens.onBrandContainer,
+      colorFillSecondary: tokens.surfaceContainerHigh,
     },
 
     Collapse: {
-      headerBg: tokens.surfaceContainerLow,
-      contentBg: tokens.surfaceContainerLowest,
+      colorFillAlter: tokens.surfaceContainerLow,
+      colorBgContainer: tokens.surfaceContainerLowest,
       colorBorder: tokens.outlineVariant,
     },
 
     Timeline: {
       // 连线颜色使用次级边框色，防止突兀
-      tailColor: tokens.outlineVariant,
-      tailWidth: 2,
+      colorSplit: tokens.outlineVariant,
+      lineWidthBold: 2,
     },
 
     Drawer: {
@@ -240,14 +228,13 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens) {
 /**
  * 基于 Spacemit 基础 token 生成深色主题的组件级 token
  */
-export function buildDarkComponentTokens(tokens: SpacemitBaseTokens) {
+export function buildDarkComponentTokens(tokens: SpacemitBaseTokens): ComponentThemeConfig {
   return {
     Button: {
       // 深色模式下主按钮文字使用 OnBrand（黑色），品牌色本身足够亮
       colorTextLightSolid: tokens.onBrand,
-      defaultShadow: '',
-      primaryShadow: '',
-      dangerShadow: '',
+      controlOutline: 'transparent',
+      controlTmpOutline: 'transparent',
       lineWidth: 1,
       colorPrimaryHover: tokens.brandHover,
     },
@@ -269,10 +256,6 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens) {
     },
 
     TreeSelect: {
-      colorBgContainer: tokens.surfaceContainerLowest,
-    },
-
-    AutoComplete: {
       colorBgContainer: tokens.surfaceContainerLowest,
     },
 
@@ -332,49 +315,39 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens) {
     // ---- 新增组件定制 ----
 
     Layout: {
-      bodyBg: tokens.surface,
-      headerBg: tokens.surfaceContainerLowest,
-      siderBg: tokens.surfaceContainerLowest,
-      siderDarkBg: tokens.surfaceContainerLowest,
-      triggerBg: tokens.surfaceContainer,
-      triggerColor: tokens.onSurface,
+      colorBgBody: tokens.surface,
+      colorBgHeader: tokens.surfaceContainerLowest,
+      colorBgTrigger: tokens.surfaceContainer,
+      colorTextLightSolid: tokens.onSurface,
     },
 
     Slider: {
-      railBg: tokens.outlineVariant,
-      railHoverBg: tokens.outline,
-      trackBg: tokens.brand,
-      trackHoverBg: tokens.brandHover,
-      handleColor: tokens.brand,
-      handleColorHover: tokens.brandHover,
-      handleActiveColor: tokens.onBrandContainer,
-      dotBorderColor: tokens.outline,
-      dotActiveBorderColor: tokens.brand,
+      colorFillTertiary: tokens.outlineVariant,
+      colorFillSecondary: tokens.outline,
+      colorPrimaryBorder: tokens.brand,
+      colorPrimaryBorderHover: tokens.brandHover,
+      colorPrimary: tokens.brand,
+      colorBorderSecondary: tokens.outline,
     },
 
     Steps: {
       colorPrimary: tokens.onBrandContainer,
       colorTextLightSolid: '#000000',
-      iconSize: 32,
-      customIconSize: 32,
     },
 
     DatePicker: {
       colorBgContainer: tokens.surfaceContainerLowest,
-      activeBg: tokens.brand,
-      cellActiveWithRangeBg: tokens.brandContainer,
-      cellHoverWithRangeBg: tokens.surfaceContainerHigh,
-      cellRangeBorderColor: tokens.brand,
-    },
-
-    TimePicker: {
-      colorBgContainer: tokens.surfaceContainerLowest,
-      activeBg: tokens.brand,
+      colorBgElevated: tokens.surfaceContainerLowest,
+      colorPrimary: tokens.brand,
+      colorTextLightSolid: tokens.onBrand,
+      controlItemBgActive: tokens.brandContainer,
+      controlItemBgHover: tokens.surfaceContainerHigh,
+      colorPrimaryBorder: tokens.brand,
     },
 
     Rate: {
-      starColor: tokens.colorYellow,
-      starBg: tokens.outlineVariant,
+      'yellow-6': tokens.colorYellow,
+      colorFillContent: tokens.outlineVariant,
     },
 
     Upload: {
@@ -395,7 +368,7 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens) {
     Breadcrumb: {
       colorTextDescription: tokens.onSurfaceVariant,
       colorText: tokens.onSurface,
-      separatorColor: tokens.outline,
+      colorSplit: tokens.outline,
     },
 
     Anchor: {
@@ -410,21 +383,22 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens) {
     // ---- 数据展示组件定制 ----
 
     Segmented: {
-      itemSelectedBg: tokens.surfaceContainerLowest,
-      itemSelectedColor: tokens.onBrandContainer,
-      trackBg: tokens.surfaceContainer,
-      trackPadding: 4,
+      colorBgLayout: tokens.surfaceContainer,
+      colorBgElevated: tokens.surfaceContainerLowest,
+      colorTextLabel: tokens.onSurfaceVariant,
+      colorText: tokens.onBrandContainer,
+      colorFillSecondary: tokens.surfaceContainerHigh,
     },
 
     Collapse: {
-      headerBg: tokens.surfaceContainerLow,
-      contentBg: tokens.surfaceContainerLowest,
+      colorFillAlter: tokens.surfaceContainerLow,
+      colorBgContainer: tokens.surfaceContainerLowest,
       colorBorder: tokens.outlineVariant,
     },
 
     Timeline: {
-      tailColor: tokens.outlineVariant,
-      tailWidth: 2,
+      colorSplit: tokens.outlineVariant,
+      lineWidthBold: 2,
     },
 
     Drawer: {

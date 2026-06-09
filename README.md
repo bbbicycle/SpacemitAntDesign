@@ -42,23 +42,46 @@ npm run dev
 
 ### 3. 构建打包
 
-若需要构建用于生产的静态包，运行：
+若需要同时构建预览站与可交付主题包，运行：
 
 ```bash
 npm run build
+```
+
+构建后会生成两类产物：
+
+```txt
+dist/              # 组件预览站静态产物
+dist/theme/        # 可交付给业务项目的主题包产物
+```
+
+若只需要构建主题包，运行：
+
+```bash
+npm run build:theme
 ```
 
 ---
 
 ## 业务项目如何引入并使用
 
-在您的业务项目中，只需将 `src/theme/` 目录复制到项目中，并通过 `a-config-provider` 将对应主题配置注入您的应用。
+业务项目继续使用官方 Ant Design Vue 4 架构，只需要安装本主题包，并通过 `a-config-provider` 将主题配置注入应用。
+
+```bash
+npm install spacemit-antd-theme ant-design-vue vue
+```
+
+业务项目仍需按 Ant Design Vue 4 官方要求引入 reset 样式：
+
+```ts
+import 'ant-design-vue/dist/reset.css'
+```
 
 ### 单一浅色主题引入 (默认)
 
 ```vue
 <script setup lang="ts">
-import { spacemitLightTheme } from '@/theme'
+import { spacemitLightTheme } from 'spacemit-antd-theme'
 </script>
 
 <template>
@@ -75,7 +98,7 @@ import { spacemitLightTheme } from '@/theme'
 ```vue
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { spacemitLightTheme, spacemitDarkTheme } from '@/theme'
+import { spacemitLightTheme, spacemitDarkTheme } from 'spacemit-antd-theme'
 
 // 控制主题模式的状态
 const isDark = ref(false)
@@ -108,4 +131,5 @@ const currentTheme = computed(() =>
 1. **浅色适配为主**：第一阶段主要深度精修了浅色主题，确保品牌绿色（`#B2E40D`）及衍生语义色正确应用。
 2. **深色基础结构**：深色主题（`spacemitDarkTheme`）已建立好基础架构，并引入了原始的 `color.dark.json` 进行浅色映射，但暂未进行细节的像素级精修。
 3. **首批组件精修**：针对 `Button`、`Input`、`Select`、`Card`、`Table`、`Menu`、`Tabs`、`Switch` 进行了组件级 Token 自定义。
-4. **完全避免全局 CSS Hack**：所有主题覆盖均在 `componentTokens.ts` 中基于 Ant Design Vue 的 CSS-in-JS Token 规范进行扩展，避免直接覆盖 `.ant-xxx` 全局样式以破坏组件稳定性。
+4. **主题层避免全局 CSS Hack**：所有可交付主题覆盖均在 `componentTokens.ts` 中基于 Ant Design Vue 的 CSS-in-JS Token 规范进行扩展，避免直接覆盖 `.ant-xxx` 全局样式以破坏组件稳定性。
+5. **预览页与主题包分离**：预览站页面外壳、说明文字、布局容器与少量演示块存在自定义样式，仅用于展示和调试；业务项目接入的只有 `dist/theme` 中导出的主题对象。

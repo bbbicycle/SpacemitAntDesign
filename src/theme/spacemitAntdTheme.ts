@@ -11,6 +11,7 @@
  */
 
 import { theme } from 'ant-design-vue'
+import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context'
 import { spacemitLightTokens, spacemitDarkTokens } from './spacemitTokens'
 import { buildLightComponentTokens, buildDarkComponentTokens } from './componentTokens'
 
@@ -18,7 +19,7 @@ import { buildLightComponentTokens, buildDarkComponentTokens } from './component
  * Spacemit 浅色主题配置
  * 默认使用
  */
-export const spacemitLightTheme = {
+export const spacemitLightTheme: ThemeConfig = {
   algorithm: theme.defaultAlgorithm,
   token: {
     // 品牌色
@@ -69,7 +70,7 @@ export const spacemitLightTheme = {
  * Spacemit 深色主题配置
  * 保留基础结构，供后续扩展
  */
-export const spacemitDarkTheme = {
+export const spacemitDarkTheme: ThemeConfig = {
   algorithm: theme.darkAlgorithm,
   token: {
     // 品牌色

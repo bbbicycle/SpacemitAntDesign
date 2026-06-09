@@ -1,24 +1,42 @@
 {
   "name": "spacemit-antd-theme",
-  "private": true,
   "version": "1.0.0",
   "type": "module",
+  "description": "Spacemit brand theme configuration for Ant Design Vue 4.",
+  "main": "./dist/theme/index.js",
+  "module": "./dist/theme/index.js",
+  "types": "./dist/theme/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/theme/index.d.ts",
+      "import": "./dist/theme/index.js"
+    }
+  },
+  "files": [
+    "dist/theme",
+    "README.md"
+  ],
+  "sideEffects": false,
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "build": "npm run build:demo && npm run build:theme",
+    "build:demo": "vue-tsc -b && vite build",
+    "build:theme": "vite build --config vite.theme.config.ts && tsc -p tsconfig.theme.json",
     "preview": "vite preview"
   },
-  "dependencies": {
-    "@ant-design/icons-vue": "^7.0.1",
+  "peerDependencies": {
     "ant-design-vue": "^4.2.6",
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "vue": "^3.5.0"
   },
   "devDependencies": {
+    "@ant-design/icons-vue": "^7.0.1",
+    "ant-design-vue": "^4.2.6",
     "@types/node": "^25.9.2",
     "@vitejs/plugin-vue": "^5.2.3",
     "typescript": "~5.7.2",
     "vite": "^6.3.5",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0",
     "vue-tsc": "^2.2.8"
   }
 }
