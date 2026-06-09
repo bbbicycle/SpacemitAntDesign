@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, provide } from 'vue'
 import { spacemitLightTheme, spacemitDarkTheme } from './theme'
-import AntdShowcase from './pages/AntdShowcase.vue'
 
 // 默认使用浅色主题 (Light)
 const isDark = ref(false)
@@ -20,7 +19,7 @@ provide('isDark', isDark)
     <!-- a-app 用于在 4.x 中统一全局上下文（如 message 等弹框样式继承） -->
     <a-app>
       <div class="showcase-theme-container" :class="{ 'dark-mode': isDark }">
-        <AntdShowcase />
+        <router-view />
       </div>
     </a-app>
   </a-config-provider>

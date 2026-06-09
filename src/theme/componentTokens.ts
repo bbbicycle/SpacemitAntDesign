@@ -5,11 +5,7 @@
  *
  * 职责：
  * - 基于 Spacemit 基础 token，为关键组件生成组件级 token
- * - 第一版优先处理：Button, Input, Select, Card, Table, Menu, Tabs, Switch
- * - 后续可扩展更多组件
- *
- * 注意：
- * - 使用 Ant Design Vue 官方 component token API 以及局部覆盖 Alias Token 机制
+ * - 针对通用、布局、导航、数据录入、数据展示等大类的核心组件提供规范性样式定制
  * - 不使用大量 .ant-xxx CSS 覆盖
  */
 
@@ -37,8 +33,28 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens) {
       colorBgContainer: tokens.surfaceContainerLowest,
     },
 
+    InputNumber: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
     Select: {
       // 下拉选择器与 Input 保持一致的背景色
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
+    Cascader: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
+    TreeSelect: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
+    AutoComplete: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
+    Mentions: {
       colorBgContainer: tokens.surfaceContainerLowest,
     },
 
@@ -78,8 +94,6 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens) {
       colorPrimaryHover: tokens.brandHover,
     },
 
-    // 以下组件做基础适配，后续可精修
-
     Checkbox: {
       // Checkbox 选中后内部勾的颜色（在品牌色背景上应为深色以确保可读）
       colorWhite: tokens.onBrand,
@@ -105,11 +119,126 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens) {
     Pagination: {
       borderRadius: tokens.radiusSmall,
     },
+
+    // ---- 新增组件定制 ----
+
+    Layout: {
+      // 布局主体背景色
+      bodyBg: tokens.surface,
+      headerBg: tokens.surfaceContainerLowest,
+      siderBg: tokens.surfaceContainerLowest,
+      triggerBg: tokens.surfaceContainer,
+      triggerColor: tokens.onSurface,
+    },
+
+    Slider: {
+      railBg: tokens.outlineVariant,
+      railHoverBg: tokens.outline,
+      trackBg: tokens.onBrandContainer,
+      trackHoverBg: tokens.brandHover,
+      handleColor: tokens.brand,
+      handleColorHover: tokens.brandHover,
+      handleActiveColor: tokens.onBrandContainer,
+      dotBorderColor: tokens.outline,
+      dotActiveBorderColor: tokens.brand,
+    },
+
+    Steps: {
+      colorPrimary: tokens.onBrandContainer,
+      colorTextLightSolid: '#ffffff',
+      iconSize: 32,
+      customIconSize: 32,
+    },
+
+    DatePicker: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+      activeBg: tokens.brand,
+      cellActiveWithRangeBg: tokens.brandContainer,
+      cellHoverWithRangeBg: tokens.surfaceContainerHigh,
+      cellRangeBorderColor: tokens.brand,
+    },
+
+    TimePicker: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+      activeBg: tokens.brand,
+    },
+
+    Rate: {
+      starColor: tokens.colorYellow,
+      starBg: tokens.outlineVariant,
+    },
+
+    Upload: {
+      colorBorder: tokens.outline,
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
+    Divider: {
+      colorSplit: tokens.outlineVariant,
+    },
+
+    Dropdown: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+      controlItemBgHover: tokens.surfaceContainerLow,
+      controlItemBgActive: tokens.brandContainer,
+    },
+
+    Breadcrumb: {
+      colorTextDescription: tokens.onSurfaceVariant,
+      colorText: tokens.onSurface,
+      separatorColor: tokens.outline,
+    },
+
+    Anchor: {
+      colorPrimary: tokens.onBrandContainer,
+    },
+
+    Transfer: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+      colorFillAlter: tokens.surface,
+    },
+
+    // ---- 数据展示组件定制 ----
+
+    Segmented: {
+      // 选中项背景使用最亮容器色，与轨道形成高对比
+      itemSelectedBg: tokens.surfaceContainerLowest,
+      // 选中项文字使用高对比品牌文字色，增强统一感
+      itemSelectedColor: tokens.onBrandContainer,
+      // 轨道背景色使用容器填充灰
+      trackBg: tokens.surfaceContainer,
+      trackPadding: 4,
+    },
+
+    Collapse: {
+      headerBg: tokens.surfaceContainerLow,
+      contentBg: tokens.surfaceContainerLowest,
+      colorBorder: tokens.outlineVariant,
+    },
+
+    Timeline: {
+      // 连线颜色使用次级边框色，防止突兀
+      tailColor: tokens.outlineVariant,
+      tailWidth: 2,
+    },
+
+    Drawer: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
+    Modal: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
+    FloatButton: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+      colorPrimary: tokens.onBrandContainer,
+    },
   }
 }
 
 /**
- * 基于 Spacemit 基础 token 生成深色主题 of the组件级 token
+ * 基于 Spacemit 基础 token 生成深色主题的组件级 token
  */
 export function buildDarkComponentTokens(tokens: SpacemitBaseTokens) {
   return {
@@ -127,7 +256,27 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens) {
       colorBgContainer: tokens.surfaceContainerLowest,
     },
 
+    InputNumber: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
     Select: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
+    Cascader: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
+    TreeSelect: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
+    AutoComplete: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
+    Mentions: {
       colorBgContainer: tokens.surfaceContainerLowest,
     },
 
@@ -178,6 +327,117 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens) {
 
     Pagination: {
       borderRadius: tokens.radiusSmall,
+    },
+
+    // ---- 新增组件定制 ----
+
+    Layout: {
+      bodyBg: tokens.surface,
+      headerBg: tokens.surfaceContainerLowest,
+      siderBg: tokens.surfaceContainerLowest,
+      siderDarkBg: tokens.surfaceContainerLowest,
+      triggerBg: tokens.surfaceContainer,
+      triggerColor: tokens.onSurface,
+    },
+
+    Slider: {
+      railBg: tokens.outlineVariant,
+      railHoverBg: tokens.outline,
+      trackBg: tokens.brand,
+      trackHoverBg: tokens.brandHover,
+      handleColor: tokens.brand,
+      handleColorHover: tokens.brandHover,
+      handleActiveColor: tokens.onBrandContainer,
+      dotBorderColor: tokens.outline,
+      dotActiveBorderColor: tokens.brand,
+    },
+
+    Steps: {
+      colorPrimary: tokens.onBrandContainer,
+      colorTextLightSolid: '#000000',
+      iconSize: 32,
+      customIconSize: 32,
+    },
+
+    DatePicker: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+      activeBg: tokens.brand,
+      cellActiveWithRangeBg: tokens.brandContainer,
+      cellHoverWithRangeBg: tokens.surfaceContainerHigh,
+      cellRangeBorderColor: tokens.brand,
+    },
+
+    TimePicker: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+      activeBg: tokens.brand,
+    },
+
+    Rate: {
+      starColor: tokens.colorYellow,
+      starBg: tokens.outlineVariant,
+    },
+
+    Upload: {
+      colorBorder: tokens.outline,
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
+    Divider: {
+      colorSplit: tokens.outlineVariant,
+    },
+
+    Dropdown: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+      controlItemBgHover: tokens.surfaceContainerLow,
+      controlItemBgActive: tokens.brandContainer,
+    },
+
+    Breadcrumb: {
+      colorTextDescription: tokens.onSurfaceVariant,
+      colorText: tokens.onSurface,
+      separatorColor: tokens.outline,
+    },
+
+    Anchor: {
+      colorPrimary: tokens.onBrandContainer,
+    },
+
+    Transfer: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+      colorFillAlter: tokens.surface,
+    },
+
+    // ---- 数据展示组件定制 ----
+
+    Segmented: {
+      itemSelectedBg: tokens.surfaceContainerLowest,
+      itemSelectedColor: tokens.onBrandContainer,
+      trackBg: tokens.surfaceContainer,
+      trackPadding: 4,
+    },
+
+    Collapse: {
+      headerBg: tokens.surfaceContainerLow,
+      contentBg: tokens.surfaceContainerLowest,
+      colorBorder: tokens.outlineVariant,
+    },
+
+    Timeline: {
+      tailColor: tokens.outlineVariant,
+      tailWidth: 2,
+    },
+
+    Drawer: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
+    Modal: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+    },
+
+    FloatButton: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+      colorPrimary: tokens.onBrandContainer,
     },
   }
 }
