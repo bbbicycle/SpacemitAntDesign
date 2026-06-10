@@ -5,6 +5,6 @@
  */
 
 export { spacemitLightTheme, spacemitDarkTheme } from './spacemitAntdTheme'
-export { spacemitLightTokens, spacemitDarkTokens, mixWithWhite } from './spacemitTokens'
+export { spacemitLightTokens, spacemitDarkTokens, mixWithWhite, useSpacemitToken } from './spacemitTokens'
 export { buildLightComponentTokens, buildDarkComponentTokens } from './componentTokens'
 export type { SpacemitBaseTokens } from './spacemitTokens'

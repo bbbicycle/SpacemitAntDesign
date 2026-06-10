@@ -178,11 +178,12 @@ const handleMenuClick = (info: any) => {
   box-shadow: 0 4px 16px v-bind("token.colorPrimary + '4d'");
   animation: logoPulse 3s infinite ease-in-out;
   line-height: 1;
+  will-change: transform;
 }
 
 @keyframes logoPulse {
   0% { transform: scale(1); }
-  50% { transform: scale(1.02); box-shadow: 0 6px 18px rgba(178, 228, 13, 0.45); }
+  50% { transform: scale(1.04); }
   100% { transform: scale(1); }
 }
 

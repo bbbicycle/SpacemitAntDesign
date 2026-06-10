@@ -13,6 +13,7 @@
 
 import lightColorData from './color.light.json'
 import darkColorData from './color.dark.json'
+import { inject, ref, computed, ComputedRef } from 'vue'
 
 /**
  * 从 Spacemit 颜色 JSON 中安全读取指定 token 的值
@@ -207,7 +208,7 @@ function buildTokens(
     fontSizeBase: 14,
 
     // 默认的动效与阴影 Token
-    boxShadowCardHover: tokens['Inverse/InverseSurface'] ? '0 8px 24px rgba(0, 0, 0, 0.45)' : '0 8px 24px rgba(0, 0, 0, 0.04)',
+    boxShadowCardHover: tokens['Inverse/InverseSurface'] ? '0 8px 16px rgba(0, 0, 0, 0.12)' : '0 8px 16px rgba(0, 0, 0, 0.04)',
     motionDurationMid: '0.15s',
     motionEaseInOut: 'cubic-bezier(0, 0, 0.2, 1)',
   }
@@ -226,3 +227,12 @@ export const spacemitLightTokens = buildTokens(
 export const spacemitDarkTokens = buildTokens(
   darkColorData.tokens as Record<string, { value: string; description: string }>
 )
+
+/**
+ * 业务组件中用于便捷获取当前生效的 Spacemit 基础 Token 的 Composition API。
+ * 它默认依赖于 provide 提供的 'isDark' 响应式状态。
+ */
+export function useSpacemitToken(): ComputedRef<SpacemitBaseTokens> {
+  const isDark = inject('isDark', ref(false))
+  return computed(() => (isDark.value ? spacemitDarkTokens : spacemitLightTokens))
+}

@@ -26,8 +26,8 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens): Component
     },
 
     Table: {
-      // 在 Ant Design Vue 4.x 中，Table 暂无专属 headerBg Token，
-      // 表头背景色通过局部覆盖 Alias Token 'colorFillAlter' 实现
+      // 在 Ant Design Vue 4.x 中，Table 暂无专属组件级表头背景 Token，
+      // 必须通过覆盖 Alias Token 'colorFillAlter' 来实现表头底色定制。
       colorFillAlter: tokens.surface,
       borderRadius: 0,
     },
@@ -122,6 +122,12 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens): Component
       // 微缩 Tag 圆角，营造精巧科技质感
       borderRadiusSM: 4,
     },
+
+    Card: {
+      // 卡片背景与悬浮投影配置
+      colorBgContainer: tokens.surfaceContainerLowest,
+      ...({ boxShadowCard: tokens.boxShadowCardHover } as any),
+    },
   }
 }
 
@@ -136,6 +142,8 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens): ComponentT
     },
 
     Table: {
+      // 在 Ant Design Vue 4.x 中，Table 暂无专属组件级表头背景 Token，
+      // 必须通过覆盖 Alias Token 'colorFillAlter' 来实现表头底色定制。
       colorFillAlter: tokens.surfaceBright,
       borderRadius: 0,
     },
@@ -213,6 +221,11 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens): ComponentT
 
     Tag: {
       borderRadiusSM: 4,
+    },
+
+    Card: {
+      colorBgContainer: tokens.surfaceContainerLowest,
+      ...({ boxShadowCard: tokens.boxShadowCardHover } as any),
     },
   }
 }
