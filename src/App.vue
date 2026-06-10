@@ -1,19 +1,32 @@
 <script setup lang="ts">
 import { ref, computed, provide } from 'vue'
-import { spacemitLightTheme, spacemitDarkTheme, spacemitLightTokens, spacemitDarkTokens } from './theme'
+import { 
+  getSpacemitLightTheme, 
+  getSpacemitDarkTheme, 
+  spacemitLightTokens, 
+  spacemitDarkTokens, 
+  getDynamicTokens 
+} from './theme'
+import type { ColorThemeName } from './theme'
 
 // 默认使用浅色主题 (Light)
 const isDark = ref(false)
 
-// 派生出当前生效 of Ant Design Vue 主题配置
+// 默认使用默认品牌色系
+const colorTheme = ref<ColorThemeName>('base')
+
+// 派生出当前生效的 Ant Design Vue 主题配置
 const currentTheme = computed(() => {
-  return isDark.value ? spacemitDarkTheme : spacemitLightTheme
+  return isDark.value 
+    ? getSpacemitDarkTheme(colorTheme.value) 
+    : getSpacemitLightTheme(colorTheme.value)
 })
 
 // 根据当前被激活的设计令牌，动态生成 CSS 变量以挂载到页面根节点，
 // 完美解决预览页面的 CSS 变量同 JS 设计令牌的自动联控与一致性。
 const cssVariables = computed(() => {
-  const tokens = isDark.value ? spacemitDarkTokens : spacemitLightTokens
+  const baseTokens = isDark.value ? spacemitDarkTokens : spacemitLightTokens
+  const tokens = getDynamicTokens(baseTokens, colorTheme.value)
   const buttonConfig = (currentTheme.value.components?.Button || {}) as any
   return {
     '--border-color': tokens.outlineVariant,
@@ -33,8 +46,9 @@ const cssVariables = computed(() => {
   }
 })
 
-// 将 isDark 状态注入下级组件，允许下级页面通过开关修改
+// 将 isDark 和 colorTheme 状态注入下级组件，允许下级页面进行控制与联动
 provide('isDark', isDark)
+provide('colorTheme', colorTheme)
 </script>
 
 <template>

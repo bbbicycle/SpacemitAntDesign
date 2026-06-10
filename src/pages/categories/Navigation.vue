@@ -81,7 +81,7 @@ watch(() => route.hash, (newHash) => {
   <div class="category-page">
     <div class="page-header-desc">
       <h2>导航组件 (Navigation)</h2>
-      <p>导航组件用于在页面中引导用户路径，管理功能模块之间的层级关系。已对菜单、步骤条、面包屑以及锚点的高亮滑条完成了 Spacemit 品牌绿色适配。</p>
+      <p>导航组件用于在页面中引导用户路径，管理功能模块之间的层级关系。已对菜单、步骤条、面包屑以及锚点的高亮滑条完成了 Spacemit 品牌色适配。</p>
     </div>
 
     <!-- 1. Anchor 锚点 -->

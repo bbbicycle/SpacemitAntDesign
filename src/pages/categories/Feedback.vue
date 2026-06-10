@@ -107,7 +107,7 @@ watch(() => route.hash, (newHash) => {
   <div class="category-page">
     <div class="page-header-desc">
       <h2>反馈组件 (Feedback)</h2>
-      <p>反馈组件用于展示操作状态、全局提醒、流程进度及加载态。我们已针对警告提示（Alert）、消息浮窗（Message/Notification）、确认对话框（Modal）、进度条（Progress）以及加载指示器（Spin）进行了 Spacemit 品牌绿色和深色适配。</p>
+      <p>反馈组件用于展示操作状态、全局提醒、流程进度及加载态。我们已针对警告提示（Alert）、消息浮窗（Message/Notification）、确认对话框（Modal）、进度条（Progress）以及加载指示器（Spin）进行了 Spacemit 品牌色和深色适配。</p>
     </div>
 
     <!-- 1. Alert 警告提示 -->
@@ -184,7 +184,7 @@ watch(() => route.hash, (newHash) => {
         <h3>Message 全局提示</h3>
         <span class="component-badge">Message</span>
       </div>
-      <p class="section-desc">最轻量级的顶部全局操作结果反馈，在延时后自动消失。完全适配 Spacemit 灰度框和品牌嫩绿色高光。</p>
+      <p class="section-desc">最轻量级的顶部全局操作结果反馈，在延时后自动消失。完全适配 Spacemit 灰度框和品牌色高光。</p>
       
       <a-card>
         <a-space wrap :size="16">
@@ -267,7 +267,7 @@ watch(() => route.hash, (newHash) => {
         <h3>Progress 进度条</h3>
         <span class="component-badge">Progress</span>
       </div>
-      <p class="section-desc">展示当前任务的进度状态。进度高光完美同步 Spacemit 品牌绿色。</p>
+      <p class="section-desc">展示当前任务的进度状态。进度高光完美同步 Spacemit 品牌色。</p>
       
       <a-card>
         <div>

@@ -16,7 +16,7 @@ const isDark = inject('isDark', ref(false))
 // 1. ConfigProvider 局部主题定制
 const customTheme = {
   token: {
-    colorPrimary: '#1890ff', // 经典蓝色，用于和 Spacemit 的品牌绿进行直观对比
+    colorPrimary: '#1890ff', // 经典蓝色，用于与 Spacemit 默认品牌色进行直观对比
     borderRadius: 4
   }
 }
@@ -121,11 +121,11 @@ watch(() => route.hash, (newHash) => {
         <a-row :gutter="24">
           <a-col :span="12" :xs="24" :sm="12">
             <div style="padding: 16px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-section); height: 100%;">
-              <h4 style="font-weight: 700; margin-bottom: 12px; font-size: 13px;">Spacemit 品牌绿色主题 (全局默认)</h4>
+              <h4 style="font-weight: 700; margin-bottom: 12px; font-size: 13px;">Spacemit 默认品牌主题 (全局默认)</h4>
               <a-space direction="vertical" style="width: 100%">
                 <a-button type="primary" block>Spacemit 主色按钮</a-button>
-                <a-checkbox checked>品牌绿复选框</a-checkbox>
-                <a-radio checked>品牌绿单选框</a-radio>
+                <a-checkbox checked>品牌色复选框</a-checkbox>
+                <a-radio checked>品牌色单选框</a-radio>
               </a-space>
             </div>
           </a-col>

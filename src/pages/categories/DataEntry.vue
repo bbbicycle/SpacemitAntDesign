@@ -126,7 +126,7 @@ watch(() => route.hash, (newHash) => {
   <div class="category-page">
     <div class="page-header-desc">
       <h2>数据录入组件 (Data Entry)</h2>
-      <p>数据录入组件提供各种形式的用户信息提交及选择入口。我们将 15 种数据录入组件完全拆分，以展现其独立的各种大小状态及 Spacemit 品牌绿色样式适配成效。</p>
+      <p>数据录入组件提供各种形式的用户信息提交及选择入口。我们将 15 种数据录入组件完全拆分，以展现其独立的各种大小状态及 Spacemit 品牌色样式适配成效。</p>
     </div>
 
     <!-- 1. AutoComplete 自动完成 -->
@@ -169,7 +169,7 @@ watch(() => route.hash, (newHash) => {
         <h3>Checkbox 多选框</h3>
         <span class="component-badge">Checkbox</span>
       </div>
-      <p class="section-desc">复选框可以独立或成组使用。勾选背景色设为高对比品牌绿色，内部对号为纯黑/纯白。</p>
+      <p class="section-desc">复选框可以独立或成组使用。勾选背景色设为高对比品牌色，内部对号为纯黑/纯白。</p>
       <a-card>
         <div>
           <a-typography-title :level="5">单一复选框</a-typography-title>
@@ -194,7 +194,7 @@ watch(() => route.hash, (newHash) => {
         <h3>DatePicker 日期选择框</h3>
         <span class="component-badge">DatePicker</span>
       </div>
-      <p class="section-desc">选择日期或日期范围。点击可唤起日历弹窗，查看 Spacemit 嫩绿色今天、选中态单元格以及范围选中高亮背景的样式适配。</p>
+      <p class="section-desc">选择日期或日期范围。点击可唤起日历弹窗，查看 Spacemit 品牌色今天、选中态单元格以及范围选中高亮背景的样式适配。</p>
       <a-card>
         <a-space wrap :size="16">
           <a-date-picker placeholder="选择单天日期" />

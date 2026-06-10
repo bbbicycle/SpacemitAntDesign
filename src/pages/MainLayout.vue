@@ -16,8 +16,20 @@ import {
 } from '@ant-design/icons-vue'
 
 const isDark = inject('isDark', ref(false))
+const colorTheme = inject('colorTheme', ref('base'))
 const route = useRoute()
 const router = useRouter()
+
+const themeOptions = [
+  { value: 'base', label: '品牌' },
+  { value: 'blue', label: '蓝色' },
+  { value: 'red', label: '红色' },
+  { value: 'green', label: '绿色' },
+  { value: 'orange', label: '橙色' },
+  { value: 'yellow', label: '黄色' },
+  { value: 'cyan', label: '青色' },
+  { value: 'purple', label: '紫色' }
+]
 
 const { token } = theme.useToken()
 
@@ -47,6 +59,13 @@ const handleMenuClick = (info: any) => {
         </div>
       </div>
       <div class="header-actions">
+        <span class="theme-label" style="margin-right: 6px;">品牌色系</span>
+        <a-select 
+          v-model:value="colorTheme" 
+          size="small" 
+          style="width: 100px; margin-right: 16px;"
+          :options="themeOptions"
+        />
         <span class="theme-label">{{ isDark ? '深色模式 (Dark)' : '浅色模式 (Light)' }}</span>
         <a-switch v-model:checked="isDark" checked-children="Dark" un-checked-children="Light" />
       </div>

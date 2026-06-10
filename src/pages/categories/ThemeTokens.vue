@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { ref, inject, computed } from 'vue'
+import { ref, inject } from 'vue'
 import { message } from 'ant-design-vue'
-import { spacemitLightTokens, spacemitDarkTokens } from '../../theme/spacemitTokens'
+import { useSpacemitToken } from '../../theme/spacemitTokens'
 
 const isDark = inject('isDark', ref(false))
-
-const currentTokens = computed(() => {
-  return isDark.value ? spacemitDarkTokens : spacemitLightTokens
-})
+const currentTokens = useSpacemitToken()
 
 interface TokenItem {
   name: string
@@ -24,7 +21,7 @@ interface TokenCategory {
 const tokenCategories: TokenCategory[] = [
   {
     title: '品牌核心色 (Brand Colors)',
-    desc: 'Spacemit 的主要视觉特征色（主色为 Spacemit 绿），用于表示主交互、状态容器等。',
+    desc: 'Spacemit 的主要视觉特征色（默认主色为 Spacemit 绿），用于表示主交互、状态容器等。',
     tokens: [
       { name: 'Brand/Brand', key: 'brand', desc: '品牌主色' },
       { name: 'brandHover', key: 'brandHover', desc: '品牌主色悬浮态 (混合生成)' },

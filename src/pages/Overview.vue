@@ -60,7 +60,7 @@ const componentCategories = [
       { name: 'Select', title: '选择器', desc: '下拉列表单选或多选、标签功能。', path: '/components/data-entry#select' },
       { name: 'DatePicker', title: '日期选择', desc: '选择单个日期或周期时间范围。', path: '/components/data-entry#datepicker' },
       { name: 'TimePicker', title: '时间选择框', desc: '用于快捷选择或范围选择特定时间点。', path: '/components/data-entry#timepicker' },
-      { name: 'Slider', title: '滑块', desc: '滑动刻度调节，适配 Spacemit 绿色。', path: '/components/data-entry#slider' },
+      { name: 'Slider', title: '滑块', desc: '滑动刻度调节，适配 Spacemit 品牌色。', path: '/components/data-entry#slider' },
       { name: 'Rate', title: '评分', desc: '用于评价并进行星级打分。', path: '/components/data-entry#rate' },
       { name: 'Switch', title: '开关', desc: '两种对立状态的极速切换。', path: '/components/data-entry#switch' },
       { name: 'Checkbox', title: '复选框', desc: '多项选择、全选/半选状态支持。', path: '/components/data-entry#checkbox' },
@@ -112,7 +112,7 @@ const componentCategories = [
       { name: 'Modal', title: '对话框', desc: '打开隔离窗口执行重要操作与表单确认。', path: '/components/feedback#modal' },
       { name: 'Notification', title: '通知提醒框', desc: '系统角落弹出通知，多用于后台告警。', path: '/components/feedback#notification' },
       { name: 'Popconfirm', title: '气泡确认框', desc: '轻量级的在元素气泡中弹出的确认操作。', path: '/components/feedback#popconfirm' },
-      { name: 'Progress', title: '进度条', desc: '展示当前任务进度，完美适配品牌绿。', path: '/components/feedback#progress' },
+      { name: 'Progress', title: '进度条', desc: '展示当前任务进度，完美适配品牌主色。', path: '/components/feedback#progress' },
       { name: 'Result', title: '结果', desc: '大面积图形化呈现芯片任务运行结果确认。', path: '/components/feedback#result' },
       { name: 'Skeleton', title: '骨架屏', desc: '展示灰度骨架占位以降低等待焦躁感。', path: '/components/feedback#skeleton' },
       { name: 'Spin', title: '加载中', desc: '局部或整页的加载态指示动画。', path: '/components/feedback#spin' }
@@ -159,7 +159,7 @@ const navigateToComponent = (path: string) => {
     <div class="overview-hero">
       <div class="hero-content">
         <h2>Spacemit 主题组件总览</h2>
-        <p>参考 Ant Design Vue 官方规范建立的组件资产大盘。这里为您梳理了已经完成 Spacemit 品牌绿色与灰度适配的基础组件。您可以在左侧菜单或以下面板中点击任意组件查看真实状态及进行调试。</p>
+        <p>参考 Ant Design Vue 官方规范建立的组件资产大盘。这里为您梳理了已经完成 Spacemit 品牌色与灰度适配的基础组件。您可以在左侧菜单或以下面板中点击任意组件查看真实状态及进行调试。</p>
         
         <div class="search-box-wrapper">
           <a-input 

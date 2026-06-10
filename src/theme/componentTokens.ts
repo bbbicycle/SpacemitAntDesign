@@ -82,7 +82,7 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens): Component
     },
 
     Switch: {
-      // 开启态使用品牌绿色
+      // 开启态使用品牌色
       colorPrimary: tokens.onBrandContainer,
       colorPrimaryHover: tokens.brandHover,
     },
@@ -211,7 +211,7 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens): ComponentT
 
     Steps: {
       colorPrimary: tokens.onBrandContainer,
-      // 步骤条圆形数字，深色模式下使用纯黑色以保证亮绿主色背景上的清晰度
+      // 步骤条圆形数字，深色模式下使用纯黑色以保证品牌主色背景上的清晰度
       colorTextLightSolid: '#000000',
     },
 

@@ -264,11 +264,85 @@ export const spacemitDarkTokens = buildTokens(
   darkColorData.tokens as Record<string, { value: string; description: string }>
 )
 
+export type ColorThemeName = 'base' | 'blue' | 'red' | 'green' | 'orange' | 'yellow' | 'cyan' | 'purple'
+
+/**
+ * 动态根据主题名称获取映射后的品牌 Token
+ */
+export function getDynamicTokens(tokens: SpacemitBaseTokens, themeName: ColorThemeName): SpacemitBaseTokens {
+  if (themeName === 'base') {
+    return tokens
+  }
+
+  let primaryVal = tokens.brand
+  let containerVal = tokens.brandContainer
+  let onPrimaryVal = tokens.onBrand
+  let onPrimaryContainerVal = tokens.onBrandContainer
+
+  switch (themeName) {
+    case 'blue':
+      primaryVal = tokens.colorBlue
+      containerVal = tokens.colorBlueBg
+      onPrimaryVal = tokens.colorBlueOnPrimary
+      onPrimaryContainerVal = tokens.colorBlueOnPrimaryContainer
+      break
+    case 'red':
+      primaryVal = tokens.colorRed
+      containerVal = tokens.colorRedBg
+      onPrimaryVal = tokens.colorRedOnPrimary
+      onPrimaryContainerVal = tokens.colorRedOnPrimaryContainer
+      break
+    case 'green':
+      primaryVal = tokens.colorGreen
+      containerVal = tokens.colorGreenBg
+      onPrimaryVal = tokens.colorGreenOnPrimary
+      onPrimaryContainerVal = tokens.colorGreenOnPrimaryContainer
+      break
+    case 'orange':
+      primaryVal = tokens.colorOrange
+      containerVal = tokens.colorOrangeBg
+      onPrimaryVal = tokens.colorOrangeOnPrimary
+      onPrimaryContainerVal = tokens.colorOrangeOnPrimaryContainer
+      break
+    case 'yellow':
+      primaryVal = tokens.colorYellow
+      containerVal = tokens.colorYellowBg
+      onPrimaryVal = tokens.colorYellowOnPrimary
+      onPrimaryContainerVal = tokens.colorYellowOnPrimaryContainer
+      break
+    case 'cyan':
+      primaryVal = tokens.colorCyan
+      containerVal = tokens.colorCyanBg
+      onPrimaryVal = tokens.colorCyanOnPrimary
+      onPrimaryContainerVal = tokens.colorCyanOnPrimaryContainer
+      break
+    case 'purple':
+      primaryVal = tokens.colorPurple
+      containerVal = tokens.colorPurpleBg
+      onPrimaryVal = tokens.colorPurpleOnPrimary
+      onPrimaryContainerVal = tokens.colorPurpleOnPrimaryContainer
+      break
+  }
+
+  return {
+    ...tokens,
+    brand: primaryVal,
+    brandHover: mixWithWhite(primaryVal, 0.12),
+    brandContainer: containerVal,
+    onBrand: onPrimaryVal,
+    onBrandContainer: onPrimaryContainerVal
+  }
+}
+
 /**
  * 业务组件中用于便捷获取当前生效的 Spacemit 基础 Token 的 Composition API。
- * 它默认依赖于 provide 提供的 'isDark' 响应式状态。
+ * 它默认依赖于 provide 提供的 'isDark' 和 'colorTheme' 响应式状态。
  */
 export function useSpacemitToken(): ComputedRef<SpacemitBaseTokens> {
   const isDark = inject('isDark', ref(false))
-  return computed(() => (isDark.value ? spacemitDarkTokens : spacemitLightTokens))
+  const colorTheme = inject('colorTheme', ref<ColorThemeName>('base'))
+  return computed(() => {
+    const base = isDark.value ? spacemitDarkTokens : spacemitLightTokens
+    return getDynamicTokens(base, colorTheme.value)
+  })
 }

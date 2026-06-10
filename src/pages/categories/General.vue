@@ -68,7 +68,7 @@ watch(() => route.hash, (newHash) => {
   <div class="category-page">
     <div class="page-header-desc">
       <h2>通用组件 (General)</h2>
-      <p>通用组件是系统的基础构件。主按钮及相关状态色均已深度集成 Spacemit 品牌绿色，在亮色与暗色模式下拥有极佳的前后对比度与视觉柔和感。</p>
+      <p>通用组件是系统的基础构件。主按钮及相关状态色均已深度集成 Spacemit 品牌主色，在亮色与暗色模式下拥有极佳的前后对比度与视觉柔和感。</p>
     </div>
 
     <!-- 1. Button 按钮 -->

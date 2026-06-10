@@ -140,7 +140,7 @@ watch(() => route.hash, (newHash) => {
   <div class="category-page">
     <div class="page-header-desc">
       <h2>数据展示组件 (Data Display)</h2>
-      <p>数据展示组件用于向用户呈现多元化的数据及状态信息。我们对卡片背景、表格头部、标签颜色、日历网格及分段控制器等高频交互项完成了 Spacemit 品牌绿色适配。</p>
+      <p>数据展示组件用于向用户呈现多元化的数据及状态信息。我们对卡片背景、表格头部、标签颜色、日历网格及分段控制器等高频交互项完成了 Spacemit 品牌色适配。</p>
     </div>
 
     <!-- 1. Avatar 头像 & Badge 徽标数 -->
@@ -189,7 +189,7 @@ watch(() => route.hash, (newHash) => {
         <h3>Calendar 日历</h3>
         <span class="component-badge">Calendar</span>
       </div>
-      <p class="section-desc">提供日历排盘，已对当前日期圈及选中网格格进行了嫩绿色主题覆盖。</p>
+      <p class="section-desc">提供日历排盘，已对当前日期圈及选中网格进行品牌色主题覆盖。</p>
       <a-card>
         <div style="max-width: 340px; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; background: var(--bg-section);">
           <a-calendar :fullscreen="false" />
@@ -384,7 +384,7 @@ watch(() => route.hash, (newHash) => {
         <h3>QRCode 二维码</h3>
         <span class="component-badge">QRCode</span>
       </div>
-      <p class="section-desc">生成用于扫描的二维码。我们对前景色和品牌绿进行了适配。</p>
+      <p class="section-desc">生成用于扫描的二维码。我们对前景色和品牌色进行了适配。</p>
       
       <a-card>
         <a-space wrap :size="24">
@@ -438,7 +438,7 @@ watch(() => route.hash, (newHash) => {
         <h3>Table 表格</h3>
         <span class="component-badge">Table</span>
       </div>
-      <p class="section-desc">以二维网格呈现海量结构化设备数据，行选择复选框底图已被定制为 Spacemit 主题绿。</p>
+      <p class="section-desc">以二维网格呈现海量结构化设备数据，行选择复选框底图已被定制为 Spacemit 品牌色。</p>
       
       <a-card>
         <a-table 
@@ -456,7 +456,7 @@ watch(() => route.hash, (newHash) => {
         <h3>Tabs 标签页</h3>
         <span class="component-badge">Tabs</span>
       </div>
-      <p class="section-desc">多模块并列切换，滑动高亮指示条的圆角与嫩绿色高度定制。</p>
+      <p class="section-desc">多模块并列切换，滑动高亮指示条的圆角与品牌色高度定制。</p>
       
       <a-card>
         <a-tabs v-model:activeKey="activeTabKey">
@@ -561,7 +561,7 @@ watch(() => route.hash, (newHash) => {
         <h3>Tree 树形控件</h3>
         <span class="component-badge">Tree</span>
       </div>
-      <p class="section-desc">多层级分支结构树，勾选状态复选框颜色已与品牌绿同步。</p>
+      <p class="section-desc">多层级分支结构树，勾选状态复选框颜色已与品牌色同步。</p>
       
       <a-card>
         <a-tree
