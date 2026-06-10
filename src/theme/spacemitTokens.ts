@@ -102,20 +102,38 @@ export interface SpacemitBaseTokens {
   inverseOnSurface: string
 
   // ---- 语义色（来自 Color 系列）----
+  colorBasePrimary: string
+  colorBasePrimaryContainer: string
+  colorBaseOnPrimary: string
+  colorBaseOnPrimaryContainer: string
   colorBlue: string
   colorBlueBg: string
+  colorBlueOnPrimary: string
+  colorBlueOnPrimaryContainer: string
   colorRed: string
   colorRedBg: string
+  colorRedOnPrimary: string
+  colorRedOnPrimaryContainer: string
   colorGreen: string
   colorGreenBg: string
+  colorGreenOnPrimary: string
+  colorGreenOnPrimaryContainer: string
   colorOrange: string
   colorOrangeBg: string
+  colorOrangeOnPrimary: string
+  colorOrangeOnPrimaryContainer: string
   colorYellow: string
   colorYellowBg: string
+  colorYellowOnPrimary: string
+  colorYellowOnPrimaryContainer: string
   colorCyan: string
   colorCyanBg: string
+  colorCyanOnPrimary: string
+  colorCyanOnPrimaryContainer: string
   colorPurple: string
   colorPurpleBg: string
+  colorPurpleOnPrimary: string
+  colorPurpleOnPrimaryContainer: string
 
   // ---- 基础样式 ----
   radiusBase: number
@@ -185,20 +203,38 @@ function buildTokens(
     inverseOnSurface: getTokenValue(tokens, 'Inverse/InverseOnSurface'),
 
     // 语义色
+    colorBasePrimary: getTokenValue(tokens, 'Color/Base/Primary'),
+    colorBasePrimaryContainer: getTokenValue(tokens, 'Color/Base/PrimaryContainer'),
+    colorBaseOnPrimary: getTokenValue(tokens, 'Color/Base/OnPrimary'),
+    colorBaseOnPrimaryContainer: getTokenValue(tokens, 'Color/Base/OnPrimaryContainer'),
     colorBlue: getTokenValue(tokens, 'Color/Blue/Primary'),
     colorBlueBg: getTokenValue(tokens, 'Color/Blue/PrimaryContainer'),
+    colorBlueOnPrimary: getTokenValue(tokens, 'Color/Blue/OnPrimary'),
+    colorBlueOnPrimaryContainer: getTokenValue(tokens, 'Color/Blue/OnPrimaryContainer'),
     colorRed: getTokenValue(tokens, 'Color/Red/Primary'),
     colorRedBg: getTokenValue(tokens, 'Color/Red/PrimaryContainer'),
+    colorRedOnPrimary: getTokenValue(tokens, 'Color/Red/OnPrimary'),
+    colorRedOnPrimaryContainer: getTokenValue(tokens, 'Color/Red/OnPrimaryContainer'),
     colorGreen: getTokenValue(tokens, 'Color/Green/Primary'),
     colorGreenBg: getTokenValue(tokens, 'Color/Green/PrimaryContainer'),
+    colorGreenOnPrimary: getTokenValue(tokens, 'Color/Green/OnPrimary'),
+    colorGreenOnPrimaryContainer: getTokenValue(tokens, 'Color/Green/OnPrimaryContainer'),
     colorOrange: getTokenValue(tokens, 'Color/Orange/Primary'),
     colorOrangeBg: getTokenValue(tokens, 'Color/Orange/PrimaryContainer'),
+    colorOrangeOnPrimary: getTokenValue(tokens, 'Color/Orange/OnPrimary'),
+    colorOrangeOnPrimaryContainer: getTokenValue(tokens, 'Color/Orange/OnPrimaryContainer'),
     colorYellow: getTokenValue(tokens, 'Color/Yellow/Primary'),
     colorYellowBg: getTokenValue(tokens, 'Color/Yellow/PrimaryContainer'),
+    colorYellowOnPrimary: getTokenValue(tokens, 'Color/Yellow/OnPrimary'),
+    colorYellowOnPrimaryContainer: getTokenValue(tokens, 'Color/Yellow/OnPrimaryContainer'),
     colorCyan: getTokenValue(tokens, 'Color/Cyan/Primary'),
     colorCyanBg: getTokenValue(tokens, 'Color/Cyan/PrimaryContainer'),
+    colorCyanOnPrimary: getTokenValue(tokens, 'Color/Cyan/OnPrimary'),
+    colorCyanOnPrimaryContainer: getTokenValue(tokens, 'Color/Cyan/OnPrimaryContainer'),
     colorPurple: getTokenValue(tokens, 'Color/Purple/Primary'),
     colorPurpleBg: getTokenValue(tokens, 'Color/Purple/PrimaryContainer'),
+    colorPurpleOnPrimary: getTokenValue(tokens, 'Color/Purple/OnPrimary'),
+    colorPurpleOnPrimaryContainer: getTokenValue(tokens, 'Color/Purple/OnPrimaryContainer'),
 
     // 基础样式值（第一版仅预留少量）
     radiusBase: 8,

@@ -115,17 +115,13 @@ watch(() => route.hash, (newHash) => {
       
       <a-card>
         <a-breadcrumb>
-          <a-breadcrumb-item>
-            <a href="#">
-              <dashboard-outlined />
-              <span>控制台</span>
-            </a>
+          <a-breadcrumb-item href="#">
+            <dashboard-outlined />
+            <span>控制台</span>
           </a-breadcrumb-item>
-          <a-breadcrumb-item>
-            <a href="#">芯片设计中心</a>
-          </a-breadcrumb-item>
-          <a-breadcrumb-item overlay>
-            <a href="#">核心选择</a>
+          <a-breadcrumb-item href="#">芯片设计中心</a-breadcrumb-item>
+          <a-breadcrumb-item href="#" overlay>
+            核心选择
             <template #overlay>
               <a-menu :items="breadcrumbMenu.items" />
             </template>
