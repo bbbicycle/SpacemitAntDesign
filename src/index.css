@@ -44,4 +44,31 @@ body {
   background: rgba(120, 120, 120, 0.5);
 }
 
+/* 全局按钮左右内边距覆盖，排除圆形、圆角及仅含图标按钮，避免其拉伸变形 */
+.ant-btn:not(.ant-btn-circle):not(.ant-btn-round):not(.ant-btn-icon-only) {
+  padding-left: var(--btn-padding-inline) !important;
+  padding-right: var(--btn-padding-inline) !important;
+}
+
+.ant-btn-sm:not(.ant-btn-circle):not(.ant-btn-round):not(.ant-btn-icon-only) {
+  padding-left: var(--btn-padding-inline-sm) !important;
+  padding-right: var(--btn-padding-inline-sm) !important;
+}
+
+.ant-btn-lg:not(.ant-btn-circle):not(.ant-btn-round):not(.ant-btn-icon-only) {
+  padding-left: var(--btn-padding-inline-lg) !important;
+  padding-right: var(--btn-padding-inline-lg) !important;
+}
+
+/* 解决 Card 封面(cover)子元素超出卡片圆角而不被裁剪的问题 */
+.ant-card-cover {
+  overflow: hidden;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+.ant-card-cover > * {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
 

@@ -14,15 +14,42 @@ import type { SpacemitBaseTokens } from './spacemitTokens'
 
 type ComponentThemeConfig = NonNullable<ThemeConfig['components']>
 
+// ==========================================
+// Button (按钮) 集中控制配置区
+// 您可以在此处方便地修改按钮尺寸高度和内边距（Padding）
+// ==========================================
+const sharedButtonConfig = {
+  // 取消按钮聚焦时的默认轮廓外虚影发光
+  controlOutline: 'transparent',
+  // 边框粗细
+  lineWidth: 1,
+  // 压缩按钮阴影厚度为 0（彻底消除主按钮、次按钮等所有按钮的底部 1px/2px 物理投影）
+  controlOutlineWidth: 0,
+
+  // ---- 尺寸高度配置 ----
+  // 默认按钮高度（Middle）
+  controlHeight: 36,
+  // 小号按钮高度 (Small)
+  controlHeightSM: 24,
+  // 大号按钮高度 (Large)
+  controlHeightLG: 44,
+
+  // ---- 左右内边距配置 (Padding Inline) ----
+  // 默认按钮左右 padding
+  paddingInline: 16,
+  // 小号按钮左右 padding
+  paddingInlineSM: 8,
+  // 大号按钮左右 padding
+  paddingInlineLG: 28,
+}
+
 /**
  * 基于 Spacemit 基础 token 生成浅色主题的组件级 token
  */
 export function buildLightComponentTokens(tokens: SpacemitBaseTokens): ComponentThemeConfig {
   return {
     Button: {
-      // 通过官方 Alias Token 取消按钮默认轮廓阴影
-      controlOutline: 'transparent',
-      lineWidth: 1,
+      ...sharedButtonConfig,
     },
 
     Table: {
@@ -137,8 +164,7 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens): Component
 export function buildDarkComponentTokens(tokens: SpacemitBaseTokens): ComponentThemeConfig {
   return {
     Button: {
-      controlOutline: 'transparent',
-      lineWidth: 1,
+      ...sharedButtonConfig,
     },
 
     Table: {

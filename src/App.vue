@@ -14,6 +14,7 @@ const currentTheme = computed(() => {
 // 完美解决预览页面的 CSS 变量同 JS 设计令牌的自动联控与一致性。
 const cssVariables = computed(() => {
   const tokens = isDark.value ? spacemitDarkTokens : spacemitLightTokens
+  const buttonConfig = (currentTheme.value.components?.Button || {}) as any
   return {
     '--border-color': tokens.outlineVariant,
     '--bg-section': tokens.surfaceContainerLowest,
@@ -26,6 +27,9 @@ const cssVariables = computed(() => {
     '--box-shadow-card-hover': tokens.boxShadowCardHover,
     '--motion-duration-mid': tokens.motionDurationMid,
     '--motion-ease-in-out': tokens.motionEaseInOut,
+    '--btn-padding-inline': `${buttonConfig.paddingInline ?? 15}px`,
+    '--btn-padding-inline-sm': `${buttonConfig.paddingInlineSM ?? 7}px`,
+    '--btn-padding-inline-lg': `${buttonConfig.paddingInlineLG ?? 15}px`,
   }
 })
 

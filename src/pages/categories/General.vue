@@ -120,6 +120,18 @@ watch(() => route.hash, (newHash) => {
             <a-button type="primary" shape="circle">S</a-button>
           </a-space>
         </div>
+        <a-divider dashed />
+        <div>
+          <a-typography-title :level="5">按钮尺寸 (Size)</a-typography-title>
+          <a-space wrap :size="12" align="center">
+            <a-button type="primary" size="large">大号按钮 (Large)</a-button>
+            <a-button size="large">大号按钮 (Large)</a-button>
+            <a-button type="primary">默认按钮 (Default)</a-button>
+            <a-button>默认按钮 (Default)</a-button>
+            <a-button type="primary" size="small">小号按钮 (Small)</a-button>
+            <a-button size="small">小号按钮 (Small)</a-button>
+          </a-space>
+        </div>
       </a-card>
     </section>
 

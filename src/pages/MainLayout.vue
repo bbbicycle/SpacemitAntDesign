@@ -176,15 +176,7 @@ const handleMenuClick = (info: any) => {
   font-size: 22px;
   border-radius: 10px;
   box-shadow: 0 4px 16px v-bind("token.colorPrimary + '4d'");
-  animation: logoPulse 3s infinite ease-in-out;
   line-height: 1;
-  will-change: transform;
-}
-
-@keyframes logoPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.04); }
-  100% { transform: scale(1); }
 }
 
 .brand-info {
