@@ -17,9 +17,13 @@ const colorTheme = ref<ColorThemeName>('base')
 
 // 派生出当前生效的 Ant Design Vue 主题配置
 const currentTheme = computed(() => {
-  return isDark.value 
+  const baseTheme = isDark.value 
     ? getSpacemitDarkTheme(colorTheme.value) 
     : getSpacemitLightTheme(colorTheme.value)
+  return {
+    ...baseTheme,
+    cssVar: true
+  } as any
 })
 
 // 根据当前被激活的设计令牌，动态生成 CSS 变量以挂载到页面根节点，

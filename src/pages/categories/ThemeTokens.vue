@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue'
+import { ref, inject, onMounted, watch } from 'vue'
 import { message } from 'ant-design-vue'
 import { useSpacemitToken } from '../../theme/spacemitTokens'
 
 const isDark = inject('isDark', ref(false))
+const colorTheme = inject('colorTheme', ref('base'))
 const currentTokens = useSpacemitToken()
+const activeTab = ref('spacemit-tokens')
 
 interface TokenItem {
   name: string
@@ -154,9 +156,334 @@ const tokenCategories: TokenCategory[] = [
   }
 ]
 
+interface CssVarItem {
+  name: string
+  desc: string
+}
+
+interface CssVarCategory {
+  title: string
+  desc: string
+  vars: CssVarItem[]
+}
+
+const cssVarCategories: CssVarCategory[] = [
+  {
+    title: '品牌主色 (Primary Colors)',
+    desc: 'Ant Design 核心品牌色系变量，常用于主要交互按钮、文字链接、焦点边框等。',
+    vars: [
+      { name: '--ant-color-primary', desc: '品牌主色' },
+      { name: '--ant-color-primary-hover', desc: '品牌主色悬浮态' },
+      { name: '--ant-color-primary-active', desc: '品牌主色激活态/深色' },
+      { name: '--ant-color-primary-outline', desc: '品牌主色外发光/聚焦圈色' },
+      { name: '--ant-color-primary-bg', desc: '品牌主色浅色背景色' },
+      { name: '--ant-color-primary-bg-hover', desc: '品牌主色浅色背景悬浮态' },
+      { name: '--ant-color-primary-border', desc: '品牌主色描边色' },
+      { name: '--ant-color-primary-border-hover', desc: '品牌主色描边悬浮态' },
+      { name: '--ant-color-primary-text', desc: '品牌主色文本色' },
+      { name: '--ant-color-primary-text-hover', desc: '品牌主色文本悬浮态' },
+      { name: '--ant-color-primary-text-active', desc: '品牌主色文本激活态' }
+    ]
+  },
+  {
+    title: '成功状态色 (Success Colors)',
+    desc: '用于表单校验成功、操作执行成功、流程顺利完成等正面状态提示。',
+    vars: [
+      { name: '--ant-color-success', desc: '成功状态主色' },
+      { name: '--ant-color-success-hover', desc: '成功状态悬浮态' },
+      { name: '--ant-color-success-active', desc: '成功状态激活态' },
+      { name: '--ant-color-success-bg', desc: '成功状态浅色背景' },
+      { name: '--ant-color-success-bg-hover', desc: '成功状态浅背景悬浮态' },
+      { name: '--ant-color-success-border', desc: '成功状态边框色' }
+    ]
+  },
+  {
+    title: '警告状态色 (Warning Colors)',
+    desc: '用于非阻塞的警示通知、危险动作的预警等提示。',
+    vars: [
+      { name: '--ant-color-warning', desc: '警告状态主色' },
+      { name: '--ant-color-warning-hover', desc: '警告状态悬浮态' },
+      { name: '--ant-color-warning-active', desc: '警告状态激活态' },
+      { name: '--ant-color-warning-bg', desc: '警告状态浅色背景' },
+      { name: '--ant-color-warning-bg-hover', desc: '警告状态浅背景悬浮态' },
+      { name: '--ant-color-warning-border', desc: '警告状态边框色' }
+    ]
+  },
+  {
+    title: '错误状态色 (Error Colors)',
+    desc: '用于表单校验失败、操作出错、系统核心故障及高危破坏性动作警示。',
+    vars: [
+      { name: '--ant-color-error', desc: '错误状态主色' },
+      { name: '--ant-color-error-hover', desc: '错误状态悬浮态' },
+      { name: '--ant-color-error-active', desc: '错误状态激活态' },
+      { name: '--ant-color-error-bg', desc: '错误状态浅色背景' },
+      { name: '--ant-color-error-bg-hover', desc: '错误状态浅背景悬浮态' },
+      { name: '--ant-color-error-border', desc: '错误状态边框色' }
+    ]
+  },
+  {
+    title: '常规信息色 (Info Colors)',
+    desc: '用于常规系统通知、中性的操作指引和提示。',
+    vars: [
+      { name: '--ant-color-info', desc: '信息状态主色' },
+      { name: '--ant-color-info-hover', desc: '信息状态悬浮态' },
+      { name: '--ant-color-info-active', desc: '信息状态激活态' },
+      { name: '--ant-color-info-bg', desc: '信息状态浅色背景' },
+      { name: '--ant-color-info-bg-hover', desc: '信息状态浅背景悬浮态' },
+      { name: '--ant-color-info-border', desc: '信息状态边框色' }
+    ]
+  },
+  {
+    title: '中性背景色 (Neutral Backgrounds)',
+    desc: '用于页面底色、侧边栏、卡片和弹出容器层级深度底色。',
+    vars: [
+      { name: '--ant-color-bg-base', desc: '基础极性背景色' },
+      { name: '--ant-color-bg-layout', desc: '页面框架布局背景色' },
+      { name: '--ant-color-bg-container', desc: '组件/容器底色(如卡片、输入框)' },
+      { name: '--ant-color-bg-elevated', desc: '悬浮容器底色(如弹窗、下拉菜单)' },
+      { name: '--ant-color-bg-spotlight', desc: '气泡提示底色(如 Tooltip 背景)' },
+      { name: '--ant-color-bg-mask', desc: '遮罩底色(如 Modal 蒙层)' }
+    ]
+  },
+  {
+    title: '中性文本色 (Neutral Typography)',
+    desc: '文字排版色值，按照主次、失效等不同状态分为多个灰度等级。',
+    vars: [
+      { name: '--ant-color-text', desc: '一级文本/主要文字色' },
+      { name: '--ant-color-text-secondary', desc: '二级文本/次要辅助色' },
+      { name: '--ant-color-text-tertiary', desc: '三级文本/弱文字/占位符' },
+      { name: '--ant-color-text-quaternary', desc: '四级文本/失效禁用文字色' },
+      { name: '--ant-color-text-light-solid', desc: '亮色背景之上的实色文字' }
+    ]
+  },
+  {
+    title: '中性描边与线 (Neutral Border & Line)',
+    desc: '用于表格网格、卡片分割线及表单项边缘轮廓。',
+    vars: [
+      { name: '--ant-color-border', desc: '一级常用描边/边框色' },
+      { name: '--ant-color-border-secondary', desc: '二级描边/细弱分割线色' },
+      { name: '--ant-color-split', desc: '通用内容分割线色' }
+    ]
+  },
+  {
+    title: '中性填充色 (Neutral Fills)',
+    desc: '用于输入框处于 Hover/Active、表格交替行或交互滑块底色填充。',
+    vars: [
+      { name: '--ant-color-fill', desc: '一级填充色' },
+      { name: '--ant-color-fill-secondary', desc: '二级填充色' },
+      { name: '--ant-color-fill-tertiary', desc: '三级填充色' },
+      { name: '--ant-color-fill-quaternary', desc: '四级填充色' }
+    ]
+  },
+  {
+    title: '交互与链接 (Links)',
+    desc: '专门针对 `<a>` 标签或交互式超链接的色彩定义。',
+    vars: [
+      { name: '--ant-color-link', desc: '超链接文字色' },
+      { name: '--ant-color-link-hover', desc: '超链接悬浮态文字色' },
+      { name: '--ant-color-link-active', desc: '超链接激活态文字色' }
+    ]
+  }
+]
+
+const cssVarValues = ref<Record<string, string>>({})
+
+const getStaticCssVarValue = (name: string): string => {
+  const t = currentTokens.value as any
+  if (!t) return ''
+
+  switch (name) {
+    // 品牌主色
+    case '--ant-color-primary':
+      return t.brand
+    case '--ant-color-primary-hover':
+      return t.brandHover || t.brand
+    case '--ant-color-primary-active':
+      return t.onBrandContainer || t.brand
+    case '--ant-color-primary-outline':
+      return 'transparent'
+    case '--ant-color-primary-bg':
+      return t.brandContainer
+    case '--ant-color-primary-bg-hover':
+      return t.brandContainer
+    case '--ant-color-primary-border':
+      return t.brand
+    case '--ant-color-primary-border-hover':
+      return t.brandHover || t.brand
+    case '--ant-color-primary-text':
+      return t.onBrandContainer
+    case '--ant-color-primary-text-hover':
+      return t.onBrandContainer
+    case '--ant-color-primary-text-active':
+      return t.onBrandContainer
+
+    // 成功色 (Green)
+    case '--ant-color-success':
+      return t.colorGreen
+    case '--ant-color-success-hover':
+      return t.colorGreen
+    case '--ant-color-success-active':
+      return t.colorGreen
+    case '--ant-color-success-bg':
+      return t.colorGreenBg
+    case '--ant-color-success-bg-hover':
+      return t.colorGreenBg
+    case '--ant-color-success-border':
+      return t.colorGreen
+
+    // 警告色 (Orange)
+    case '--ant-color-warning':
+      return t.colorOrange
+    case '--ant-color-warning-hover':
+      return t.colorOrange
+    case '--ant-color-warning-active':
+      return t.colorOrange
+    case '--ant-color-warning-bg':
+      return t.colorOrangeBg
+    case '--ant-color-warning-bg-hover':
+      return t.colorOrangeBg
+    case '--ant-color-warning-border':
+      return t.colorOrange
+
+    // 错误色 (Error)
+    case '--ant-color-error':
+      return t.error
+    case '--ant-color-error-hover':
+      return t.error
+    case '--ant-color-error-active':
+      return t.error
+    case '--ant-color-error-bg':
+      return t.errorContainer
+    case '--ant-color-error-bg-hover':
+      return t.errorContainer
+    case '--ant-color-error-border':
+      return t.error
+
+    // 信息色 (Blue)
+    case '--ant-color-info':
+      return t.colorBlue
+    case '--ant-color-info-hover':
+      return t.colorBlue
+    case '--ant-color-info-active':
+      return t.colorBlue
+    case '--ant-color-info-bg':
+      return t.colorBlueBg
+    case '--ant-color-info-bg-hover':
+      return t.colorBlueBg
+    case '--ant-color-info-border':
+      return t.colorBlue
+
+    // 中性背景
+    case '--ant-color-bg-base':
+      return isDark.value ? t.surfaceDim : t.surfaceBright
+    case '--ant-color-bg-layout':
+      return t.surface
+    case '--ant-color-bg-container':
+      return t.surfaceContainerLowest
+    case '--ant-color-bg-elevated':
+      return t.surfaceContainerLowest
+    case '--ant-color-bg-spotlight':
+      return isDark.value ? t.inverseSurface : '#000000'
+    case '--ant-color-bg-mask':
+      return t.scrim
+
+    // 中性文本
+    case '--ant-color-text':
+      return t.onSurface
+    case '--ant-color-text-secondary':
+      return t.onSurfaceVariant
+    case '--ant-color-text-tertiary':
+      return isDark.value ? 'rgba(255, 255, 255, 0.45)' : 'rgba(0, 0, 0, 0.45)'
+    case '--ant-color-text-quaternary':
+      return t.stateDisabled
+    case '--ant-color-text-light-solid':
+      return t.onBrand
+
+    // 中性描边
+    case '--ant-color-border':
+      return t.outline
+    case '--ant-color-border-secondary':
+      return t.outlineVariant
+    case '--ant-color-split':
+      return t.outlineVariant
+
+    // 中性填充
+    case '--ant-color-fill':
+      return t.surfaceContainerHighest
+    case '--ant-color-fill-secondary':
+      return t.surfaceContainer
+    case '--ant-color-fill-tertiary':
+      return t.surfaceContainerLow
+    case '--ant-color-fill-quaternary':
+      return t.surfaceContainerLowest
+
+    // 链接
+    case '--ant-color-link':
+      return t.colorBlue
+    case '--ant-color-link-hover':
+      return t.colorBlue
+    case '--ant-color-link-active':
+      return t.colorBlue
+
+    default:
+      return ''
+  }
+}
+
+const updateCssVarValues = () => {
+  const el = document.querySelector('.showcase-theme-container') || document.documentElement
+  const styles = window.getComputedStyle(el)
+  const newValues: Record<string, string> = {}
+  
+  cssVarCategories.forEach(category => {
+    category.vars.forEach(v => {
+      // 优先从 DOM 中获取，如果为空或者获取失败，则采用静态 JS 映射计算出的备用值
+      let val = styles.getPropertyValue(v.name).trim()
+      if (!val) {
+        val = getStaticCssVarValue(v.name)
+      }
+      newValues[v.name] = val
+    })
+  })
+  cssVarValues.value = newValues
+}
+
+watch([isDark, colorTheme, currentTokens], () => {
+  requestAnimationFrame(() => {
+    updateCssVarValues()
+  })
+}, { deep: true })
+
+onMounted(() => {
+  updateCssVarValues()
+  setTimeout(updateCssVarValues, 100)
+  setTimeout(updateCssVarValues, 500)
+})
+
 const copyToken = (name: string, value: string) => {
   navigator.clipboard.writeText(value).then(() => {
-    message.success(`已复制 ${name}: ${value}`)
+    message.success(`已复制设计令牌 ${name}: ${value}`)
+  }).catch(() => {
+    message.error('复制失败，请手动选择复制')
+  })
+}
+
+const copyCssVarName = (name: string) => {
+  const syntax = `var(${name})`
+  navigator.clipboard.writeText(syntax).then(() => {
+    message.success(`已复制 CSS 变量: ${syntax}`)
+  }).catch(() => {
+    message.error('复制失败，请手动选择复制')
+  })
+}
+
+const copyCssVarValue = (name: string, value: string) => {
+  if (!value) {
+    message.warning('色值为空，无法复制')
+    return
+  }
+  navigator.clipboard.writeText(value).then(() => {
+    message.success(`已复制 ${name} 的色值: ${value}`)
   }).catch(() => {
     message.error('复制失败，请手动选择复制')
   })
@@ -166,48 +493,103 @@ const copyToken = (name: string, value: string) => {
 <template>
   <div class="category-page">
     <div class="page-header-desc">
-      <h2>设计令牌 (Theme Tokens)</h2>
+      <h2>设计令牌 & CSS 变量 (Theme Tokens & CSS Variables)</h2>
       <p>
-        以下展示从 <code>color.{{ isDark ? 'dark' : 'light' }}.json</code> 映射来的 Spacemit 核心颜色与状态变量。
-        这些底层 Token 直接映射到 Ant Design Vue 的 Seed Token / Alias Token 以及组件级细节上。点击色块即可复制色值。
+        以下展示 Spacemit 设计令牌与 Ant Design 派生的 CSS 变量映射。您可以在其他项目中直接通过 CSS 变量来调用这些品牌色值。
       </p>
     </div>
 
-    <div class="categories-container">
-      <div 
-        v-for="category in tokenCategories" 
-        :key="category.title"
-        class="token-category-group"
-      >
-        <div class="category-group-header">
-          <h3>{{ category.title }}</h3>
-          <p>{{ category.desc }}</p>
+    <a-tabs v-model:activeKey="activeTab" class="theme-tokens-tabs">
+      <a-tab-pane key="spacemit-tokens" tab="Spacemit 设计令牌 (spacemitTokens)">
+        <div class="tab-desc-info">
+          以下展示从 <code>color.{{ isDark ? 'dark' : 'light' }}.json</code> 映射来的 Spacemit 核心品牌原始变量。点击卡片可复制其在 JS 主题配置中的实际色值。
         </div>
-
-        <div class="token-grid">
-          <a-card 
-            v-for="token in category.tokens" 
-            :key="token.key"
-            size="small"
-            hoverable
-            class="token-card-native"
-            @click="copyToken(token.name, (currentTokens as any)[token.key])"
+        <div class="categories-container">
+          <div 
+            v-for="category in tokenCategories" 
+            :key="category.title"
+            class="token-category-group"
           >
-            <template #cover>
-              <div 
-                class="token-color-preview" 
-                :style="{ backgroundColor: (currentTokens as any)[token.key] }"
-              ></div>
-            </template>
-            <div class="token-info-inner">
-              <span class="token-name">{{ token.name }}</span>
-              <span class="token-value">{{ (currentTokens as any)[token.key] }}</span>
-              <span class="token-desc">{{ token.desc }}</span>
+            <div class="category-group-header">
+              <h3>{{ category.title }}</h3>
+              <p>{{ category.desc }}</p>
             </div>
-          </a-card>
+
+            <div class="token-grid">
+              <a-card 
+                v-for="token in category.tokens" 
+                :key="token.key"
+                size="small"
+                hoverable
+                class="token-card-native"
+                @click="copyToken(token.name, (currentTokens as any)[token.key])"
+              >
+                <template #cover>
+                  <div 
+                    class="token-color-preview" 
+                    :style="{ backgroundColor: (currentTokens as any)[token.key] }"
+                  ></div>
+                </template>
+                <div class="token-info-inner">
+                  <span class="token-name">{{ token.name }}</span>
+                  <span class="token-value">{{ (currentTokens as any)[token.key] }}</span>
+                  <span class="token-desc">{{ token.desc }}</span>
+                </div>
+              </a-card>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </a-tab-pane>
+
+      <a-tab-pane key="css-variables" tab="CSS 变量库 (--ant-color-*)">
+        <div class="tab-desc-info">
+          以下展示由 Ant Design Vue 主题转换出的核心 CSS 变量。您可以在其他项目中使用 <code>var(--ant-color-*)</code> 引用这些经过品牌适配后的色值。点击色卡可复制其 <code>var()</code> 语法。
+        </div>
+        <div class="categories-container">
+          <div 
+            v-for="category in cssVarCategories" 
+            :key="category.title"
+            class="token-category-group"
+          >
+            <div class="category-group-header">
+              <h3>{{ category.title }}</h3>
+              <p>{{ category.desc }}</p>
+            </div>
+
+            <div class="token-grid">
+              <a-card 
+                v-for="token in category.vars" 
+                :key="token.name"
+                size="small"
+                hoverable
+                class="token-card-native css-var-card"
+                @click="copyCssVarName(token.name)"
+              >
+                <template #cover>
+                  <div 
+                    class="token-color-preview" 
+                    :style="{ backgroundColor: cssVarValues[token.name] || 'transparent' }"
+                  ></div>
+                </template>
+                <div class="token-info-inner">
+                  <span class="token-name css-var-name">{{ token.name }}</span>
+                  <span class="token-value">{{ cssVarValues[token.name] || '获取中...' }}</span>
+                  <span class="token-desc">{{ token.desc }}</span>
+                  <div class="token-card-actions" @click.stop>
+                    <a-button type="link" size="small" style="padding: 0; font-size: 11px;" @click="copyCssVarName(token.name)">
+                      复制变量名
+                    </a-button>
+                    <a-button type="link" size="small" style="padding: 0; font-size: 11px; margin-left: auto;" @click="copyCssVarValue(token.name, cssVarValues[token.name])">
+                      复制色值
+                    </a-button>
+                  </div>
+                </div>
+              </a-card>
+            </div>
+          </div>
+        </div>
+      </a-tab-pane>
+    </a-tabs>
   </div>
 </template>
 
@@ -231,6 +613,20 @@ const copyToken = (name: string, value: string) => {
   opacity: 0.7;
   margin: 0;
   line-height: 1.6;
+}
+.tab-desc-info {
+  margin-bottom: 24px;
+  font-size: 13px;
+  color: var(--color-text);
+  opacity: 0.85;
+  padding: 12px 16px;
+  background: var(--bg-token-card, #f0f2f5);
+  border-left: 4px solid var(--color-primary, #4ea100);
+  border-radius: 4px;
+  line-height: 1.5;
+}
+.theme-tokens-tabs :deep(.ant-tabs-nav) {
+  margin-bottom: 20px;
 }
 .categories-container {
   display: flex;
@@ -284,6 +680,10 @@ const copyToken = (name: string, value: string) => {
   font-weight: 700;
   word-break: break-all;
 }
+.css-var-name {
+  color: var(--color-primary-text, #4ea100);
+  font-size: 12.5px;
+}
 .token-value {
   font-size: 12px;
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
@@ -293,5 +693,12 @@ const copyToken = (name: string, value: string) => {
   font-size: 11px;
   opacity: 0.55;
   margin-top: 4px;
+}
+.token-card-actions {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  border-top: 1px dashed var(--border-color, #e8e8e8);
+  padding-top: 8px;
 }
 </style>
