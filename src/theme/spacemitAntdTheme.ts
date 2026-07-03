@@ -38,7 +38,7 @@ export function getSpacemitLightTheme(themeName: ColorThemeName = 'base'): Theme
       // 基础背景
       colorBgBase: tokens.surfaceBright,
       colorBgLayout: tokens.surface,
-      colorBgContainer: tokens.surfaceContainerLowest,
+      colorBgContainer: tokens.surfaceContainerLow,
       colorBgElevated: tokens.surfaceContainerLowest,
 
       // 基础文字
@@ -101,7 +101,7 @@ export function getSpacemitDarkTheme(themeName: ColorThemeName = 'base'): ThemeC
       // 基础背景
       colorBgBase: tokens.surfaceDim,
       colorBgLayout: tokens.surface,
-      colorBgContainer: tokens.surfaceContainerLowest,
+      colorBgContainer: tokens.surfaceContainerLow,
       colorBgElevated: tokens.surfaceContainerLowest,
 
       // 基础文字

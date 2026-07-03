@@ -159,6 +159,7 @@ const tokenCategories: TokenCategory[] = [
 interface CssVarItem {
   name: string
   desc: string
+  sourceToken?: string
 }
 
 interface CssVarCategory {
@@ -172,116 +173,116 @@ const cssVarCategories: CssVarCategory[] = [
     title: '品牌主色 (Primary Colors)',
     desc: 'Ant Design 核心品牌色系变量，常用于主要交互按钮、文字链接、焦点边框等。',
     vars: [
-      { name: '--ant-color-primary', desc: '品牌主色' },
-      { name: '--ant-color-primary-hover', desc: '品牌主色悬浮态' },
-      { name: '--ant-color-primary-active', desc: '品牌主色激活态/深色' },
-      { name: '--ant-color-primary-outline', desc: '品牌主色外发光/聚焦圈色' },
-      { name: '--ant-color-primary-bg', desc: '品牌主色浅色背景色' },
-      { name: '--ant-color-primary-bg-hover', desc: '品牌主色浅色背景悬浮态' },
-      { name: '--ant-color-primary-border', desc: '品牌主色描边色' },
-      { name: '--ant-color-primary-border-hover', desc: '品牌主色描边悬浮态' },
-      { name: '--ant-color-primary-text', desc: '品牌主色文本色' },
-      { name: '--ant-color-primary-text-hover', desc: '品牌主色文本悬浮态' },
-      { name: '--ant-color-primary-text-active', desc: '品牌主色文本激活态' }
+      { name: '--ant-color-primary', desc: '品牌主色', sourceToken: 'brand' },
+      { name: '--ant-color-primary-hover', desc: '品牌主色悬浮态', sourceToken: 'brandHover' },
+      { name: '--ant-color-primary-active', desc: '品牌主色激活态/深色', sourceToken: 'onBrandContainer' },
+      { name: '--ant-color-primary-outline', desc: '品牌主色外发光/聚焦圈色', sourceToken: 'transparent' },
+      { name: '--ant-color-primary-bg', desc: '品牌主色浅色背景色', sourceToken: 'brandContainer' },
+      { name: '--ant-color-primary-bg-hover', desc: '品牌主色浅色背景悬浮态', sourceToken: 'brandContainer' },
+      { name: '--ant-color-primary-border', desc: '品牌主色描边色', sourceToken: 'brand' },
+      { name: '--ant-color-primary-border-hover', desc: '品牌主色描边悬浮态', sourceToken: 'brandHover' },
+      { name: '--ant-color-primary-text', desc: '品牌主色文本色', sourceToken: 'onBrandContainer' },
+      { name: '--ant-color-primary-text-hover', desc: '品牌主色文本悬浮态', sourceToken: 'onBrandContainer' },
+      { name: '--ant-color-primary-text-active', desc: '品牌主色文本激活态', sourceToken: 'onBrandContainer' }
     ]
   },
   {
     title: '成功状态色 (Success Colors)',
     desc: '用于表单校验成功、操作执行成功、流程顺利完成等正面状态提示。',
     vars: [
-      { name: '--ant-color-success', desc: '成功状态主色' },
-      { name: '--ant-color-success-hover', desc: '成功状态悬浮态' },
-      { name: '--ant-color-success-active', desc: '成功状态激活态' },
-      { name: '--ant-color-success-bg', desc: '成功状态浅色背景' },
-      { name: '--ant-color-success-bg-hover', desc: '成功状态浅背景悬浮态' },
-      { name: '--ant-color-success-border', desc: '成功状态边框色' }
+      { name: '--ant-color-success', desc: '成功状态主色', sourceToken: 'colorGreen' },
+      { name: '--ant-color-success-hover', desc: '成功状态悬浮态', sourceToken: 'colorGreen (派生)' },
+      { name: '--ant-color-success-active', desc: '成功状态激活态', sourceToken: 'colorGreen (派生)' },
+      { name: '--ant-color-success-bg', desc: '成功状态浅色背景', sourceToken: 'colorGreenBg' },
+      { name: '--ant-color-success-bg-hover', desc: '成功状态浅背景悬浮态', sourceToken: 'colorGreenBg (派生)' },
+      { name: '--ant-color-success-border', desc: '成功状态边框色', sourceToken: 'colorGreen (派生)' }
     ]
   },
   {
     title: '警告状态色 (Warning Colors)',
     desc: '用于非阻塞的警示通知、危险动作的预警等提示。',
     vars: [
-      { name: '--ant-color-warning', desc: '警告状态主色' },
-      { name: '--ant-color-warning-hover', desc: '警告状态悬浮态' },
-      { name: '--ant-color-warning-active', desc: '警告状态激活态' },
-      { name: '--ant-color-warning-bg', desc: '警告状态浅色背景' },
-      { name: '--ant-color-warning-bg-hover', desc: '警告状态浅背景悬浮态' },
-      { name: '--ant-color-warning-border', desc: '警告状态边框色' }
+      { name: '--ant-color-warning', desc: '警告状态主色', sourceToken: 'colorOrange' },
+      { name: '--ant-color-warning-hover', desc: '警告状态悬浮态', sourceToken: 'colorOrange (派生)' },
+      { name: '--ant-color-warning-active', desc: '警告状态激活态', sourceToken: 'colorOrange (派生)' },
+      { name: '--ant-color-warning-bg', desc: '警告状态浅色背景', sourceToken: 'colorOrangeBg' },
+      { name: '--ant-color-warning-bg-hover', desc: '警告状态浅背景悬浮态', sourceToken: 'colorOrangeBg (派生)' },
+      { name: '--ant-color-warning-border', desc: '警告状态边框色', sourceToken: 'colorOrange (派生)' }
     ]
   },
   {
     title: '错误状态色 (Error Colors)',
     desc: '用于表单校验失败、操作出错、系统核心故障及高危破坏性动作警示。',
     vars: [
-      { name: '--ant-color-error', desc: '错误状态主色' },
-      { name: '--ant-color-error-hover', desc: '错误状态悬浮态' },
-      { name: '--ant-color-error-active', desc: '错误状态激活态' },
-      { name: '--ant-color-error-bg', desc: '错误状态浅色背景' },
-      { name: '--ant-color-error-bg-hover', desc: '错误状态浅背景悬浮态' },
-      { name: '--ant-color-error-border', desc: '错误状态边框色' }
+      { name: '--ant-color-error', desc: '错误状态主色', sourceToken: 'error' },
+      { name: '--ant-color-error-hover', desc: '错误状态悬浮态', sourceToken: 'error (派生)' },
+      { name: '--ant-color-error-active', desc: '错误状态激活态', sourceToken: 'error (派生)' },
+      { name: '--ant-color-error-bg', desc: '错误状态浅色背景', sourceToken: 'errorContainer' },
+      { name: '--ant-color-error-bg-hover', desc: '错误状态浅背景悬浮态', sourceToken: 'errorContainer (派生)' },
+      { name: '--ant-color-error-border', desc: '错误状态边框色', sourceToken: 'error (派生)' }
     ]
   },
   {
     title: '常规信息色 (Info Colors)',
     desc: '用于常规系统通知、中性的操作指引和提示。',
     vars: [
-      { name: '--ant-color-info', desc: '信息状态主色' },
-      { name: '--ant-color-info-hover', desc: '信息状态悬浮态' },
-      { name: '--ant-color-info-active', desc: '信息状态激活态' },
-      { name: '--ant-color-info-bg', desc: '信息状态浅色背景' },
-      { name: '--ant-color-info-bg-hover', desc: '信息状态浅背景悬浮态' },
-      { name: '--ant-color-info-border', desc: '信息状态边框色' }
+      { name: '--ant-color-info', desc: '信息状态主色', sourceToken: 'colorBlue' },
+      { name: '--ant-color-info-hover', desc: '信息状态悬浮态', sourceToken: 'colorBlue (派生)' },
+      { name: '--ant-color-info-active', desc: '信息状态激活态', sourceToken: 'colorBlue (派生)' },
+      { name: '--ant-color-info-bg', desc: '信息状态浅色背景', sourceToken: 'colorBlueBg' },
+      { name: '--ant-color-info-bg-hover', desc: '信息状态浅背景悬浮态', sourceToken: 'colorBlueBg (派生)' },
+      { name: '--ant-color-info-border', desc: '信息状态边框色', sourceToken: 'colorBlue (派生)' }
     ]
   },
   {
     title: '中性背景色 (Neutral Backgrounds)',
     desc: '用于页面底色、侧边栏、卡片和弹出容器层级深度底色。',
     vars: [
-      { name: '--ant-color-bg-base', desc: '基础极性背景色' },
-      { name: '--ant-color-bg-layout', desc: '页面框架布局背景色' },
-      { name: '--ant-color-bg-container', desc: '组件/容器底色(如卡片、输入框)' },
-      { name: '--ant-color-bg-elevated', desc: '悬浮容器底色(如弹窗、下拉菜单)' },
-      { name: '--ant-color-bg-spotlight', desc: '气泡提示底色(如 Tooltip 背景)' },
-      { name: '--ant-color-bg-mask', desc: '遮罩底色(如 Modal 蒙层)' }
+      { name: '--ant-color-bg-base', desc: '基础极性背景色', sourceToken: 'surfaceBright (浅) / surfaceDim (深)' },
+      { name: '--ant-color-bg-layout', desc: '页面框架布局背景色', sourceToken: 'surface' },
+      { name: '--ant-color-bg-container', desc: '组件/容器底色(如卡片、输入框)', sourceToken: 'surfaceContainerLow' },
+      { name: '--ant-color-bg-elevated', desc: '悬浮容器底色(如弹窗、下拉菜单)', sourceToken: 'surfaceContainerLowest' },
+      { name: '--ant-color-bg-spotlight', desc: '气泡提示底色(如 Tooltip 背景)', sourceToken: 'inverseSurface' },
+      { name: '--ant-color-bg-mask', desc: '遮罩底色(如 Modal 蒙层)', sourceToken: 'scrim' }
     ]
   },
   {
     title: '中性文本色 (Neutral Typography)',
     desc: '文字排版色值，按照主次、失效等不同状态分为多个灰度等级。',
     vars: [
-      { name: '--ant-color-text', desc: '一级文本/主要文字色' },
-      { name: '--ant-color-text-secondary', desc: '二级文本/次要辅助色' },
-      { name: '--ant-color-text-tertiary', desc: '三级文本/弱文字/占位符' },
-      { name: '--ant-color-text-quaternary', desc: '四级文本/失效禁用文字色' },
-      { name: '--ant-color-text-light-solid', desc: '亮色背景之上的实色文字' }
+      { name: '--ant-color-text', desc: '一级文本/主要文字色', sourceToken: 'onSurface' },
+      { name: '--ant-color-text-secondary', desc: '二级文本/次要辅助色', sourceToken: 'onSurfaceVariant' },
+      { name: '--ant-color-text-tertiary', desc: '三级文本/弱文字/占位符', sourceToken: 'onSurfaceVariant (派生)' },
+      { name: '--ant-color-text-quaternary', desc: '四级文本/失效禁用文字色', sourceToken: 'stateDisabled' },
+      { name: '--ant-color-text-light-solid', desc: '亮色背景之上的实色文字', sourceToken: 'onBrand' }
     ]
   },
   {
     title: '中性描边与线 (Neutral Border & Line)',
     desc: '用于表格网格、卡片分割线及表单项边缘轮廓。',
     vars: [
-      { name: '--ant-color-border', desc: '一级常用描边/边框色' },
-      { name: '--ant-color-border-secondary', desc: '二级描边/细弱分割线色' },
-      { name: '--ant-color-split', desc: '通用内容分割线色' }
+      { name: '--ant-color-border', desc: '一级常用描边/边框色', sourceToken: 'outline' },
+      { name: '--ant-color-border-secondary', desc: '二级描边/细弱分割线色', sourceToken: 'outlineVariant' },
+      { name: '--ant-color-split', desc: '通用内容分割线色', sourceToken: 'outlineVariant' }
     ]
   },
   {
     title: '中性填充色 (Neutral Fills)',
     desc: '用于输入框处于 Hover/Active、表格交替行或交互滑块底色填充。',
     vars: [
-      { name: '--ant-color-fill', desc: '一级填充色' },
-      { name: '--ant-color-fill-secondary', desc: '二级填充色' },
-      { name: '--ant-color-fill-tertiary', desc: '三级填充色' },
-      { name: '--ant-color-fill-quaternary', desc: '四级填充色' }
+      { name: '--ant-color-fill', desc: '一级填充色', sourceToken: 'surfaceContainerHighest' },
+      { name: '--ant-color-fill-secondary', desc: '二级填充色', sourceToken: 'surfaceContainer' },
+      { name: '--ant-color-fill-tertiary', desc: '三级填充色', sourceToken: 'surfaceContainerLow' },
+      { name: '--ant-color-fill-quaternary', desc: '四级填充色', sourceToken: 'surfaceContainerLowest' }
     ]
   },
   {
     title: '交互与链接 (Links)',
     desc: '专门针对 `<a>` 标签或交互式超链接的色彩定义。',
     vars: [
-      { name: '--ant-color-link', desc: '超链接文字色' },
-      { name: '--ant-color-link-hover', desc: '超链接悬浮态文字色' },
-      { name: '--ant-color-link-active', desc: '超链接激活态文字色' }
+      { name: '--ant-color-link', desc: '超链接文字色', sourceToken: 'colorBlue' },
+      { name: '--ant-color-link-hover', desc: '超链接悬浮态文字色', sourceToken: 'colorBlue (派生)' },
+      { name: '--ant-color-link-active', desc: '超链接激活态文字色', sourceToken: 'colorBlue (派生)' }
     ]
   }
 ]
@@ -379,7 +380,7 @@ const getStaticCssVarValue = (name: string): string => {
     case '--ant-color-bg-layout':
       return t.surface
     case '--ant-color-bg-container':
-      return t.surfaceContainerLowest
+      return t.surfaceContainerLow
     case '--ant-color-bg-elevated':
       return t.surfaceContainerLowest
     case '--ant-color-bg-spotlight':
@@ -437,7 +438,6 @@ const updateCssVarValues = () => {
   
   cssVarCategories.forEach(category => {
     category.vars.forEach(v => {
-      // 优先从 DOM 中获取，如果为空或者获取失败，则采用静态 JS 映射计算出的备用值
       let val = styles.getPropertyValue(v.name).trim()
       if (!val) {
         val = getStaticCssVarValue(v.name)
@@ -575,6 +575,13 @@ const copyCssVarValue = (name: string, value: string) => {
                   <span class="token-name css-var-name">{{ token.name }}</span>
                   <span class="token-value">{{ cssVarValues[token.name] || '获取中...' }}</span>
                   <span class="token-desc">{{ token.desc }}</span>
+                  
+                  <!-- 关联的 Spacemit Token 映射信息 -->
+                  <div v-if="token.sourceToken" class="token-mapping-info">
+                    <span class="mapping-label">映射自:</span>
+                    <code class="mapping-code">{{ token.sourceToken }}</code>
+                  </div>
+
                   <div class="token-card-actions" @click.stop>
                     <a-button type="link" size="small" style="padding: 0; font-size: 11px;" @click="copyCssVarName(token.name)">
                       复制变量名
@@ -693,6 +700,26 @@ const copyCssVarValue = (name: string, value: string) => {
   font-size: 11px;
   opacity: 0.55;
   margin-top: 4px;
+}
+.token-mapping-info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  margin-top: 6px;
+  background: var(--bg-token-card, #f5f5f7);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color, #e8e8e8);
+}
+.mapping-label {
+  opacity: 0.55;
+  font-weight: 500;
+}
+.mapping-code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  color: var(--color-primary, #4ea100);
+  font-weight: 600;
 }
 .token-card-actions {
   display: flex;
