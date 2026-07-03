@@ -17,9 +17,37 @@ import type { ColorThemeName } from './spacemitTokens'
 import { buildLightComponentTokens, buildDarkComponentTokens } from './componentTokens'
 
 /**
+ * 动态注入局部样式覆盖默认按钮 hover 态文字颜色
+ */
+function injectButtonHoverStyle() {
+  if (typeof document !== 'undefined') {
+    const styleId = 'spacemit-override-default-button-hover'
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style')
+      style.id = styleId
+      style.innerHTML = `
+        /* 亮色及基础状态下，默认按钮 hover 态文字颜色保持与正常状态 colorText 一致，不再变成主色 hover */
+        .ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+          color: var(--ant-color-text, rgba(0, 0, 0, 0.88)) !important;
+        }
+        
+        /* 深色模式下，默认按钮 hover 态文字颜色保持与深色 colorText 一致 */
+        .dark-theme-wrapper .ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover,
+        .dark-mode .ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover,
+        [data-theme='dark'] .ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+          color: var(--ant-color-text, rgba(255, 255, 255, 0.85)) !important;
+        }
+      `
+      document.head.appendChild(style)
+    }
+  }
+}
+
+/**
  * 动态组装 Spacemit 浅色主题配置
  */
 export function getSpacemitLightTheme(themeName: ColorThemeName = 'base'): ThemeConfig {
+  injectButtonHoverStyle()
   const tokens = getDynamicTokens(spacemitLightTokens, themeName)
   return {
     algorithm: theme.defaultAlgorithm,
@@ -83,6 +111,7 @@ export function getSpacemitLightTheme(themeName: ColorThemeName = 'base'): Theme
  * 动态组装 Spacemit 深色主题配置
  */
 export function getSpacemitDarkTheme(themeName: ColorThemeName = 'base'): ThemeConfig {
+  injectButtonHoverStyle()
   const tokens = getDynamicTokens(spacemitDarkTokens, themeName)
   return {
     algorithm: theme.darkAlgorithm,
