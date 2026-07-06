@@ -26,16 +26,9 @@ function injectButtonHoverStyle() {
       const style = document.createElement('style')
       style.id = styleId
       style.innerHTML = `
-        /* 亮色及基础状态下，默认按钮 hover 态文字颜色保持与正常状态 colorText 一致，不再变成主色 hover */
+        /* 默认按钮 hover 态文字颜色绑定全局主色文本变量 */
         .ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-          color: var(--ant-color-text, rgba(0, 0, 0, 0.88)) !important;
-        }
-        
-        /* 深色模式下，默认按钮 hover 态文字颜色保持与深色 colorText 一致 */
-        .dark-theme-wrapper .ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover,
-        .dark-mode .ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover,
-        [data-theme='dark'] .ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-          color: var(--ant-color-text, rgba(255, 255, 255, 0.85)) !important;
+          color: var(--ant-color-primary-text, var(--ant-color-text, rgba(0, 0, 0, 0.88))) !important;
         }
       `
       document.head.appendChild(style)
