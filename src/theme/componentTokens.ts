@@ -18,6 +18,16 @@ type ComponentThemeConfig = NonNullable<ThemeConfig['components']>
 // Button (按钮) 集中控制配置区
 // 您可以在此处方便地修改按钮尺寸高度和内边距（Padding）
 // ==========================================
+const sharedHeightConfig = {
+  // ---- 尺寸高度配置 ----
+  // 默认高度（Middle）
+  controlHeight: 36,
+  // 小号高度 (Small)
+  controlHeightSM: 24,
+  // 大号高度 (Large)
+  controlHeightLG: 44,
+}
+
 const sharedButtonConfig = {
   // 取消按钮聚焦时的默认轮廓外虚影发光
   controlOutline: 'transparent',
@@ -43,6 +53,11 @@ const sharedButtonConfig = {
   paddingInlineLG: 28,
 }
 
+const sharedPaginationConfig = {
+  // Pagination 与主题圆角体系保持一致，便于业务项目直接复用
+  borderRadius: 8,
+}
+
 /**
  * 基于 Spacemit 基础 token 生成浅色主题的组件级 token
  */
@@ -50,6 +65,32 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens): Component
   return {
     Button: {
       ...sharedButtonConfig,
+    },
+
+    Select: {
+      ...sharedHeightConfig,
+      // Ant Design Vue 4.2.x Select 下拉项选中背景实际读取 controlItemBgActive。
+      controlItemBgActive: tokens.surfaceContainer,
+      controlItemBgHover: tokens.surfaceContainerLow,
+    },
+
+    Input: {
+      ...sharedHeightConfig,
+    },
+
+    Cascader: {
+      controlItemBgActive: tokens.surfaceContainer,
+      controlItemBgHover: tokens.surfaceContainerLow,
+    },
+
+    Tree: {
+      controlItemBgActive: tokens.surfaceContainer,
+      controlItemBgHover: tokens.surfaceContainerLow,
+    },
+
+    TreeSelect: {
+      controlItemBgActive: tokens.surfaceContainer,
+      controlItemBgHover: tokens.surfaceContainerLow,
     },
 
     Table: {
@@ -62,28 +103,31 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens): Component
     Menu: {
       // 子菜单背景色设为透明，修正原空字符串的非标准解析隐患
       colorSubItemBg: 'transparent',
-      // 选中菜单项使用品牌色
+      // 统一菜单 hover / selected 文本色，确保各模式下交互反馈一致
+      colorItemTextHover: tokens.onBrandContainer,
+      colorItemTextHoverHorizontal: tokens.onBrandContainer,
       colorItemTextSelected: tokens.onBrandContainer,
+      colorItemTextSelectedHorizontal: tokens.onBrandContainer,
       // 菜单项使用次级文字色
       colorItemText: tokens.onSurfaceVariant,
       // 禁用状态使用 disabled 色
       colorItemTextDisabled: tokens.stateDisabled,
-      // 选中项使用轻微的品牌容器色背景
+      // 选中项背景色对齐 --ant-color-fill-tertiary（colorFillTertiary = surfaceContainerLow）
       colorItemBgSelected: tokens.surfaceContainerLow,
       // 移除选中项右侧/底部的激活色边条，改用整块背景激活展示极简质感
       colorActiveBarWidth: 0,
     },
 
     Tabs: {
-      // 选中 Tab 文字与滑动指示条由于在样式中直接使用 colorPrimary 控制，在此局部覆盖
-      colorPrimary: tokens.onBrandContainer,
-      // Tab hover 状态由 colorPrimaryHover 控制
+      // Tab 指示条保持品牌主色，文字态由主题覆盖统一映射到主色文本色
+      colorPrimary: tokens.brand,
+      // Tab hover 指示态由 colorPrimaryHover 控制
       colorPrimaryHover: tokens.brandHover,
     },
 
     Switch: {
       // 开启态使用品牌色
-      colorPrimary: tokens.onBrandContainer,
+      colorPrimary: tokens.brand,
       colorPrimaryHover: tokens.brandHover,
     },
 
@@ -107,9 +151,9 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens): Component
     },
 
     Steps: {
-      colorPrimary: tokens.onBrandContainer,
-      // 步骤条圆形数字，亮色模式下使用纯白色以确保辨识度
-      colorTextLightSolid: '#ffffff',
+      colorPrimary: tokens.brand,
+      // 步骤条圆形数字使用品牌底色上的前景色，确保辨识度
+      colorTextLightSolid: tokens.onBrand,
     },
 
     Rate: {
@@ -121,6 +165,10 @@ export function buildLightComponentTokens(tokens: SpacemitBaseTokens): Component
 
     Dropdown: {
       controlItemBgHover: tokens.surfaceContainerLow,
+    },
+
+    Pagination: {
+      ...sharedPaginationConfig,
     },
 
     Transfer: {
@@ -167,6 +215,31 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens): ComponentT
       ...sharedButtonConfig,
     },
 
+    Select: {
+      ...sharedHeightConfig,
+      controlItemBgActive: tokens.surfaceContainer,
+      controlItemBgHover: tokens.surfaceContainerLow,
+    },
+
+    Input: {
+      ...sharedHeightConfig,
+    },
+
+    Cascader: {
+      controlItemBgActive: tokens.surfaceContainer,
+      controlItemBgHover: tokens.surfaceContainerLow,
+    },
+
+    Tree: {
+      controlItemBgActive: tokens.surfaceContainer,
+      controlItemBgHover: tokens.surfaceContainerLow,
+    },
+
+    TreeSelect: {
+      controlItemBgActive: tokens.surfaceContainer,
+      controlItemBgHover: tokens.surfaceContainerLow,
+    },
+
     Table: {
       // 在 Ant Design Vue 4.x 中，Table 暂无专属组件级表头背景 Token，
       // 必须通过覆盖 Alias Token 'colorFillAlter' 来实现表头底色定制。
@@ -176,20 +249,24 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens): ComponentT
 
     Menu: {
       colorSubItemBg: 'transparent',
+      colorItemTextHover: tokens.onBrandContainer,
+      colorItemTextHoverHorizontal: tokens.onBrandContainer,
       colorItemTextSelected: tokens.onBrandContainer,
+      colorItemTextSelectedHorizontal: tokens.onBrandContainer,
       colorItemText: tokens.onSurfaceVariant,
       colorItemTextDisabled: tokens.stateDisabled,
+      // 选中项背景色对齐 --ant-color-fill-tertiary（colorFillTertiary = surfaceContainerLow）
       colorItemBgSelected: tokens.surfaceContainerLow,
       colorActiveBarWidth: 0,
     },
 
     Tabs: {
-      colorPrimary: tokens.onBrandContainer,
+      colorPrimary: tokens.brand,
       colorPrimaryHover: tokens.brandHover,
     },
 
     Switch: {
-      colorPrimary: tokens.onBrandContainer,
+      colorPrimary: tokens.brand,
       colorPrimaryHover: tokens.brandHover,
     },
 
@@ -210,9 +287,9 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens): ComponentT
     },
 
     Steps: {
-      colorPrimary: tokens.onBrandContainer,
-      // 步骤条圆形数字，深色模式下使用纯黑色以保证品牌主色背景上的清晰度
-      colorTextLightSolid: '#000000',
+      colorPrimary: tokens.brand,
+      // 步骤条圆形数字使用品牌底色上的前景色，确保辨识度
+      colorTextLightSolid: tokens.onBrand,
     },
 
     Rate: {
@@ -222,6 +299,10 @@ export function buildDarkComponentTokens(tokens: SpacemitBaseTokens): ComponentT
 
     Dropdown: {
       controlItemBgHover: tokens.surfaceContainerLow,
+    },
+
+    Pagination: {
+      ...sharedPaginationConfig,
     },
 
     Transfer: {

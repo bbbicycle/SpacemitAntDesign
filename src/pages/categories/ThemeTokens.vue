@@ -238,9 +238,9 @@ const cssVarCategories: CssVarCategory[] = [
     title: '中性背景色 (Neutral Backgrounds)',
     desc: '用于页面底色、侧边栏、卡片和弹出容器层级深度底色。',
     vars: [
-      { name: '--ant-color-bg-base', desc: '基础极性背景色', sourceToken: 'surfaceBright (浅) / surfaceDim (深)' },
+      { name: '--ant-color-bg-base', desc: '基础极性背景色', sourceToken: 'surfaceBright' },
       { name: '--ant-color-bg-layout', desc: '页面框架布局背景色', sourceToken: 'surface' },
-      { name: '--ant-color-bg-container', desc: '组件/容器底色(如卡片、输入框)', sourceToken: 'surfaceContainerLow' },
+      { name: '--ant-color-bg-container', desc: '组件/容器底色(如卡片、输入框)', sourceToken: 'surfaceContainerLowest' },
       { name: '--ant-color-bg-elevated', desc: '悬浮容器底色(如弹窗、下拉菜单)', sourceToken: 'surfaceContainerLowest' },
       { name: '--ant-color-bg-spotlight', desc: '气泡提示底色(如 Tooltip 背景)', sourceToken: 'inverseSurface' },
       { name: '--ant-color-bg-mask', desc: '遮罩底色(如 Modal 蒙层)', sourceToken: 'scrim' }
@@ -252,7 +252,7 @@ const cssVarCategories: CssVarCategory[] = [
     vars: [
       { name: '--ant-color-text', desc: '一级文本/主要文字色', sourceToken: 'onSurface' },
       { name: '--ant-color-text-secondary', desc: '二级文本/次要辅助色', sourceToken: 'onSurfaceVariant' },
-      { name: '--ant-color-text-tertiary', desc: '三级文本/弱文字/占位符', sourceToken: 'onSurfaceVariant (派生)' },
+      { name: '--ant-color-text-tertiary', desc: '三级文本/弱文字/占位符', sourceToken: 'onSurfaceVariant' },
       { name: '--ant-color-text-quaternary', desc: '四级文本/失效禁用文字色', sourceToken: 'stateDisabled' },
       { name: '--ant-color-text-light-solid', desc: '亮色背景之上的实色文字', sourceToken: 'onBrand' }
     ]
@@ -376,15 +376,15 @@ const getStaticCssVarValue = (name: string): string => {
 
     // 中性背景
     case '--ant-color-bg-base':
-      return isDark.value ? t.surfaceDim : t.surfaceBright
+      return t.surfaceBright
     case '--ant-color-bg-layout':
       return t.surface
     case '--ant-color-bg-container':
-      return t.surfaceContainerLow
+      return t.surfaceContainerLowest
     case '--ant-color-bg-elevated':
       return t.surfaceContainerLowest
     case '--ant-color-bg-spotlight':
-      return isDark.value ? t.inverseSurface : '#000000'
+      return t.inverseSurface
     case '--ant-color-bg-mask':
       return t.scrim
 
@@ -394,7 +394,7 @@ const getStaticCssVarValue = (name: string): string => {
     case '--ant-color-text-secondary':
       return t.onSurfaceVariant
     case '--ant-color-text-tertiary':
-      return isDark.value ? 'rgba(255, 255, 255, 0.45)' : 'rgba(0, 0, 0, 0.45)'
+      return t.onSurfaceVariant
     case '--ant-color-text-quaternary':
       return t.stateDisabled
     case '--ant-color-text-light-solid':

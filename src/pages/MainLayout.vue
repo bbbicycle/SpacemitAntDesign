@@ -21,6 +21,7 @@ const route = useRoute()
 const router = useRouter()
 
 const themeOptions = [
+  { value: 'antd-default', label: 'AntD 默认' },
   { value: 'base', label: '品牌' },
   { value: 'blue', label: '蓝色' },
   { value: 'red', label: '红色' },

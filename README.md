@@ -13,7 +13,7 @@ src/theme/
   ├── color.light.json      # 原始浅色 Spacemit 设计 Token 源文件（不可修改结构）
   ├── color.dark.json       # 原始深色 Spacemit 设计 Token 源文件（不可修改结构）
   ├── spacemitTokens.ts     # 基础适配层：提取 JSON 为扁平化的 SpacemitBaseTokens，定义圆角与字号基准
-  ├── componentTokens.ts    # 组件适配层：基于基础 Token，深度定制 Button、Input、Select、Card、Table、Menu、Tabs、Switch 等组件样式
+  ├── componentTokens.ts    # 组件适配层：基于基础 Token，深度定制 Button、Input、Select、Card、Table、Menu、Tabs、Switch、Pagination 等组件样式
   ├── spacemitAntdTheme.ts  # 主题组装层：装配全局 Seed/Alias 变量与组件变量，绑定 antdv 官方 Default/Dark 算法
   └── index.ts              # 统一的对外导出入口
 ```
@@ -128,7 +128,7 @@ const currentTheme = computed(() =>
 
 如果您的业务项目中包含手写的自定义 HTML 组件，或者需要直接在 CSS 中调用标准的 CSS 变量，我们强烈建议在您的业务主入口（如 `App.vue`）中，使用 `watchEffect` 实时将 Spacemit Token 桥接映射为标准的全局 `--ant-color-*` 变量。
 
-这也是本主题包的默认设计理念：**例如默认按钮 hover 态的文字颜色，默认会尝试从全局的 `var(--ant-color-primary-text)` 变量中动态拉取**。如果不配置该桥接，默认按钮悬浮时将使用预设色作为兜底。
+这也是本主题包的默认设计理念：**例如默认按钮 hover 态的文字颜色，以及 Pagination 选中态的背景色与文字色，都会优先从全局 `--ant-color-*` 变量中动态拉取**。如果不配置该桥接，主题包会自动回退到当前主题对象中的 Spacemit Token 色值。
 
 **桥接配置代码示例（在您的业务项目 `App.vue` 中配置）：**
 
@@ -148,8 +148,9 @@ watchEffect(() => {
     root.style.setProperty('--ant-color-primary', t.brand)
     root.style.setProperty('--ant-color-primary-hover', t.brandHover)
     root.style.setProperty('--ant-color-primary-active', t.onBrandContainer)
+    root.style.setProperty('--ant-color-primary-text', t.onBrandContainer)
 
-    // 2. 桥接中性文本（极其关键：默认按钮 hover 态字色会以此为基准）
+    // 2. 桥接中性文本（极其关键：默认按钮 hover 态与 Pagination 选中态字色会以此为基准）
     root.style.setProperty('--ant-color-text', t.onSurface)
     root.style.setProperty('--ant-color-text-secondary', t.onSurfaceVariant)
     root.style.setProperty('--ant-color-text-disabled', t.stateDisabled)
@@ -174,7 +175,8 @@ watchEffect(() => {
 
 1. **浅色适配为主**：第一阶段主要深度精修了浅色主题，确保品牌绿色（`#B2E40D`）及衍生语义色正确应用。
 2. **深色基础结构**：深色主题（`spacemitDarkTheme`）已建立好基础架构，并引入了原始的 `color.dark.json` 进行浅色映射，但暂未进行细节的像素级精修。
-3. **首批组件精修**：针对 `Button`、`Input`、`Select`、`Card`、`Table`、`Menu`、`Tabs`、`Switch` 进行了组件级 Token 自定义。
-4. **主题层避免全局 CSS Hack**：所有可交付主题覆盖均在 `componentTokens.ts` 中基于 Ant Design Vue 的 CSS-in-JS Token 规范进行扩展，避免直接覆盖 `.ant-xxx` 全局样式以破坏组件稳定性。
+3. **首批组件精修**：针对 `Button`、`Input`、`Select`、`Card`、`Table`、`Menu`、`Tabs`、`Switch`、`Pagination` 进行了组件级 Token 自定义。
+4. **主题层避免全局 CSS Hack**：所有可交付主题覆盖均在 `componentTokens.ts` 中基于 Ant Design Vue 的 CSS-in-JS Token 规范进行扩展；仅在组件库底层 Token 无法单独表达状态语义时，才在 `spacemitAntdTheme.ts` 中补充极小范围的主题级样式覆盖，以保证业务项目继续通过主题包直接继承这些规则。
 5. **预览页与主题包分离**：预览站页面外壳、说明文字、布局容器与少量演示块存在自定义样式，仅用于展示和调试；业务项目接入的只有 `dist/theme` 中导出的主题对象。
-6. **默认按钮 Hover 态文字处理**：针对 `Button` 组件，在该版本组件库底层无法通过 Token 区分配置默认按钮 hover 字色与主按钮背景色 hover 的限制下，主题入口内置了样式自动注入逻辑（通过优先读取全局 `--ant-color-primary-text` 变量进行映射，并以 `--ant-color-text` 变量进行兜底），实现了默认按钮在 hover 时文字颜色呈现品牌深文本色（`onBrandContainer`）的微调，且对业务项目免配置生效。
+6. **默认按钮 Hover 与 Pagination 选中态处理**：针对 `Button` 默认态 hover 字色，以及 `Pagination` 选中态“主色背景、正文文字、无描边”这一类无法通过当前版本组件 Token 完全拆分配置的样式，主题入口内置了样式自动注入逻辑，并优先读取全局 `--ant-color-primary`、`--ant-color-primary-text`、`--ant-color-text` 变量进行映射；若业务项目未桥接这些变量，则自动回退到当前主题对象中的 Spacemit Token 色值。
+7. **品牌文本色拆分**：Ant Design Vue 4.2.x 中 `Anchor`、`Radio.Button`、`Tabs`、`Select`、`Dropdown`、`Table`、`Steps` 等组件的部分文字状态会直接读取 `colorPrimary`。主题入口已集中将这些文本态映射为 `--ant-color-primary-text`，同时保留背景、描边、指示条、进度点继续使用 `--ant-color-primary`。

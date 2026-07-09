@@ -254,10 +254,6 @@ const navigateToComponent = (path: string) => {
   max-width: 480px;
 }
 
-.search-box-wrapper :deep(.ant-input) {
-  background-color: transparent !important;
-}
-
 /* 列表大组 */
 .categories-list {
   display: flex;

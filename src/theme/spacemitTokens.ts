@@ -146,13 +146,17 @@ export interface SpacemitBaseTokens {
   boxShadowCardHover: string
   motionDurationMid: string
   motionEaseInOut: string
+
+  // ---- 环境标识 ----
+  isDark: boolean
 }
 
 /**
  * 从 Spacemit 颜色数据构建基础 token
  */
 function buildTokens(
-  tokens: Record<string, { value: string; description: string }>
+  tokens: Record<string, { value: string; description: string }>,
+  isDark: boolean
 ): SpacemitBaseTokens {
   const brandVal = getTokenValue(tokens, 'Brand/Brand')
   return {
@@ -247,6 +251,7 @@ function buildTokens(
     boxShadowCardHover: tokens['Inverse/InverseSurface'] ? '0 8px 16px rgba(0, 0, 0, 0.12)' : '0 8px 16px rgba(0, 0, 0, 0.04)',
     motionDurationMid: '0.15s',
     motionEaseInOut: 'cubic-bezier(0, 0, 0.2, 1)',
+    isDark
   }
 }
 
@@ -254,23 +259,26 @@ function buildTokens(
  * Spacemit 浅色基础 token
  */
 export const spacemitLightTokens = buildTokens(
-  lightColorData.tokens as Record<string, { value: string; description: string }>
+  lightColorData.tokens as Record<string, { value: string; description: string }>,
+  false
 )
 
 /**
  * Spacemit 深色基础 token
  */
 export const spacemitDarkTokens = buildTokens(
-  darkColorData.tokens as Record<string, { value: string; description: string }>
+  darkColorData.tokens as Record<string, { value: string; description: string }>,
+  true
 )
 
-export type ColorThemeName = 'base' | 'blue' | 'red' | 'green' | 'orange' | 'yellow' | 'cyan' | 'purple'
+export type ColorThemeName = 'antd-default' | 'base' | 'blue' | 'red' | 'green' | 'orange' | 'yellow' | 'cyan' | 'purple'
 
 /**
  * 动态根据主题名称获取映射后的品牌 Token
  */
 export function getDynamicTokens(tokens: SpacemitBaseTokens, themeName: ColorThemeName): SpacemitBaseTokens {
-  if (themeName === 'base') {
+  // 'antd-default' 不参与 Spacemit token 覆盖，由上层直接使用原始 AntD 默认主题
+  if (themeName === 'base' || themeName === 'antd-default') {
     return tokens
   }
 
@@ -341,6 +349,7 @@ export function getDynamicTokens(tokens: SpacemitBaseTokens, themeName: ColorThe
 export function useSpacemitToken(): ComputedRef<SpacemitBaseTokens> {
   const isDark = inject('isDark', ref(false))
   const colorTheme = inject('colorTheme', ref<ColorThemeName>('base'))
+  // 'antd-default' 时退回到 base token，cssVar 层的品牌色将不被使用
   return computed(() => {
     const base = isDark.value ? spacemitDarkTokens : spacemitLightTokens
     return getDynamicTokens(base, colorTheme.value)
