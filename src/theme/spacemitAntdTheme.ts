@@ -69,6 +69,8 @@ function buildGlobalOverrideCss(tokens: SpacemitBaseTokens) {
       --ant-color-info-bg: ${tokens.colorBlueBg};
       --ant-color-info-bg-hover: ${tokens.colorBlueBg};
       --ant-color-info-border: ${tokens.colorBlue};
+      --ant-color-blue: ${tokens.colorBlue};
+      --ant-color-blue-bg: ${tokens.colorBlueBg};
 
       /* 6. 中性背景 */
       --ant-color-bg-base: ${tokens.surfaceBright};
@@ -77,12 +79,14 @@ function buildGlobalOverrideCss(tokens: SpacemitBaseTokens) {
       --ant-color-bg-elevated: ${tokens.surfaceContainerLowest};
       --ant-color-bg-spotlight: ${tokens.inverseSurface};
       --ant-color-bg-mask: ${tokens.scrim};
+      --ant-color-bg-text-hover: ${tokens.surfaceContainerLow};
 
       /* 7. 中性文本 */
       --ant-color-text: ${tokens.onSurface};
       --ant-color-text-secondary: ${tokens.onSurfaceVariant};
       --ant-color-text-tertiary: ${tokens.onSurfaceVariant};
-      --ant-color-text-quaternary: ${tokens.stateDisabled};
+      --ant-color-text-quaternary: ${tokens.stateDisabledVariant};
+      --ant-color-text-disabled: ${tokens.stateDisabled};
       --ant-color-text-light-solid: ${tokens.onBrand};
 
       /* 8. 中性描边 */
@@ -100,6 +104,10 @@ function buildGlobalOverrideCss(tokens: SpacemitBaseTokens) {
       --ant-color-link: ${tokens.colorBlue};
       --ant-color-link-hover: ${tokens.colorBlue};
       --ant-color-link-active: ${tokens.colorBlue};
+
+      /* 11. 其它语义色 */
+      --ant-color-purple: ${tokens.colorPurple};
+      --ant-color-purple-bg: ${tokens.colorPurpleBg};
     }
 
     /* AntDV 部分文本状态默认直接读取 colorPrimary，这里统一映射为主色文本色。 */

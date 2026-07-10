@@ -210,7 +210,7 @@
       "figmaVariableId": "VariableID:6301:10318"
     },
     "Container/SurfaceContainerLowest": {
-      "value": "#333333",
+      "value": "#202124",
       "description": "容器, 卡片, 白色, 按钮",
       "figmaVariableId": "VariableID:6301:10317"
     },
@@ -290,12 +290,12 @@
       "figmaVariableId": "VariableID:6301:10365"
     },
     "Surface/Surface": {
-      "value": "#232323",
+      "value": "#222427",
       "description": "背景, 默认背景, 默认",
       "figmaVariableId": "VariableID:6301:10323"
     },
     "Surface/SurfaceBright": {
-      "value": "#202020",
+      "value": "#191B1D",
       "description": "背景, 白色背景, 白色",
       "figmaVariableId": "VariableID:6301:10322"
     },

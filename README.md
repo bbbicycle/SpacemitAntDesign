@@ -156,8 +156,9 @@ watchEffect(() => {
     root.style.setProperty('--ant-color-text-disabled', t.stateDisabled)
 
     // 3. 桥接中性背景
+    root.style.setProperty('--ant-color-bg-base', t.surfaceBright)
     root.style.setProperty('--ant-color-bg-layout', t.surface)
-    root.style.setProperty('--ant-color-bg-container', t.surfaceContainerLow)
+    root.style.setProperty('--ant-color-bg-container', t.surfaceContainerLowest)
     root.style.setProperty('--ant-color-bg-elevated', t.surfaceContainerLowest)
 
     // 4. 桥接中性描边与线
